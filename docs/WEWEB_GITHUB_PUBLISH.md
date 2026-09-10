@@ -1,6 +1,11 @@
-# WeWeb → GitHub → `main` (WW monorepo)
+# WeWeb → GitHub (WW monorepo)
 
 **Same law as SPQ `weweb-export` → `main`:** WeWeb publishes with the **logged-in operator email**. GitHub **“Block command line pushes that expose my email”** should stay **ON** — WeWeb’s server push will often **fail (GH007)**. That is expected.
+
+| Brand | Target branch |
+|-------|----------------|
+| **Events venue** | **`venue`** → Vercel `ww-events` (`docs/events/VERCEL_VENUE_PREVIEW.md`) |
+| Luxe / default | `main` |
 
 **You always clean up commit metadata locally**, then push as **S.P. + noreply**.
 
@@ -17,7 +22,7 @@
 WeWeb projects:
 
 - Luxe: `1b8147da-2812-42a5-946e-f83c582d3071`
-- Events: `53256c7e-af62-4a5c-ad51-afcf0a2d420d`
+- Events: `unyielding-publisher` → git branch **`venue`**
 
 Connecting WeWeb to `SP-Q26/ww` is **optional**. If you do, treat every WeWeb GitHub publish as **untrusted author metadata** until cleanup runs.
 

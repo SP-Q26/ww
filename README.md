@@ -36,14 +36,23 @@ Customer-facing contact in this repo: **@whisperingwoodsluxe.com** / **@whisperi
 | **Events** (wedding venue) | [whisperingwoodsevents.com](https://whisperingwoodsevents.com) | WeWeb publish | `sites/events/` (export or static when ready) |
 | **Luxe** (estate seniors) | [whisperingwoodsluxe.com](https://whisperingwoodsluxe.com) | WeWeb `/home` | `sites/luxe/` · `/order` · legal · Stripe API |
 
+## Branches
+
+| Branch | Site | Vercel |
+|--------|------|--------|
+| `main` | Luxe / default export | `ww-luxe` → `sites/luxe` |
+| **`venue`** | **Events wedding venue** (WeWeb export at repo root) | **`ww-events`** preview until DNS |
+
+Events runbook: `docs/events/VERCEL_VENUE_PREVIEW.md`
+
 ## Vercel (recommended)
 
 Create **two Vercel projects** from this repo:
 
-| Vercel project | Root directory | Domain |
-|----------------|----------------|--------|
-| `ww-events` | `sites/events` | `whisperingwoodsevents.com` |
-| `ww-luxe` | `sites/luxe` | Path split or subdomain for git routes |
+| Vercel project | Root directory | Production branch | Domain |
+|----------------|----------------|-------------------|--------|
+| `ww-events` | `.` (repo root) | **`venue`** | `whisperingwoodsevents.com` (when ready) |
+| `ww-luxe` | `sites/luxe` | `main` | Path split or subdomain for git routes |
 
 **Luxe env (ww-luxe):**
 
@@ -57,9 +66,9 @@ Create **two Vercel projects** from this repo:
 | Brand | WeWeb project ID | Route |
 |-------|------------------|-------|
 | Luxe funnel | `1b8147da-2812-42a5-946e-f83c582d3071` | `/home` |
-| Events venue | `53256c7e-af62-4a5c-ad51-afcf0a2d420d` | (venue site) |
+| Events venue | `unyielding-publisher` (editor URL) | GitHub branch **`venue`** |
 
-Publish in WeWeb; connect each project’s GitHub to this repo only if you use WeWeb’s export sync (optional).
+Publish in WeWeb; connect Events GitHub to **`SP-Q26/ww`** branch **`venue`**. Luxe may stay on `main` or WeWeb-only until split.
 
 ## Bootstrap from SPQ (one-time)
 
@@ -89,4 +98,4 @@ Then add `sites/luxe/vercel.json` (see `docs/luxe/GIT_STATIC_HOSTING.md` rewrite
 
 ## Events site
 
-Place venue static export or hand-built HTML under `sites/events/public/`. Until then, events can stay **WeWeb-only** on its own publish host with DNS on `whisperingwoodsevents.com`.
+WeWeb export on branch **`venue`** → Vercel **`ww-events`** preview. Optional static drop: `sites/events/public/`. Full steps: `docs/events/VERCEL_VENUE_PREVIEW.md`.
