@@ -1,0 +1,17 @@
+{
+  "name": "@weweb-internal/ext-plugin-832d6f7a-42c3-43f1-a3ce-9a678272f811",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weweb-assets/plugin-dayjs"
+  },
+  "version": "3.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "dayjs": "1.11.0"
+  },
+  "private": true,
+  "exports": {
+    ".": "./src/wwPlugin.js",
+    "./config": "./ww-config.js"
+  }
+}

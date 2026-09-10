@@ -1,0 +1,17 @@
+{
+  "name": "@weweb-internal/ext-plugin-cd33cf33-e29f-4e8c-ac26-b997fe507ce7",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weweb-assets/plugin-xano"
+  },
+  "version": "3.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "@xano/js-sdk": "3.0.1"
+  },
+  "private": true,
+  "exports": {
+    ".": "./src/wwPlugin.js",
+    "./config": "./ww-config.js"
+  }
+}

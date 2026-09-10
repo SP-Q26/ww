@@ -1,0 +1,16 @@
+{
+  "name": "@weweb-internal/ext-element-cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
+  "repository": {
+    "url": "https://github.com/weweb-assets/ww-video-youtube"
+  },
+  "version": "3.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "youtube-player": "^5.5.2"
+  },
+  "private": true,
+  "exports": {
+    ".": "./src/wwElement.vue",
+    "./config": "./ww-config.js"
+  }
+}

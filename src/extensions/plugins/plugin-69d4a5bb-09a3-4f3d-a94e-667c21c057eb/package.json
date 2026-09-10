@@ -1,0 +1,14 @@
+{
+  "name": "@weweb-internal/ext-plugin-69d4a5bb-09a3-4f3d-a94e-667c21c057eb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weweb-assets/plugin-npm"
+  },
+  "version": "3.1.0",
+  "license": "MIT",
+  "private": true,
+  "exports": {
+    ".": "./src/wwPlugin.js",
+    "./config": "./ww-config.js"
+  }
+}
