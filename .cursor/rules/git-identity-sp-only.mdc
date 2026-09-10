@@ -17,13 +17,21 @@ git config core.hooksPath .githooks
 
 ## Before every commit / push
 
-Run from repo root:
-
 ```bash
 ./scripts/verify-git-identity.sh
 ```
 
-Agent: run this automatically before `git commit` or `git push` in this repo.
+## After WeWeb GitHub publish (required)
+
+WeWeb uses operator email → GH007 with block enabled. Cleanup then push:
+
+```bash
+git fetch origin
+./scripts/cleanup-git-authors-after-weweb.sh
+./scripts/push-main-after-cleanup.sh
+```
+
+Runbook: `docs/WEWEB_GITHUB_PUBLISH.md`. Agent: run cleanup + verify before any `git push` on `ww` after WeWeb activity.
 
 ## Customer contact in this repo
 

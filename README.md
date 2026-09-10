@@ -15,7 +15,19 @@ chmod +x scripts/verify-git-identity.sh .githooks/pre-commit
 ```
 
 Before every push: `./scripts/verify-git-identity.sh`  
-GitHub: [Emails → Block command line pushes that expose my email](https://github.com/settings/emails) (keep on).
+GitHub: [Emails → Block command line pushes that expose my email](https://github.com/settings/emails) (**keep on** — WeWeb push will GH007; clean up locally like SPQ).
+
+### After WeWeb “Publish to GitHub”
+
+WeWeb commits with your login email → remote rejects → **expected**. Run:
+
+```bash
+git fetch origin
+./scripts/cleanup-git-authors-after-weweb.sh
+./scripts/push-main-after-cleanup.sh
+```
+
+Full runbook: `docs/WEWEB_GITHUB_PUBLISH.md`.
 
 Customer-facing contact in this repo: **@whisperingwoodsluxe.com** / **@whisperingwoodsevents.com** only.
 
