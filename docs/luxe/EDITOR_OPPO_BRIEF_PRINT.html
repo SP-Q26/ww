@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="color-scheme" content="light"/>
+  <title>WWLuxe · Industry vs Estate (Editor Brief)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink: #2c2c2c;
+      --muted: #5a5550;
+      --gold: #c6a15b;
+      --cream: #faf8f5;
+      --line: #d8d4ce;
+      --accent-bg: #f5f0e6;
+      --warn-bg: #faf6ee;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 8pt;
+      line-height: 1.4;
+      color: var(--ink);
+      background: #e8e4de;
+    }
+
+    /* No fixed height · content defines length; break after each sheet */
+    .sheet {
+      width: 8.5in;
+      margin: 0 auto;
+      background: #fff;
+      padding: 0.5in 0.55in 0.48in;
+      page-break-after: always;
+      break-after: page;
+      position: relative;
+    }
+
+    .sheet:last-child { page-break-after: auto; break-after: auto; }
+
+    header.brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      padding-right: 0.75in;
+    }
+
+    .brand h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16pt;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+    }
+
+    .brand .sub {
+      font-size: 7.5pt;
+      color: var(--muted);
+      margin-top: 3px;
+      max-width: 4.8in;
+      line-height: 1.32;
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 7.25pt;
+      color: var(--muted);
+      line-height: 1.32;
+      flex-shrink: 0;
+    }
+
+    .meta strong { color: var(--ink); }
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 10.5pt;
+      color: var(--ink);
+      margin: 9px 0 5px;
+    }
+
+    h3 {
+      font-size: 7.75pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      margin: 8px 0 5px;
+    }
+
+    p { margin-bottom: 5px; color: var(--muted); }
+
+    .lead {
+      font-size: 8.5pt;
+      color: var(--ink);
+      font-weight: 500;
+      margin-bottom: 8px;
+      line-height: 1.42;
+    }
+
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 5px; }
+    .cols-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin: 6px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.25pt;
+      margin: 5px 0 7px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 4px 6px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th { background: var(--cream); font-weight: 600; color: var(--ink); }
+
+    td strong { color: var(--ink); }
+    .muted { color: #8a847c; font-size: 6.75pt; }
+
+    .compare th:first-child { width: 17%; }
+    .compare th:nth-child(2) { width: 31%; }
+    .compare .us { background: var(--accent-bg); }
+
+    ul { margin: 3px 0 5px 15px; color: var(--muted); }
+    li { margin-bottom: 3px; }
+
+    .callout {
+      background: var(--accent-bg);
+      border-left: 3px solid var(--gold);
+      padding: 7px 9px;
+      margin: 7px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      font-size: 7.5pt;
+      color: var(--muted);
+      line-height: 1.38;
+    }
+
+    .callout strong { color: var(--ink); display: block; margin-bottom: 3px; font-size: 8pt; }
+    .callout-warn { background: var(--warn-bg); border-left-color: #a8844a; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin: 6px 0 9px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      padding: 8px 6px;
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .stat .num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 12pt;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat .lbl { font-size: 6.75pt; color: var(--muted); margin-top: 4px; line-height: 1.25; }
+
+    .model-card {
+      border: 1px solid var(--line);
+      padding: 7px 8px;
+      background: #fff;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .model-card h4 { font-size: 7.75pt; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .model-card p { font-size: 7.1pt; margin-bottom: 3px; line-height: 1.35; }
+
+    .pillar {
+      border: 1px solid var(--gold);
+      background: var(--accent-bg);
+      padding: 7px 8px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .pillar b { display: block; font-size: 7.75pt; color: var(--ink); margin-bottom: 3px; }
+    .pillar span { font-size: 7.1pt; color: var(--muted); line-height: 1.35; display: block; }
+
+    .shine-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 5px; }
+
+    .shine {
+      border: 1px solid var(--line);
+      padding: 6px 7px;
+      border-radius: 3px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .shine b { display: block; font-size: 7.25pt; color: var(--ink); margin-bottom: 2px; line-height: 1.25; }
+    .shine span { font-size: 7pt; color: var(--muted); line-height: 1.32; display: block; }
+
+    footer.note {
+      margin-top: 10px;
+      padding-top: 6px;
+      font-size: 6.5pt;
+      color: #8a847c;
+      border-top: 1px solid var(--line);
+      line-height: 1.32;
+    }
+
+    .page-tag {
+      position: absolute;
+      top: 0.5in;
+      right: 0.55in;
+      font-size: 6.5pt;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .sources { font-size: 6.5pt; color: #8a847c; margin-top: 4px; line-height: 1.28; }
+
+    .canon {
+      color: var(--ink);
+      font-style: italic;
+      font-size: 7.75pt;
+      line-height: 1.38;
+      margin-top: 3px;
+    }
+
+    .finding {
+      font-size: 7.5pt;
+      color: var(--muted);
+      padding-left: 10px;
+      border-left: 2px solid var(--gold);
+      margin: 7px 0 0;
+      line-height: 1.38;
+    }
+
+    @media print {
+      html, body { width: 8.5in; background: #fff !important; }
+      body { margin: 0; }
+      .sheet { margin: 0; box-shadow: none; }
+      .page-tag { display: none; }
+      @page { size: letter portrait; margin: 0; }
+    }
+
+    @media screen {
+      .sheet {
+        margin: 16px auto;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        min-height: 11in;
+      }
+      .print-hint {
+        max-width: 8.5in;
+        margin: 12px auto;
+        padding: 10px 14px;
+        background: #fff8e6;
+        border: 1px solid var(--gold);
+        border-radius: 6px;
+        font-size: 9pt;
+        color: var(--ink);
+      }
+      .print-hint strong { color: var(--gold); }
+    }
+
+    @media print { .print-hint { display: none !important; } }
+  </style>
+</head>
+<body>
+
+<p class="print-hint" aria-hidden="true">
+  <strong>Firefox:</strong> File → Print → Letter · Portrait · Scale 100% ·
+  <strong>Print backgrounds ON</strong> → <strong>2 pages</strong>, content should fill each sheet.
+</p>
+
+<!-- PAGE 1: RESEARCH + COMPETITORS -->
+<section class="sheet" aria-label="Page 1">
+  <span class="page-tag">Page 1</span>
+  <header class="brand">
+    <div>
+      <h1>What we found · and who we measured</h1>
+      <p class="sub">Competitive research · Chicago &amp; North Shore senior portraits · Sep 2026 · Internal brief for editorial leadership · Whispering Woods Luxe · Harvard, IL</p>
+    </div>
+    <div class="meta">
+      <div><strong>Confidential</strong></div>
+      <div>40-acre private estate</div>
+      <div>whisperingwoodsluxe.com</div>
+    </div>
+  </header>
+
+  <p class="lead">We audited how studios actually sell senior portraits · not their Instagram, their <strong>published pricing, session flow, and revenue model</strong>. The pattern is consistent: most of the industry is built on <strong>cheap calendar slots + opaque product upsells</strong>, not on venue, experience, or editorial craft. We are deliberately <em>not</em> building a strip-mall studio, a commodity barn, or a reveal-room upsell machine.</p>
+
+  <h3>Headline numbers (public sources)</h3>
+  <div class="stat-row">
+    <div class="stat"><div class="num">$175–$900</div><div class="lbl">Session / booking fee before albums &amp; wall art</div></div>
+    <div class="stat"><div class="num">$1.5k–$3.5k</div><div class="lbl">Typical spend after the “reveal” ordering appointment</div></div>
+    <div class="stat"><div class="num">10–20 min</div><div class="lbl">Commodity “mini” slots (5–15 images)</div></div>
+    <div class="stat"><div class="num">~$1,775</div><div class="lbl">Market stack for album + digital + frame alone</div></div>
+  </div>
+
+  <h2>Three models that dominate · and why families feel burned</h2>
+  <div class="cols-3">
+    <div class="model-card">
+      <h4>① Strip-mall studio</h4>
+      <p><strong>What it is:</strong> Indoor retail space, rolled backdrops, foot traffic · “session” means a room with lights.</p>
+      <p><strong>Revenue:</strong> Low session fee; margin on prints and packages sold in-studio.</p>
+      <p><strong>Why it fails luxe:</strong> School-picture-day energy. No venue story. Moms know.</p>
+    </div>
+    <div class="model-card">
+      <h4>② Commodity barn / mini</h4>
+      <p><strong>What it is:</strong> 10–20 min back-to-back slots, fixed barn/field, 5–15 downloads.</p>
+      <p><strong>Revenue:</strong> Volume · stack the calendar, batch-edit, move on.</p>
+      <p><strong>Why it fails luxe:</strong> Senior = throughput unit. No HMU, no Mom VIP. Yearbook file is the whole product.</p>
+    </div>
+    <div class="model-card">
+      <h4>③ Reveal upsell machine</h4>
+      <p><strong>What it is:</strong> Friendly session price → mandatory “view &amp; order” for digitals, album, wall art.</p>
+      <p><strong>Revenue:</strong> Emotional pricing at reveal · credits, tiers, pressure on screen.</p>
+      <p><strong>Why it fails luxe:</strong> Sticker shock. Session fee ≠ real price. Retouch = presets, not editorial.</p>
+    </div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h2>What families actually feel</h2>
+      <ul>
+        <li><strong>Bait-and-switch.</strong> “$250 session” → $1,500+ at the ordering appointment.</li>
+        <li><strong>Mom as PM.</strong> Books HMU elsewhere, drives to a public park, waits in the car.</li>
+        <li><strong>Sameness.</strong> Same lakefront and golden-hour poses as every friend.</li>
+        <li><strong>Time pressure.</strong> Permits, parking, “one more hour at the park.”</li>
+        <li><strong>Yearbook panic.</strong> Jostens specs treated as a side task, not gallery standard.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="callout callout-warn">
+        <strong>What we are NOT building</strong>
+        Not strip-mall backdrops. Not a commodity barn. Not a reveal funnel where the real invoice appears after tears. <strong>Our $1,420 is published. The estate day is the product.</strong>
+      </div>
+      <p class="finding"><strong>Editorial takeaway:</strong> The industry monetizes surprise and volume. Almost nobody monetizes venue + production + team at one published price. That gap is our lane · your craft proves it is real.</p>
+    </div>
+  </div>
+
+  <h2>Named competitors · how they actually make money</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Studio</th>
+        <th>Published entry</th>
+        <th>Revenue model</th>
+        <th>What senior gets</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Trysh Jaeger</strong><br/><span class="muted">Volume</span></td>
+        <td>$175–$325 session</td>
+        <td>Low fee → <strong>view &amp; order</strong> (60–90 min) → packages $50–$2,500. HMU <em>not included</em>.</td>
+        <td>45–120 min, public locations. Products sold after shoot.</td>
+      </tr>
+      <tr>
+        <td><strong>Nicole Jones</strong><br/><span class="muted">North Shore</span></td>
+        <td>$550 · $1,200 signature</td>
+        <td>Session + <strong>$400 print credit</strong> on signature → wall art from gallery.</td>
+        <td>25–70 digitals. Beach/park · shared public spaces.</td>
+      </tr>
+      <tr>
+        <td><strong>Michele Taylor</strong><br/><span class="muted">Studio + reveal</span></td>
+        <td>$900 booking</td>
+        <td>$250 session + <strong>$650 credit</strong> → ordering meeting. “Most families $1,500+.”</td>
+        <td>Lakefront session. Album designed at reveal.</td>
+      </tr>
+      <tr>
+        <td><strong>Kristen Hazelton</strong><br/><span class="muted">Luxury tier</span></td>
+        <td>$2,350+ · avg $3,470</td>
+        <td>High collection price includes products · still <strong>album design meeting</strong> after.</td>
+        <td>3-hour experience · luxe, but not private estate production.</td>
+      </tr>
+      <tr>
+        <td><strong>Mini / barn</strong><br/><span class="muted">Commodity</span></td>
+        <td>$99–$175</td>
+        <td>Calendar stuffing, 5–15 downloads, upsell more images.</td>
+        <td>One outfit, one backdrop. Mom = logistics only.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer class="note">Page 1 · Research &amp; competitors · Public studio pricing (tryshjaeger.com, nicolejonesphotography.com, micheletaylorphoto.com, kristenhazelton.com) · Not customer-facing.</footer>
+</section>
+
+<!-- PAGE 2: OUR MODEL -->
+<section class="sheet" aria-label="Page 2">
+  <span class="page-tag">Page 2</span>
+  <header class="brand">
+    <div>
+      <h1>The Estate Senior Experience</h1>
+      <p class="sub">Experience · venue · backdrops · pro team · $1,420 published · 24 spots · editorial team you lead</p>
+    </div>
+    <div class="meta">
+      <div><strong>Your seat</strong></div>
+      <div>Retouch lead</div>
+      <div>Boulder · CO best-in-state</div>
+    </div>
+  </header>
+
+  <p class="lead">Competitors sell a calendar slot and surprise families at the ordering appointment. We sell a <strong>finished estate production</strong> · then optional heirlooms at honest market retail. None of them sell a private wedding-grade estate, published all-in day pricing, Mom as VIP, or editorial retouch led by a best-in-state yearbook editor on every file.</p>
+
+  <div class="cols">
+    <div>
+      <h3>Why $1,420 is honest (keepsake math)</h3>
+      <table>
+        <thead><tr><th>Product</th><th>Market retail</th></tr></thead>
+        <tbody>
+          <tr><td>10×10 heirloom album (15 spreads)</td><td>$850–$1,100+</td></tr>
+          <tr><td>Digital gallery / print release</td><td>$300–$500</td></tr>
+          <tr><td>20×24 framed wall print</td><td>$400–$550</td></tr>
+          <tr><td><strong>À la carte stack</strong></td><td><strong>~$1,775</strong></td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>How they hide the total</strong>
+        Session quoted first. Family falls in love. Album + frame + digital at reveal · often another $1,000–$2,000+. <strong>Total often exceeds our $1,420 estate day</strong> before one heirloom SKU.
+      </div>
+    </div>
+    <div>
+      <h3>Our four pillars (what $1,420 buys)</h3>
+      <div class="pillar" style="margin-bottom:6px;">
+        <b>① Experience · estate day, not a time slot</b>
+        <span>HMU on site · ~60 min guided shoot · outfit changes · golf cart · Mom Milestone (~15 min) in 20+ retouched digitals · wedding-grade ops.</span>
+      </div>
+      <div class="pillar" style="margin-bottom:6px;">
+        <b>② Venue · private ground we control</b>
+        <span>40-acre Harvard estate · Whispering Woods Events (Knot 5.0) · woods, three ponds, Chalet between North &amp; East ponds.</span>
+      </div>
+      <div class="pillar" style="margin-bottom:6px;">
+        <b>③ Backdrops · what pros travel for</b>
+        <span>Pond reflections, woodland depth, estate paths · we own them. Curated vignettes for senior + Mom Milestone.</span>
+      </div>
+      <div class="pillar">
+        <b>④ Pro team · you lead retouch</b>
+        <span>Award-winning portrait photographer on set. You: CO best-in-state yearbook editor. Yearbook specs on the full gallery.</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Their architecture vs ours</h2>
+  <table class="compare">
+    <thead>
+      <tr><th></th><th>Industry typical</th><th class="us">Estate Senior Experience</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Core product</strong></td><td>Calendar slot + hidden product sale</td><td class="us"><strong>Published estate day</strong> · $1,420 all-in for the experience</td></tr>
+      <tr><td><strong>Location</strong></td><td>Strip-mall, barn mini, or public park</td><td class="us"><strong>Private 40-acre wedding estate</strong></td></tr>
+      <tr><td><strong>Pricing</strong></td><td>Low session → upsell at reveal</td><td class="us"><strong>Transparent</strong> · $710 deposit, no surprise day-of bill</td></tr>
+      <tr><td><strong>Mom</strong></td><td>Waits in the car</td><td class="us"><strong>Chalet VIP</strong> + Mom Milestone in gallery</td></tr>
+      <tr><td><strong>Volume</strong></td><td>Minis back-to-back</td><td class="us"><strong>24 spots</strong> · seniors rule the estate</td></tr>
+      <tr><td><strong>Keepsakes</strong></td><td>Quoted at reveal under pressure</td><td class="us"><strong>Published retail</strong> · Chalet $1,420 pre-order (~~$1,775~~ − $355 thank-you)</td></tr>
+      <tr><td><strong>Editorial</strong></td><td>Batch / one yearbook file</td><td class="us"><strong>You lead</strong> · 20+ retouched narrative, cap 7 extras ($195)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Why this matters for you</h2>
+  <div class="shine-grid">
+    <div class="shine"><b>Yearbook mastery → full gallery</b><span>Vertical, DPI, crop-safe headroom on every deliverable · not a Friday panic file.</span></div>
+    <div class="shine"><b>Retouch lead, not batch farm</b><span>Consistent skin, tone, editorial restraint · state-competition eye on every image.</span></div>
+    <div class="shine"><b>Mom Milestone = heirloom</b><span>~15 min curated vignette, included. Warm, guided · not a thrown-in group snap.</span></div>
+    <div class="shine"><b>Quality guardrails</b><span>7 extra retouches max ($195) · protects your pipeline from unlimited tweak churn.</span></div>
+    <div class="shine"><b>Album at true retail</b><span>10×10 leather $955 · honest Chalet math · your layout literacy, not sleazy upsell.</span></div>
+    <div class="shine"><b>Brand you can sign</b><span>No fake anchors, no estate-day haggling · not a barn mini batch line.</span></div>
+  </div>
+
+  <div class="callout" style="margin-top:8px;">
+    <strong>Bottom line</strong>
+    Moms pay for clarity. You deliver the craft that makes it believable. We are not competing on the cheapest session fee · we compete on venue, production, backdrops, and editorial integrity you set on every image that ships.
+  </div>
+
+  <h3>Canon line on site</h3>
+  <p class="canon">“Award-winning portrait photographer. Retouch team led by a Colorado best-in-state yearbook editor · Fairview High, Boulder, CO.”</p>
+
+  <footer class="note">Page 2 · The Estate Senior Experience · Whispering Woods Luxe · Harvard, IL · 24 spots · $1,420 · Chalet Collection pre-order $1,420 ($1,775 − $355 thank-you).</footer>
+</section>
+
+</body>
+</html>

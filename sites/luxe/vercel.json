@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/order", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/order/", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/terms", "destination": "/whispering-woods-luxe/terms/index.html" },
+    { "source": "/terms/", "destination": "/whispering-woods-luxe/terms/index.html" },
+    { "source": "/privacypolicy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/privacypolicy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/privacy-policy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/privacy-policy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" }
+  ]
+}
