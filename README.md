@@ -2,6 +2,23 @@
 
 Two brands, one repo, **no SPQ / terminal**.
 
+## Git identity (required — blocks GH007)
+
+WeWeb login email must **not** appear in commits. Use **SP + GitHub noreply** only:
+
+```bash
+cd ~/ww
+git config user.name "S.P."
+git config user.email "293159210+SP-Q26@users.noreply.github.com"
+git config core.hooksPath .githooks
+chmod +x scripts/verify-git-identity.sh .githooks/pre-commit
+```
+
+Before every push: `./scripts/verify-git-identity.sh`  
+GitHub: [Emails → Block command line pushes that expose my email](https://github.com/settings/emails) (keep on).
+
+Customer-facing contact in this repo: **@whisperingwoodsluxe.com** / **@whisperingwoodsevents.com** only.
+
 | Site | Domain | Marketing | Git-owned (this repo) |
 |------|--------|-----------|------------------------|
 | **Events** (wedding venue) | [whisperingwoodsevents.com](https://whisperingwoodsevents.com) | WeWeb publish | `sites/events/` (export or static when ready) |

@@ -1,0 +1,30 @@
+---
+description: WW monorepo — commits and tracked files are SP + noreply only; run verify before push
+alwaysApply: true
+---
+
+# `ww` repo · git identity (hard law)
+
+See also `docs/luxe/LEGAL_LINKS_CANON.md` for customer-facing URLs.
+
+## Required (repo-local)
+
+```bash
+git config user.name "S.P."
+git config user.email "293159210+SP-Q26@users.noreply.github.com"
+git config core.hooksPath .githooks
+```
+
+## Before every commit / push
+
+Run from repo root:
+
+```bash
+./scripts/verify-git-identity.sh
+```
+
+Agent: run this automatically before `git commit` or `git push` in this repo.
+
+## Customer contact in this repo
+
+Use **@whisperingwoodsluxe.com** / **@whisperingwoodsevents.com** only — never operator personal mail or WeWeb login email.
