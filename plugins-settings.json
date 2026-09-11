@@ -1,58 +1,44 @@
 {
     "60610cfd-fa28-4fc1-9e72-088b5c667e81": {
-        "id": "be720190-168d-4c18-afdd-eed3336ec32d",
+        "id": "81a05f28-e54b-4f55-94eb-438f506d7374",
         "name": "Calendly",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
+        "designId": "cbd9a95f-c61e-441a-87cb-b25006511440",
         "pluginId": "60610cfd-fa28-4fc1-9e72-088b5c667e81",
         "publicData": {}
     },
     "cd33cf33-e29f-4e8c-ac26-b997fe507ce7": {
-        "id": "711fcea0-c679-4ad4-bbf7-baf7c13dbd40",
+        "id": "94c21e63-5766-42b4-ba07-4aa6c01ac001",
         "name": "Xano",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
+        "designId": "cbd9a95f-c61e-441a-87cb-b25006511440",
         "pluginId": "cd33cf33-e29f-4e8c-ac26-b997fe507ce7",
         "publicData": {}
     },
     "832d6f7a-42c3-43f1-a3ce-9a678272f811": {
-        "id": "8da88ff4-06ab-4e01-a8df-31bb846d9671",
+        "id": "00bc173d-8be8-4fe1-8db9-4eea277cbe06",
         "name": "Date",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
+        "designId": "cbd9a95f-c61e-441a-87cb-b25006511440",
         "pluginId": "832d6f7a-42c3-43f1-a3ce-9a678272f811",
         "publicData": {}
     },
     "1c5f5c0f-5609-4031-9e57-5bb4811be7b3": {
-        "id": "056f2069-c166-4511-a4f9-c32d86bbcbd6",
+        "id": "3191afbe-530e-409f-a7c7-17b11403ec4d",
         "name": "Youtube",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
+        "designId": "cbd9a95f-c61e-441a-87cb-b25006511440",
         "pluginId": "1c5f5c0f-5609-4031-9e57-5bb4811be7b3",
         "publicData": {}
     },
     "66a79c98-70e7-4bc4-8859-20776b024ec2": {
-        "id": "6ca28cfa-a1c6-408a-9865-8fa43fcc0600",
+        "id": "63c14a8d-b847-4f18-bb36-18fe9399a77f",
         "name": "PWA",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
+        "designId": "cbd9a95f-c61e-441a-87cb-b25006511440",
         "pluginId": "66a79c98-70e7-4bc4-8859-20776b024ec2",
         "publicData": {}
     },
     "2bd1c688-31c5-443e-ae25-59aa5b6431fb": {
-        "id": "2f0f082f-8cf3-44cf-830a-821480a9b46a",
+        "id": "d3c7ef7b-3088-4f6a-8a8e-1d0f0ad60ec3",
         "name": "REST API",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
+        "designId": "cbd9a95f-c61e-441a-87cb-b25006511440",
         "pluginId": "2bd1c688-31c5-443e-ae25-59aa5b6431fb",
-        "publicData": {}
-    },
-    "00d22f72-1a03-44f8-ad68-c593dc80b543": {
-        "id": "2576a0bb-a09e-494a-a67c-766e9b1324cb",
-        "name": "Stripe",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
-        "pluginId": "00d22f72-1a03-44f8-ad68-c593dc80b543",
-        "publicData": {}
-    },
-    "69d4a5bb-09a3-4f3d-a94e-667c21c057eb": {
-        "id": "0d418485-cb2d-4c63-aaa1-fb734cf531c9",
-        "name": "NPM",
-        "designId": "1b8147da-2812-42a5-946e-f83c582d3071",
-        "pluginId": "69d4a5bb-09a3-4f3d-a94e-667c21c057eb",
         "publicData": {}
     }
 }

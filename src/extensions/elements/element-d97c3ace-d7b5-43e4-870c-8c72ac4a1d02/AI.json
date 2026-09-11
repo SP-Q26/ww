@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "name": "timber-peg-slider",
+    "description": "iOS-optimized, touch-friendly before-and-after comparison slider with a hand-carved wood peg handle.",
+    "keywords": [
+      "slider",
+      "before-after",
+      "comparison",
+      "video",
+      "timber",
+      "wood",
+      "touch",
+      "ios"
+    ],
+    "features": [
+      "Pointer events touch control with setPointerCapture for smooth iOS WebKit scrolling without bounce",
+      "Left and Right media support for HTML5 Video or Image with autoplay and cover fit",
+      "Hand-carved wooden peg handle with radial grain texture and mortise/tenon icon indicator",
+      "Customizable top badges and floating right side overlay card with title, subtext, and CTA button",
+      "Exposes component reactive state for current position (0-100%) and callable workflow actions"
+    ],
+    "inherit": []
+  },
+  "properties": [
+    {
+      "name": "initialPosition",
+      "description": "Initial position percentage of the slider (0-100).",
+      "type": "number",
+      "defaultValue": 50
+    },
+    {
+      "name": "beforeType",
+      "description": "Media type for left layer ('video' or 'image').",
+      "type": "string",
+      "defaultValue": "video"
+    },
+    {
+      "name": "beforeVideoUrl",
+      "description": "Video URL for the Left (Before) layer.",
+      "type": "string",
+      "defaultValue": "https://assets.mixkit.co/videos/preview/mixkit-carpenter-working-with-wood-41561-large.mp4"
+    },
+    {
+      "name": "beforeImageUrl",
+      "description": "Image URL for the Left (Before) layer.",
+      "type": "string",
+      "defaultValue": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "name": "beforeBadgeText",
+      "description": "Label text for the top-left badge.",
+      "type": "string",
+      "defaultValue": "BEFORE — 2 WINTERS OF MILLING"
+    },
+    {
+      "name": "afterType",
+      "description": "Media type for right layer ('image' or 'video').",
+      "type": "string",
+      "defaultValue": "image"
+    },
+    {
+      "name": "afterImageUrl",
+      "description": "Image URL for the Right (After) layer.",
+      "type": "string",
+      "defaultValue": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80"
+    },
+    {
+      "name": "afterVideoUrl",
+      "description": "Video URL for the Right (After) layer.",
+      "type": "string",
+      "defaultValue": ""
+    },
+    {
+      "name": "afterBadgeText",
+      "description": "Label text for the top-right badge.",
+      "type": "string",
+      "defaultValue": "AFTER — THE SANCTUARY"
+    },
+    {
+      "name": "showOverlay",
+      "description": "Whether to display the right side floating card.",
+      "type": "boolean",
+      "defaultValue": true
+    },
+    {
+      "name": "overlayTitle",
+      "description": "Heading text inside the right floating card.",
+      "type": "string",
+      "defaultValue": "Handbuilt by Bear"
+    },
+    {
+      "name": "overlaySubtext",
+      "description": "Body paragraph inside the right floating card.",
+      "type": "string",
+      "defaultValue": "Reclaiming century-old timber with reverence and care, Bear spent two full winters hand-milling every beam."
+    },
+    {
+      "name": "showCta",
+      "description": "Whether to display the CTA button in the floating card.",
+      "type": "boolean",
+      "defaultValue": true
+    },
+    {
+      "name": "ctaText",
+      "description": "Label on the CTA button.",
+      "type": "string",
+      "defaultValue": "Book a Tour"
+    },
+    {
+      "name": "dividerColor",
+      "description": "Hex or CSS color for vertical divider line.",
+      "type": "string",
+      "defaultValue": "#C89D66"
+    },
+    {
+      "name": "pegBgDark",
+      "description": "Dark wood color gradient step for peg handle.",
+      "type": "string",
+      "defaultValue": "#5C3A1E"
+    },
+    {
+      "name": "pegBgLight",
+      "description": "Light wood color gradient step for peg handle.",
+      "type": "string",
+      "defaultValue": "#8B5A2B"
+    },
+    {
+      "name": "pegBorderColor",
+      "description": "Accent border color for the wooden peg.",
+      "type": "string",
+      "defaultValue": "#D4AF37"
+    },
+    {
+      "name": "borderRadius",
+      "description": "Main container border radius CSS length.",
+      "type": "string",
+      "defaultValue": "16px"
+    }
+  ],
+  "states": [],
+  "events": [
+    {
+      "name": "sliderChange",
+      "description": "Fired whenever the user drags or taps to change the split position.",
+      "payload": {
+        "position": "number (0-100)"
+      }
+    },
+    {
+      "name": "ctaClick",
+      "description": "Fired when the CTA button inside the right overlay card is clicked.",
+      "payload": {
+        "text": "string"
+      }
+    }
+  ],
+  "localContext": [],
+  "actions": [
+    {
+      "label": "Set Slider Position",
+      "actionName": "setPosition",
+      "description": "Programmatically sets the slider position between 0 and 100.",
+      "args": [
+        {
+          "name": "position",
+          "type": "number",
+          "description": "Position value from 0 (all After) to 100 (all Before)."
+        }
+      ]
+    },
+    {
+      "label": "Reset Position",
+      "actionName": "resetPosition",
+      "description": "Resets the slider position back to the initialPosition property value."
+    }
+  ],
+  "slots": [],
+  "variables": [
+    {
+      "name": "sliderPosition",
+      "description": "Current position percentage of the slider handle (0 to 100).",
+      "type": "number",
+      "readonly": false
+    }
+  ],
+  "specifications": [
+    "Width is fluid (100%), capped at max-width 1000px by default.",
+    "Desktop aspect ratio defaults to 16/9, on narrower mobile screens min-height 500px or aspect-ratio 4/5 is applied.",
+    "Utilizes pointer events with setPointerCapture and touch-action: none to allow responsive dragging on iOS WebKit without page scroll conflicts.",
+    "Right layer is revealed using CSS clip-path inset so both Left and Right media maintain full 100% dimensions and cover fit without layout distortion."
+  ],
+  "examples": [
+    {
+      "description": "Default Timber Peg Slider setup with carpenter video on left and sanctuary barn on right.",
+      "example": "{\"initialPosition\":50,\"beforeType\":\"video\",\"beforeVideoUrl\":\"https://assets.mixkit.co/videos/preview/mixkit-carpenter-working-with-wood-41561-large.mp4\",\"afterType\":\"image\",\"afterImageUrl\":\"https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80\",\"overlayTitle\":\"Handbuilt by Bear\",\"ctaText\":\"Book a Tour\"}"
+    }
+  ],
+  "dependencies": []
+}
