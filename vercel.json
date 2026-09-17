@@ -6,7 +6,8 @@
   "framework": null,
   "git": {
     "deploymentEnabled": {
-      "luxe": true
+      "main": true,
+      "luxe": false
     }
   },
   "redirects": [

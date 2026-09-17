@@ -30,7 +30,7 @@ Repo root `~/ww` is the **WeWeb Vite export**. Deploy it with:
 - **Output:** `dist`
 - **Config:** `vercel.json` at repo root (includes heirloom rewrites into `sites/luxe/public`)
 
-Single Vercel project **`luxe`** should use **Root Directory `.`** and branch **`luxe`** (`VERCEL_FULL_APP.md`). Do not point production at checkout-only `sites/luxe` unless intentionally isolating heirloom.
+Single Vercel project **`luxe`** should use **Root Directory `.`** and branch **`main`** (`VERCEL_FULL_APP.md`, `GIT_DEPLOY_CANON.md`). Do not point production at checkout-only `sites/luxe` unless intentionally isolating heirloom.
 
 ## DNS on Vercel (typical)
 

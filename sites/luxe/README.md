@@ -1,6 +1,6 @@
 # WWLuxe · git slice (heirloom + legal + API)
 
-**Git:** `SP-Q26/ww` · branch **`luxe`**.
+**Git:** `SP-Q26/ww` · branch **`main`** (Vercel production). See `docs/luxe/GIT_DEPLOY_CANON.md`.
 
 **Production Vercel deploy uses repo root** — see `docs/luxe/VERCEL_FULL_APP.md`. This folder is **source** copied into `dist/` on build; it is **not** the Vercel Root Directory anymore.
 

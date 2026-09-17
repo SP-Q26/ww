@@ -2,7 +2,7 @@
 
 **Full marketing site + heirloom slice** deploys from **repo root** (`~/ww`), not this folder alone.
 
-See **`docs/luxe/VERCEL_FULL_APP.md`** for dashboard settings (Root Directory **`.`**, branch **`luxe`**).
+See **`docs/luxe/VERCEL_FULL_APP.md`** for dashboard settings (Root Directory **`.`**, branch **`main`**).
 
 **Test URLs:**
 

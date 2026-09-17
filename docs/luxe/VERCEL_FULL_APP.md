@@ -1,11 +1,11 @@
 # Luxe · full app on Vercel (`luxe-omega`)
 
-**One project:** repo **root** `SP-Q26/ww` · branch **`luxe`** · **not** `sites/luxe` alone.
+**One project:** repo **root** `SP-Q26/ww` · branch **`main`** · **not** `sites/luxe` alone.
 
 | Vercel setting | Value |
 |----------------|--------|
 | Root Directory | **`.`** (empty / repo root) |
-| Production branch | **`luxe`** |
+| Production branch | **`main`** (WeWeb GitHub publish target) |
 | Install | `npm ci` |
 | Build | `bash scripts/vercel-build.sh` |
 | Output | **`dist`** |
