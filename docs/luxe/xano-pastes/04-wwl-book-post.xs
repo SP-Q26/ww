@@ -247,8 +247,13 @@ query "wwl/book" verb=POST {
       value = ($env.WWL_PUBLIC_ORIGIN|to_text|trim)|first_notempty:"https://whisperingwoodsluxe.com"
     }
 
+    // Stripe rejects success_url when ref contains middle-dot (·) unencoded
+    var $slot_ref_query {
+      value = $slot_ref|url_encode
+    }
+
     var $success_url {
-      value = ($input.success_url|to_text|trim)|first_notempty:($origin ~ "/booked?ref=" ~ $slot_ref)
+      value = ($input.success_url|to_text|trim)|first_notempty:($origin ~ "/booked?ref=" ~ $slot_ref_query)
     }
 
     var $cancel_url {
