@@ -2,6 +2,7 @@
 
 **Import file:** [`wwl_stripe_sku_seed.json`](./wwl_stripe_sku_seed.json)  
 **Canon IDs:** [`STRIPE_IDS_TEST.md`](../STRIPE_IDS_TEST.md) · MMI sandbox `acct_1UG5yw0biIaEI74i`  
+**Live IDs:** [`STRIPE_IDS_LIVE.md`](../STRIPE_IDS_LIVE.md) · [`wwl_stripe_sku_seed.live.json`](./wwl_stripe_sku_seed.live.json) · MMI live `acct_1UG5yZ02CkQBMWtC`  
 **Table columns:** [`XANO_TABLES_BUILD_SHEET.md`](../XANO_TABLES_BUILD_SHEET.md) § `wwl_stripe_sku`
 
 ## Xano

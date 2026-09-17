@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Parent mini album">
+  <rect width="512" height="512" rx="72" fill="#12100e"/>
+  <circle cx="256" cy="256" r="218" fill="none" stroke="#c6a15b" stroke-opacity="0.28" stroke-width="2"/>
+  <g transform="translate(256 268) scale(1.18)" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="-44" y="-52" width="88" height="88" rx="10" fill="#7b8e7a" fill-opacity="0.42" stroke="#7b8e7a" stroke-width="12"/>
+    <rect x="-44" y="-52" width="88" height="88" rx="10" fill="none" stroke="#c6a15b" stroke-width="7"/>
+    <path d="M-28 -20 h56 M-28 0 h40 M-28 20 h48" stroke="#c6a15b" stroke-width="5" opacity="0.55" fill="none"/>
+    <path d="M-72 8 V-36 a10 10 0 0 1 10 -10 h20 v32 M-42 -6 V-46 a10 10 0 0 1 10 -10 h20 v40 M-12 4 V-38 a10 10 0 0 1 10 -10 h20 v48 c0 36 -30 54 -54 54 -30 0 -54 -24 -54 -54 V16 a8 8 0 0 1 16 0 v6" fill="none" stroke="#c6a15b" stroke-width="11"/>
+    <ellipse cx="0" cy="-58" rx="18" ry="8" fill="#7b8e7a" opacity="0.75"/>
+  </g>
+</svg>

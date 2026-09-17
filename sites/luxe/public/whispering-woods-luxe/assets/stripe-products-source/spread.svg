@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Album spreads">
+  <rect width="512" height="512" rx="72" fill="#12100e"/>
+  <circle cx="256" cy="256" r="218" fill="none" stroke="#c6a15b" stroke-opacity="0.28" stroke-width="2"/>
+  <g transform="translate(128 128)" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16">
+    <path d="M40,72h64v112H48a8,8,0,0,1-8-8V72Z" stroke="#c6a15b"/>
+    <path d="M96,72h64v112H104a8,8,0,0,1-8-8V72Z" stroke="#7b8e7a" fill="#7b8e7a" fill-opacity="0.18"/>
+    <path d="M152,72h64v112H160a8,8,0,0,1-8-8V72Z" stroke="#c6a15b"/>
+    <path d="M56 100 h32 M56 120 h24 M104 100 h32 M104 120 h28 M160 100 h32 M160 120 h24" stroke-width="6" opacity="0.45"/>
+  </g>
+</svg>

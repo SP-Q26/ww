@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Framed print">
+  <rect width="512" height="512" rx="72" fill="#12100e"/>
+  <circle cx="256" cy="256" r="218" fill="none" stroke="#c6a15b" stroke-opacity="0.28" stroke-width="2"/>
+  <g transform="translate(128 128)" stroke="#c6a15b" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="40" y="48" width="176" height="160" rx="8" stroke-width="16"/>
+    <rect x="72" y="80" width="112" height="96" rx="4" stroke-width="12" opacity="0.85"/>
+  </g>
+</svg>
