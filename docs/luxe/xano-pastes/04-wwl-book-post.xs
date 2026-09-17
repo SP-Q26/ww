@@ -1,7 +1,8 @@
 // POST wwl/book — consent + auto-claim next open seat + Stripe Checkout (estate lines)
 // API group: wwl_ops · auth: NONE
 // Moms do NOT pick spot_codename at booking — ops assigns estate codenames at shoot run-up.
-// Book claims the lowest sort_order row where status=open and sales_open=true.
+// Picks lowest sort_order open seat for metadata; sets pending_checkout only after Stripe returns checkout URL.
+// Paid seat (deposit_paid / paid_in_full) is webhook-only (06). Abandoned checkout stays pending until ops or checkout.session.expired release.
 // Line law: lib/mmi/estate-checkout-lines.mjs (deposit always; full adds balance; optional Chalet)
 // If Xano rejects dynamic line_items keys, see PASTE_ORDER.md (unroll four branches).
 
@@ -224,25 +225,6 @@ query "wwl/book" verb=POST {
       }
     } as $consent_row
 
-    db.edit wwl_slot {
-      field_name = "id"
-      field_value = $slot|get:"id"|to_int
-      data = {
-        status               : "pending_checkout"
-        parent_name          : $input.parent_name
-        parent_email         : $input.parent_email
-        parent_phone         : $input.parent_phone
-        senior_name          : $input.senior_name
-        estate_payment_type  : $pay_type
-        includes_chalet      : $chalet
-        terms_version        : $tos_v
-        tos_consent_id       : $consent_row|get:"id"|to_int
-        balance_due_date     : $balance_due
-        checkout_lines_json  : $sku_list
-        updated_at           : now
-      }
-    } as $slot_claimed
-
     var $origin {
       value = ($env.WWL_PUBLIC_ORIGIN|to_text|trim)|first_notempty:"https://whisperingwoodsluxe.com"
     }
@@ -260,6 +242,7 @@ query "wwl/book" verb=POST {
       value = ($input.cancel_url|to_text|trim)|first_notempty:($origin ~ "/booked?cancelled=1")
     }
 
+    // Guest Checkout: customer_email only — never customer_update (Stripe 400 without customer=cus_…).
     var $stripe_params {
       value = {}
         |set:"mode":"payment"
@@ -279,7 +262,7 @@ query "wwl/book" verb=POST {
         |set:"metadata[consent_uuid]":$consent_uuid
         |set:"metadata[product_type]":"estate_checkout"
         |set:"automatic_tax[enabled]":"true"
-        |set:"customer_update[address]":"auto"
+        |set:"billing_address_collection":"required"
         |set:"shipping_address_collection[allowed_countries][0]":"US"
     }
 
@@ -346,11 +329,26 @@ query "wwl/book" verb=POST {
       data = {stripe_session_id: $session_id}
     } as $consent_linked
 
+    // Hold seat only when Checkout session exists (not on Stripe failure / no URL).
     db.edit wwl_slot {
       field_name = "id"
       field_value = $slot|get:"id"|to_int
-      data = {initial_checkout_session_id: $session_id}
-    } as $slot_session
+      data = {
+        status                      : "pending_checkout"
+        parent_name                 : $input.parent_name
+        parent_email                : $input.parent_email
+        parent_phone                : $input.parent_phone
+        senior_name                 : $input.senior_name
+        estate_payment_type         : $pay_type
+        includes_chalet             : $chalet
+        terms_version               : $tos_v
+        tos_consent_id              : $consent_row|get:"id"|to_int
+        balance_due_date            : $balance_due
+        checkout_lines_json         : $sku_list
+        initial_checkout_session_id : $session_id
+        updated_at                  : now
+      }
+    } as $slot_claimed
   }
 
   response = {

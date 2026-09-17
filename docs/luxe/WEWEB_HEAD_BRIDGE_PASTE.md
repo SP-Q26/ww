@@ -1,4 +1,4 @@
-# Project Head · BRIDGE only (v27)
+# Project Head · BRIDGE only (v28)
 
 **Paste this file — not v23/v24/v25.**
 
@@ -14,7 +14,7 @@
 2. **Select all → delete** (remove the ~4k-line monolith)
 3. Paste **entire** `WEWEB_PROJECT_HEAD_BRIDGE_v26.html`
 4. **Publish**
-5. Console: `document.documentElement.getAttribute('data-ww-head-version')` → **`2026.09.15.v27`**
+5. Console: `document.documentElement.getAttribute('data-ww-head-version')` → **`2026.09.17.v28`**
 
 ## Then fix on canvas (preview is truth)
 

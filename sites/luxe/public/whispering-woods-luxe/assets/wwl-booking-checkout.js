@@ -1,9 +1,6 @@
 /**
  * WW Luxe · Tour Booking Modal → Xano wwl/book → Stripe Checkout
- * Pattern: SPQ custom-code/index-stripe-payment-active.js
- *
- * WeWeb wf_booking_form_submit → custom-js:
- *   return await wwlBookingSubmitCheckout(event, context);
+ * Mirror: docs/luxe/paste/wwl-booking-checkout-active.js
  */
 (function (global) {
   'use strict';
@@ -29,7 +26,6 @@
     return String(v == null ? '' : v).trim();
   }
 
-  // Component modal vars (e.g. bookingSubmitted) live on context.component — not project variables.
   var COMPONENT_VAR_IDS = {
     '5998463a-9be2-4fd0-be63-75a4c5af9377': true,
     'cf11c98d-0535-4846-b38f-cde7c2a851b1': true,
@@ -57,9 +53,38 @@
     return (ctx && ctx.component && ctx.component.variables) || {};
   }
 
+  function varGet(key) {
+    if (!key) return '';
+    try {
+      if (typeof variables !== 'undefined' && variables[key] != null) {
+        return variables[key];
+      }
+    } catch (e) {}
+    return '';
+  }
+
+  function fieldVal(ev, formKey, elVarKey, comp, compVarId) {
+    var t = trim((ev && ev[formKey]) || '');
+    if (t) return t;
+    if (compVarId && comp && comp[compVarId] != null) {
+      t = trim(comp[compVarId]);
+      if (t) return t;
+    }
+    t = trim(varGet(elVarKey));
+    return t;
+  }
+
   function legalOk(ev, comp) {
-    var tos = !!(ev && ev.acceptTerms) || !!comp[VAR_TOS] || !!comp[EL_TOS];
-    var model = !!(ev && ev.acceptModelRelease) || !!comp[VAR_MODEL] || !!comp[EL_MODEL];
+    var tos =
+      !!(ev && ev.acceptTerms) ||
+      !!comp[VAR_TOS] ||
+      !!varGet(EL_TOS) ||
+      !!varGet('d42c5d99-90c6-439c-9212-b3649668b217');
+    var model =
+      !!(ev && ev.acceptModelRelease) ||
+      !!comp[VAR_MODEL] ||
+      !!varGet(EL_MODEL) ||
+      !!varGet('a28dd2bd-1565-4a39-a6f7-cc9a1290baf6');
     return tos && model;
   }
 
@@ -86,15 +111,15 @@
 
     wwUpdate(ctx, VAR_BOOKING_SUBMITTED, false);
 
-    var payRaw = comp[VAR_PAY_TYPE];
+    var payRaw = comp[VAR_PAY_TYPE] || varGet(VAR_PAY_TYPE) || 'deposit';
     var body = {
       session_code: SESSION_CODE,
-      parent_name: trim((ev && ev.parentName) || comp[EL_PARENT]) || 'Parent / Guardian',
-      parent_email: trim((ev && ev.momEmail) || comp[EL_MOM_EMAIL]),
-      parent_phone: trim((ev && ev.phone) || comp[EL_PHONE]),
-      senior_name: trim((ev && ev.seniorName) || comp[EL_SENIOR]),
+      parent_name: fieldVal(ev, 'parentName', EL_PARENT, comp, null) || 'Parent / Guardian',
+      parent_email: fieldVal(ev, 'momEmail', EL_MOM_EMAIL, comp, null),
+      parent_phone: fieldVal(ev, 'phone', EL_PHONE, comp, null),
+      senior_name: fieldVal(ev, 'seniorName', EL_SENIOR, comp, null),
       estate_payment_type: payRaw === 'full' ? 'full' : 'deposit',
-      includes_chalet: !!comp[VAR_CHALET],
+      includes_chalet: !!(comp[VAR_CHALET] || varGet(VAR_CHALET)),
       terms_version: TOS_VERSION,
       success_url: origin() + '/booked',
       cancel_url: origin() + '/booked?cancelled=1',
@@ -140,7 +165,6 @@
 
   global.wwlBookingSubmitCheckout = wwlBookingSubmitCheckout;
 
-  // Home pill + modal counter — project variable 4e60cc52… (not component scope)
   var ROSTER_OPEN_VAR = '4e60cc52-8513-4e93-b3b8-af02bf2305b2';
   var ROSTER_URL =
     'https://xfog-zdyr-rbyx.n7e.xano.io/api:E6ai6f3e/wwl/roster?session_code=' +

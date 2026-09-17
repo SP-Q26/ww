@@ -66,6 +66,14 @@ function runPrerender() {
     }
 }
 
+const criticalBoot = spawnSync(process.execPath, ['./scripts/inject-luxe-critical-boot.mjs'], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+});
+if (criticalBoot.status !== 0) {
+    process.exit(criticalBoot.status ?? 1);
+}
+
 // WeWeb publish strips this — required for /heirloom, /booked, Stripe API on Vercel.
 const sliceCopy = spawnSync(process.execPath, ['./scripts/copy-luxe-slice-into-dist.mjs'], {
     cwd: process.cwd(),

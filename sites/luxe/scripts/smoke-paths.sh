@@ -17,6 +17,7 @@ smoke() {
     /heirloom \
     /heirloom/assets/wwluxe-shared.css \
     /heirloom/assets/wwluxe-order.js \
+    /heirloom/assets/stripe-products/chalet.png \
     /terms \
     /terms/assets/wwluxe-shared.css \
     /privacypolicy

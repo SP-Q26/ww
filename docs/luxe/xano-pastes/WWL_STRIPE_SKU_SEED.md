@@ -36,4 +36,4 @@ Duplicate products/prices in Stripe **live**, update `stripe_price_id` + `amount
 
 ## Stripe Tax
 
-`04` / `07` set **`automatic_tax[enabled]=true`** when Stripe Tax is configured (head office + registrations). Product **`tax_code`** on each Stripe Product per [`stripe-product-tax.mjs`](../../../lib/mmi/stripe-product-tax.mjs) · [`STRIPE_TAX_WYOMING.md`](../STRIPE_TAX_WYOMING.md).
+`04` / `07` set **`automatic_tax[enabled]=true`** when Stripe Tax is configured (head office + registrations). Guest checkout uses **`billing_address_collection=required`** (not `customer_update` — see [`04-wwl-book-AUDIT.md`](./04-wwl-book-AUDIT.md)). Product **`tax_code`** on each Stripe Product per [`stripe-product-tax.mjs`](../../../lib/mmi/stripe-product-tax.mjs) · [`STRIPE_TAX_WYOMING.md`](../STRIPE_TAX_WYOMING.md).

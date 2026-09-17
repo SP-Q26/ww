@@ -48,7 +48,7 @@ You only declare **business facts once** (not “50 times”):
 | WY head office / ship-from | **Stripe Dashboard → Tax → Head office** (already Sheridan WY on MMI test) | **No** — Stripe uses this for origin |
 | IL obligation to collect | **Stripe Dashboard → Tax → Registrations → Illinois** | **No** |
 | Estate session **performed** in McHenry IL | **Stripe → Products** for `WWL-DEPOSIT-710` + `WWL-ESTATE-BALANCE-710` → tax / performance location **OR** one Checkout line-item override in `04` if products lack it | **Optional** `WWLUXE_TAX_IL_PERFORMANCE_JSON` only if you build lines in Xano from JSON |
-| Mom’s ship-to (FL, HI, Chicago, …) | **Checkout** collects address (`customer_update` + `shipping_address_collection` in `04`) | **No** — Stripe uses what she enters |
+| Mom’s ship-to (FL, HI, Chicago, …) | **Checkout** collects address (`billing_address_collection` + `shipping_address_collection` in `04`) | **No** — Stripe uses what she enters |
 | Product category (service vs goods vs digital) | **Stripe Product `tax_code`** (set on catalog) | **No** |
 
 `WWLUXE_TAX_WY_ORIGIN_JSON` / `WWLUXE_TAX_IL_PERFORMANCE_JSON` are for **git/Vercel** `stripe-checkout-tax-lines.mjs` only. **Estate booking via Xano does not need them** if head office, IL registration, product tax codes, and `automatic_tax` are on.

@@ -1,15 +1,30 @@
 <!--
-  WhisperingWoodsLUXE — Project Head BRIDGE only (v27)
+  WhisperingWoodsLUXE — Project Head BRIDGE only (v28)
   WeWeb canvas = layout, colors, type, hero shell, sticky, hovers, 1024 shell.
   Head = config + JS/CSS the editor cannot own (YouTube iframe crop, gallery drawer, SEO/mailto).
-  Smoke: document.documentElement.getAttribute("data-ww-head-version") === "2026.09.15.v27"
+  Smoke: document.documentElement.getAttribute("data-ww-head-version") === "2026.09.17.v28"
   See: docs/luxe/LUXE_CANVAS_VS_HEAD.md
 -->
 
 <script>
-window.WW_HEAD_VERSION = "2026.09.15.v27";
+(function wwCriticalFirstPaint() {
+  var root = document.documentElement;
+  root.style.backgroundColor = "#141f19";
+  if (document.body) document.body.style.backgroundColor = "#141f19";
+})();
+</script>
+<meta name="theme-color" content="#141f19" />
+<style id="ww-critical-first-paint">
+html, body, #app {
+  background-color: #141f19 !important;
+}
+body { margin: 0; }
+</style>
+
+<script>
+window.WW_HEAD_VERSION = "2026.09.17.v28";
 window.WW_SITE_CONFIG = {
-  head_version: "2026.09.15.v27",
+  head_version: "2026.09.17.v28",
   site_url: "https://whisperingwoodsluxe.com/",
   email: "bookings@whisperingwoodsluxe.com",
   heirloom_url: "https://whisperingwoodsluxe.com/heirloom",
@@ -559,41 +574,6 @@ html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68
 </script>
 
 <script>
-(function wwHeroVideoReady() {
-  "use strict";
-  var ROOT_SEL = ".ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee";
-  var marked = false;
-
-  function markReady() {
-    if (marked) return;
-    marked = true;
-    document.documentElement.setAttribute("data-ww-hero-video-ready", "1");
-  }
-
-  function watch() {
-    var root = document.querySelector(ROOT_SEL);
-    if (!root) {
-      markReady();
-      return;
-    }
-    var iframe = root.querySelector("iframe");
-    if (!iframe) {
-      window.setTimeout(watch, 180);
-      return;
-    }
-    iframe.addEventListener("load", markReady, { once: true });
-    window.setTimeout(markReady, 2800);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", watch, { once: true });
-  } else {
-    watch();
-  }
-})();
-</script>
-
-<script>
 (function wwSiteBridge() {
   "use strict";
 
@@ -858,7 +838,7 @@ html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68
 (function () {
   "use strict";
   function boot() {
-    document.documentElement.setAttribute("data-ww-head-version", "2026.09.15.v27");
+    document.documentElement.setAttribute("data-ww-head-version", "2026.09.17.v28");
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();

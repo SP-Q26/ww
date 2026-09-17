@@ -21,8 +21,9 @@ Same split as **SPQ**: **WeWeb canvas = engine**. **Project Head + git = bridge*
 | Module | Why |
 |--------|-----|
 | `WW_SITE_CONFIG` | URLs, email, legal URLs, tour link, env |
-| `data-ww-head-version` | Smoke stamp (`2026.09.15.v27`) |
-| **bridge-hero-youtube** | **Optional / legacy** — canvas workflow now owns crop + ready gate. Remove from Head on next paste to avoid duplicate CSS (safe if both run; prefer canvas only). |
+| `data-ww-head-version` | Smoke stamp (`2026.09.17.v28`) |
+| **critical-first-paint** | Pine `#141f19` on `html/body/#app` + `theme-color` (before Vue / canvas splash) |
+| **bridge-hero-youtube** | Hero iframe crop + `data-ww-hero-video-ready` gate CSS only — **ready flag is set by canvas** `Home · Hero video boot` (Head `wwHeroVideoReady` removed v28). |
 | **season-mood.js** | Sets `data-season` + poetry line + tab clicks (no `--ww-section-deep` overrides) |
 | **gallery-drawer.js** | Full gallery from variable/DOM; injects drawer DOM |
 | **Drawer CSS** | Styles for injected gallery shell only |

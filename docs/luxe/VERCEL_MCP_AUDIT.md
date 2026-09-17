@@ -1,15 +1,29 @@
-# Vercel MCP · setup + audit (2026-09-14)
+# Vercel MCP · setup + audit
 
-## MCP status in Cursor
+## MCP status in Cursor (2026-09-17 re-check)
 
 | Check | Result |
 |-------|--------|
 | Namespace `plugin-vercel-vercel` | **Ready** (tools load) |
 | `list_teams` | **Empty** — session not scoped to a Vercel team |
-| `get_project` / `list_deployments` (SPQ **luxe**) | **403** — *"Not authorized: Trying to access resource under scope spq. You must re-authenticate to this scope."* |
 | `get_git_deployment_context` | **Empty teams** — same auth gap |
+| `get_project` (`luxe` / `prj_zYZT3zKw07mQmYGdXY8e5DARl8z3`, team `spq`) | **403** — re-auth to scope **spq** |
+| `list_deployments` (same project + team) | **403** (same message) |
+| `get_deployment` (`luxe-omega.vercel.app`) | **403** (same message) |
+| `web_fetch_vercel_url` | **403** |
 
-**Conclusion:** Vercel MCP is installed but **not authorized for team SPQ**. Agent cannot audit deployments/env via MCP until you re-auth to that team.
+**Conclusion:** Vercel MCP is installed but **not authorized for team SPQ** (`team_HqMoC6Iyl5J5qMn9YmR6pJRL`). Agent cannot read production branch, deployments, env, or build logs via MCP until you re-auth to that team.
+
+### Git canon (repo — not MCP)
+
+| Item | Value |
+|------|--------|
+| WeWeb → GitHub | **`main`** |
+| `vercel.json` `deploymentEnabled` | **`main`: true**, **`luxe`: false** |
+| Local `main` tip | `1cf1111` (deploy gate + `GIT_DEPLOY_CANON.md`) |
+| Dashboard must match | **Production Branch → `main`**, Root **`.`** |
+
+See `GIT_DEPLOY_CANON.md`.
 
 ### Fix MCP auth (Cursor)
 
@@ -48,7 +62,7 @@ If teams stay empty: confirm you’re logged into [vercel.com](https://vercel.co
 Set **once** in Vercel → **luxe** → **Settings** → **General**:
 
 - **Root Directory:** `sites/luxe`
-- **Production Branch:** `luxe`
+- **Production Branch:** **`main`**
 - **Build Command:** empty
 - **Install Command:** empty
 
