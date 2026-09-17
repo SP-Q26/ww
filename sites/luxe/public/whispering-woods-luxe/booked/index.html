@@ -11,32 +11,45 @@
   <link rel="stylesheet" href="/heirloom/assets/wwluxe-shared.css" />
 </head>
 <body class="wwl-confirm-page">
-  <main class="wwl-confirm" id="wwl-confirm" aria-live="polite">
-    <div class="wwl-confirm__tree-wrap" aria-hidden="true">
-      <img class="wwl-confirm__tree" src="/heirloom/assets/heirloom-splash-tree.svg" width="179" height="179" alt="" />
+  <main class="wwl-confirm" id="wwl-confirm" aria-live="polite" aria-busy="true">
+    <div class="wwl-confirm__skeleton" id="confirm-skeleton" role="status" aria-label="Loading confirmation">
+      <div class="wwl-confirm__sk wwl-confirm__sk--tree"></div>
+      <div class="wwl-confirm__sk wwl-confirm__sk--eyebrow"></div>
+      <div class="wwl-confirm__sk wwl-confirm__sk--title"></div>
+      <div class="wwl-confirm__sk wwl-confirm__sk--lede"></div>
+      <div class="wwl-confirm__sk-card">
+        <div class="wwl-confirm__sk wwl-confirm__sk--line"></div>
+        <div class="wwl-confirm__sk wwl-confirm__sk--line wwl-confirm__sk--line-short"></div>
+        <div class="wwl-confirm__sk wwl-confirm__sk--line wwl-confirm__sk--line-mid"></div>
+      </div>
+      <div class="wwl-confirm__sk wwl-confirm__sk--btn"></div>
     </div>
 
-    <p class="wwl-confirm__eyebrow" id="confirm-eyebrow">Whispering Woods Luxe</p>
-    <h1 class="wwl-confirm__title" id="confirm-title">Payment received</h1>
-    <p class="wwl-confirm__lede" id="confirm-lede">Your estate reservation is confirmed.</p>
+    <div class="wwl-confirm__content wwl-confirm__content--pending" id="confirm-content" hidden>
+      <div class="wwl-confirm__tree-wrap" aria-hidden="true">
+        <img class="wwl-confirm__tree" src="/heirloom/assets/heirloom-splash-tree.svg" width="179" height="179" alt="" />
+      </div>
 
-    <div class="wwl-confirm__card">
-      <p class="wwl-confirm__body" id="confirm-body">
-        Stripe will email your receipt shortly. Our studio will send your booking summary, estate day details, and what to expect next — usually within one business day.
-      </p>
-      <p class="wwl-confirm__ref wwl-hidden" id="confirm-ref" hidden></p>
+      <p class="wwl-confirm__eyebrow" id="confirm-eyebrow">Whispering Woods Luxe</p>
+      <h1 class="wwl-confirm__title" id="confirm-title">Payment received</h1>
+      <p class="wwl-confirm__lede" id="confirm-lede">Your estate reservation is confirmed.</p>
+
+      <div class="wwl-confirm__card">
+        <p class="wwl-confirm__body" id="confirm-body">
+          Stripe will email your receipt. Our studio will be sending your estate day details. We can't wait to welcome you to the grounds.
+        </p>
+        <p class="wwl-confirm__ref wwl-hidden" id="confirm-ref" hidden></p>
+      </div>
+
+      <a class="wwl-btn wwl-btn--gold wwl-confirm__home" id="confirm-home" href="https://whisperingwoodsluxe.com/">Return to the estate site</a>
     </div>
-
-    <p class="wwl-confirm__quiet" id="confirm-quiet">
-      No further action is needed on this screen. If something looks wrong, reply to your receipt email or write
-      <a class="wwl-confirm__mail" href="mailto:bookings@whisperingwoodsluxe.com">bookings@whisperingwoodsluxe.com</a>.
-    </p>
-
-    <a class="wwl-btn wwl-btn--gold wwl-confirm__home" id="confirm-home" href="https://whisperingwoodsluxe.com/">Return to the estate site</a>
   </main>
 
   <script>
     (function () {
+      var MIN_SKELETON_MS = 500;
+      var loadStarted = Date.now();
+
       var q = new URLSearchParams(window.location.search);
       var ref = (q.get("ref") || "").trim();
       var cancelled =
@@ -45,11 +58,12 @@
         q.get("balance_paid") === "0";
       var balanceOk = q.get("balance_paid") === "1";
 
+      var skeleton = document.getElementById("confirm-skeleton");
+      var content = document.getElementById("confirm-content");
       var title = document.getElementById("confirm-title");
       var lede = document.getElementById("confirm-lede");
       var body = document.getElementById("confirm-body");
       var refEl = document.getElementById("confirm-ref");
-      var quiet = document.getElementById("confirm-quiet");
       var eyebrow = document.getElementById("confirm-eyebrow");
 
       if (cancelled) {
@@ -57,25 +71,38 @@
         title.textContent = "Checkout paused";
         lede.textContent = "Your spot is not reserved yet.";
         body.textContent =
-          "You left before payment finished. When you are ready, open Secure my spot again from the estate site — we will walk you through the same calm checkout.";
-        quiet.textContent = "Questions? We are here at bookings@whisperingwoodsluxe.com.";
-        quiet.innerHTML =
-          'Questions? Write <a class="wwl-confirm__mail" href="mailto:bookings@whisperingwoodsluxe.com">bookings@whisperingwoodsluxe.com</a>.';
+          "You left before payment finished. When you are ready, open Secure my spot again from the estate site. We will walk you through the same calm checkout.";
         eyebrow.textContent = "Whispering Woods Luxe";
-        return;
-      }
-
-      if (balanceOk) {
+      } else if (balanceOk) {
         title.textContent = "Balance received";
         lede.textContent = "Your estate experience is paid in full.";
         body.textContent =
-          "Stripe will email your receipt. We will confirm any final estate day details by email — nothing else to do here.";
+          "Stripe will email your receipt. Our studio will be sending your estate day details. We can't wait to welcome you to the grounds.";
       }
 
       if (ref) {
         refEl.textContent = "Reference · " + ref;
         refEl.hidden = false;
         refEl.classList.remove("wwl-hidden");
+      }
+
+      function revealContent() {
+        var wait = Math.max(0, MIN_SKELETON_MS - (Date.now() - loadStarted));
+        window.setTimeout(function () {
+          var main = document.getElementById("wwl-confirm");
+          if (main) main.removeAttribute("aria-busy");
+          skeleton.classList.add("is-out");
+          skeleton.setAttribute("aria-hidden", "true");
+          content.hidden = false;
+          content.classList.remove("wwl-confirm__content--pending");
+          content.classList.add("wwl-confirm__content--ready");
+        }, wait);
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", revealContent);
+      } else {
+        revealContent();
       }
     })();
   </script>

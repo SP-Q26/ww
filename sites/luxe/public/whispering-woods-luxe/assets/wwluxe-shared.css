@@ -1108,3 +1108,124 @@ body.wwl-confirm-page {
   max-width: 20rem;
   justify-content: center;
 }
+
+/* /booked · skeleton (150% scale vs baseline placeholders) */
+.wwl-confirm__skeleton {
+  width: min(28rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 21px;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.wwl-confirm__skeleton.is-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.wwl-confirm__content--pending {
+  visibility: hidden;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.wwl-confirm__content--ready {
+  width: min(28rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: wwl-confirm-in 0.4s ease both;
+}
+
+@keyframes wwl-confirm-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wwl-confirm__sk {
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(44, 44, 44, 0.07) 0%,
+    rgba(198, 161, 91, 0.18) 45%,
+    rgba(44, 44, 44, 0.07) 90%
+  );
+  background-size: 200% 100%;
+  animation: wwl-confirm-shimmer 1.1s ease-in-out infinite;
+}
+
+@keyframes wwl-confirm-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.wwl-confirm__sk--tree {
+  width: min(240px, 66vw);
+  height: min(240px, 66vw);
+  border-radius: 50%;
+  margin-bottom: 6px;
+}
+
+.wwl-confirm__sk--eyebrow {
+  width: 42%;
+  height: 17px;
+}
+
+.wwl-confirm__sk--title {
+  width: 72%;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.wwl-confirm__sk--lede {
+  width: 58%;
+  height: 23px;
+}
+
+.wwl-confirm__sk-card {
+  width: 100%;
+  padding: 30px 27px;
+  border-radius: var(--wwl-radius);
+  background: var(--wwl-paper);
+  border: 1px solid var(--wwl-line);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.wwl-confirm__sk--line {
+  width: 100%;
+  height: 18px;
+  border-radius: 8px;
+}
+
+.wwl-confirm__sk--line-mid {
+  width: 88%;
+}
+
+.wwl-confirm__sk--line-short {
+  width: 64%;
+}
+
+.wwl-confirm__sk--btn {
+  width: 100%;
+  max-width: 20rem;
+  height: 54px;
+  border-radius: 999px;
+  margin-top: 6px;
+}
