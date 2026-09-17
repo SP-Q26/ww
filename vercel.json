@@ -30,6 +30,8 @@
     { "source": "/privacypolicy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
     { "source": "/privacypolicy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
     { "source": "/privacy-policy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
-    { "source": "/privacy-policy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" }
+    { "source": "/privacy-policy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/booked", "destination": "/whispering-woods-luxe/booked/index.html" },
+    { "source": "/booked/", "destination": "/whispering-woods-luxe/booked/index.html" }
   ]
 }
