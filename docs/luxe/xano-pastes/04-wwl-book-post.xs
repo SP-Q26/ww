@@ -279,9 +279,11 @@ query "wwl/book" verb=POST {
         |set:"metadata[consent_uuid]":$consent_uuid
         |set:"metadata[product_type]":"estate_checkout"
         |set:"automatic_tax[enabled]":"true"
+        |set:"customer_update[address]":"auto"
+        |set:"shipping_address_collection[allowed_countries][0]":"US"
     }
 
-    // IL performance on deposit/balance line_items: STRIPE_TAX_WYOMING.md · wwl-tax-locations.mjs (Xano v2)
+    // IL performance on deposit/balance line_items: STRIPE_TAX_WYOMING.md · WWLUXE_TAX_IL_PERFORMANCE_JSON (Xano v2)
 
     // Stripe line_items[0..2] from $price_ids
     var $idx {

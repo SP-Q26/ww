@@ -37,15 +37,31 @@ Everything else (heirloom SKUs, Chalet components when split) uses **WY origin**
 
 **Test account:** Tax `status` may be `pending` until head office is saved in Dashboard.
 
-### Env (Xano / Vercel — not in git)
+### What Stripe Tax does (why you pay the fee)
 
-```bash
-# JSON · Stripe address object · country required
-WWLUXE_TAX_WY_ORIGIN_JSON='{"line1":"…","city":"…","state":"WY","postal_code":"…","country":"US"}'
-WWLUXE_TAX_IL_PERFORMANCE_JSON='{"line1":"…","city":"Harvard","state":"IL","postal_code":"…","country":"US"}'
+Stripe **calculates rates**, **collects** on Checkout, and **reports** by jurisdiction. You do **not** maintain rate tables or file-by-hand for every mom ZIP.
+
+You only declare **business facts once** (not “50 times”):
+
+| Fact | Where to set it | Xano `wwl/book` env? |
+|------|-----------------|----------------------|
+| WY head office / ship-from | **Stripe Dashboard → Tax → Head office** (already Sheridan WY on MMI test) | **No** — Stripe uses this for origin |
+| IL obligation to collect | **Stripe Dashboard → Tax → Registrations → Illinois** | **No** |
+| Estate session **performed** in McHenry IL | **Stripe → Products** for `WWL-DEPOSIT-710` + `WWL-ESTATE-BALANCE-710` → tax / performance location **OR** one Checkout line-item override in `04` if products lack it | **Optional** `WWLUXE_TAX_IL_PERFORMANCE_JSON` only if you build lines in Xano from JSON |
+| Mom’s ship-to (FL, HI, Chicago, …) | **Checkout** collects address (`customer_update` + `shipping_address_collection` in `04`) | **No** — Stripe uses what she enters |
+| Product category (service vs goods vs digital) | **Stripe Product `tax_code`** (set on catalog) | **No** |
+
+`WWLUXE_TAX_WY_ORIGIN_JSON` / `WWLUXE_TAX_IL_PERFORMANCE_JSON` are for **git/Vercel** `stripe-checkout-tax-lines.mjs` only. **Estate booking via Xano does not need them** if head office, IL registration, product tax codes, and `automatic_tax` are on.
+
+### Canon · IL performance (McHenry County estate)
+
+Set this **once** in Stripe on estate deposit + balance products (Tax / performance location), not in every checkout:
+
+```text
+14518 O'Brien Rd, Harvard, IL 60033, US
 ```
 
-Use the **legal/site** address for the Harvard IL estate property for performance — not a WY mailbox.
+(JSON shape if ever needed in Xano env: `line1`, `city` Harvard, `state` IL, `postal_code` 60033, `country` US.)
 
 ---
 
@@ -69,7 +85,7 @@ Use the **legal/site** address for the Harvard IL estate property for performanc
 [ ] Stripe Tax registration: us-il active before first estate Checkout in prod
 [ ] Every estate Checkout: automatic_tax enabled + IL performance on deposit/balance
 [ ] wwl_payment_log.amount_tax_cents stored from webhook
-[ ] Terms: published prices exclude tax; “sales tax calculated at checkout”
+[ ] Terms: “Published prices exclude tax. Sales tax is calculated at checkout. Your estate session is performed in Illinois; keepsakes and shipments are fulfilled from our Wyoming HQ to the address you provide.” (`sites/luxe/.../terms/index.html` §8)
 [ ] No claim on marketing that “Wyoming = no tax” for IL estate experience
 ```
 
