@@ -2,6 +2,11 @@ import {
   lineItemFromPayloadRow,
   siteOriginFromRequest,
 } from "../../lib/wwluxe/stripe-catalog.mjs";
+import {
+  MMI_BRANDS,
+  MMI_STATEMENT_SUFFIX,
+  wwluxeKeepsakeSessionMetadata,
+} from "../../../../lib/mmi/stripe-metadata.mjs";
 
 function flattenParams(obj, prefix = "") {
   const out = [];
@@ -88,8 +93,8 @@ export default async function handler(req, res) {
   const origin = siteOriginFromRequest(req);
   const successUrl =
     body.success_url ||
-    `${origin}/order?checkout=success&session_id={CHECKOUT_SESSION_ID}`;
-  const cancelUrl = body.cancel_url || `${origin}/order?checkout=cancelled`;
+    `${origin}/heirloom?checkout=success&session_id={CHECKOUT_SESSION_ID}`;
+  const cancelUrl = body.cancel_url || `${origin}/heirloom?checkout=cancelled`;
 
   let lineItems;
   try {
@@ -98,16 +103,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: err.message || "invalid_line" });
   }
 
-  const metadata = {
-    wwluxe_source: body.source || "order_web",
-    wwluxe_email: String(contact.email).slice(0, 500),
-    wwluxe_name: String(contact.name).slice(0, 500),
-    wwluxe_senior: String(contact.senior || "").slice(0, 200),
-    wwluxe_ref: String(contact.ref || "").slice(0, 200),
-    wwluxe_cover: String(contact.cover || "").slice(0, 50),
-    wwluxe_mode: String(contact.mode || "").slice(0, 50),
-    wwluxe_terms: String(body.terms_version || "").slice(0, 50),
-  };
+  const metadata = wwluxeKeepsakeSessionMetadata(body, contact);
 
   try {
     const seniorNote = contact.senior
@@ -125,6 +121,7 @@ export default async function handler(req, res) {
         metadata,
         description: `Whispering Woods Luxe · Chalet reservation${seniorNote}`,
         receipt_email: contact.email,
+        statement_descriptor_suffix: MMI_STATEMENT_SUFFIX[MMI_BRANDS.WWLUXE],
       },
       custom_text: {
         submit: {

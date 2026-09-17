@@ -3,9 +3,11 @@
 **Print this.** Swap `S01`–`S24` for codenames in the run-up.  
 **Operating unit:** **Triad** = 3 seniors · 3 moms · **3 cars** · **3 enter · 3 leave**
 
-**Hard limits:** **12 moms max in Chalet** · **HMU by 10:00 (T1)** · **Z2 indoor closes 4:50 PM** · **golden 4:50–6:15 PM** · **crew hard out 7:00 PM** · **designated staff bathroom only** · **no phones / pics / social on the floor unless Producer approves**
+**Hard limits:** **12 moms max in Chalet** · **HMU starts 9:50 AM (T1)** · **Z2 indoor closes 4:50 PM** · **golden 4:50–6:15 PM** · **crew hard out 7:00 PM** · **designated staff bathroom only** · **no phones / pics / social on the floor unless Producer approves**
 
-**Photo crew:** **Arrive by 8:55** · **9:10 team meeting**
+**Call times:** **Crew on property 8:30** · **photographers on set 8:55** · **team huddle** · **HMU 9:50**
+
+**Hospitality (internal):** **Chalet pro clean** **$125** before open · **$85** after day · quick turnovers between triads · **Chef** — grazing boards · **Property Super** — **12:00 PM–5:00 PM** restock snacks/drinks/water, bathrooms, light tidy · see `OCT_18_HOSPITALITY_CREW.md`
 
 ---
 
@@ -42,7 +44,7 @@
 
 | Triad | Seniors | Moms | Wave | Arrival (book) | HMU start | **Batch valet release** |
 |-------|---------|------|------|----------------|-----------|-------------------------|
-| **T1** | S01–S03 | 3 | AM | **9:55 AM** | **10:00 AM** | **12:33 PM** |
+| **T1** | S01–S03 | 3 | AM | **9:45 AM** | **9:50 AM** | **~12:23 PM** * |
 | **T2** | S04–S06 | 3 | AM | **9:55 AM** *or* **10:42** | **10:47 AM** | **1:20 PM** |
 | **T3** | S07–S09 | 3 | AM | **10:29 AM** | **11:34 AM** | **2:07 PM** |
 | **T4** | S10–S12 | 3 | AM | **11:16 AM** | **12:21 PM** | **2:54 PM** |
@@ -51,18 +53,21 @@
 | **T7** | S19–S21 | 3 | PM / golden | **2:14 PM** | **2:19 PM** | **Golden · ~5:56 PM** |
 | **T8** | S22–S24 | 3 | PM / golden | **3:01 PM** | **3:06 PM** | **Golden · ~6:18 PM** |
 
-*T2 arrival:* either **stagger valet** (T1 9:55 · T2 10:42) or **both 9:55** with T2 in salon lounge until **10:47** HMU — traffic picks one and prints call sheet.
+*T2 arrival:* either **stagger valet** (T1 **9:45** · T2 **10:32**) or **both 9:45** with T2 in salon lounge until **10:37** HMU — traffic picks one and prints call sheet.
 
-**Morning first Z3:** T1 **~10:52 AM** (after 47 min HMU + cart).
+**Morning first Z3:** T1 **~10:42 AM** (after 47 min HMU + cart).
+
+*\* T1 sendoff ~10 min earlier vs prior 10:00 HMU canon — re-stagger T2–T8 on printed call sheet when HMU locks at 9:50.*
 
 ---
 
 ## Day architecture
 
 ```
-8:55 AM      Photo crew arrive · 9:10 team meeting (triads · valet script · lunch rotation · phones)
-10:00 AM     T1 HMU · Chalet opens (≤12 moms)
-~10:52 AM    First Z3 (T1)
+8:30 AM      Crew on property
+8:55 AM      Photographers on set · team huddle (triads · valet · lunch rotation)
+9:50 AM      T1 HMU · Chalet opens (≤12 moms)
+~10:42 AM    First Z3 (T1) *
 12:33 PM     T1 batch sendoff · valet 3 cars
 12:45–1:45 PM  CREW LUNCH ROTATION + T5 arrival / HMU
 1:20 PM      T2 batch sendoff

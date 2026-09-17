@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Whispering Woods Luxe · Vercel preview</title>
+  <link rel="stylesheet" href="/heirloom/assets/wwluxe-shared.css" />
+  <style>
+    body.wwl-hub {
+      margin: 0;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .wwl-hub-card {
+      max-width: 32rem;
+      width: 100%;
+    }
+    .wwl-hub-card h1 {
+      font-size: 1.35rem;
+      margin: 0 0 0.5rem;
+    }
+    .wwl-hub-card p {
+      margin: 0 0 1.25rem;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+    .wwl-hub-card ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .wwl-hub-card a.wwl-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+    }
+    .wwl-hub-note {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      opacity: 0.75;
+    }
+  </style>
+</head>
+<body class="wwl-hub">
+  <div class="wwl-hub-card">
+    <h1>Whispering Woods Luxe</h1>
+    <p>
+      This Vercel project is the <strong>checkout + legal</strong> slice only.
+      The marketing home (hero, tours, gallery) lives in <strong>WeWeb</strong> until DNS is wired.
+    </p>
+    <ul>
+      <li><a class="wwl-btn" href="/heirloom">Heirloom checkout</a></li>
+      <li><a class="wwl-btn wwl-btn--ghost" href="/terms">Terms of service</a></li>
+      <li><a class="wwl-btn wwl-btn--ghost" href="/privacypolicy">Privacy policy</a></li>
+    </ul>
+    <p class="wwl-hub-note">
+      When the custom domain is live: apex <code>/</code> → WeWeb <code>/home</code>;
+      path routes like <code>/heirloom</code> → this project. Until then, test WeWeb in the editor preview.
+    </p>
+  </div>
+</body>
+</html>

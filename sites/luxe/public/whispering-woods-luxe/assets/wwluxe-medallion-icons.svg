@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="wwl-icon-book-bookmark" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M48,216V48a8,8,0,0,1,8-8h96l32,32v144a8,8,0,0,1-8,8H56A8,8,0,0,1,48,216Z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M152,40V72h32"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M88,112h48M88,144h32"/>
+    <path fill="currentColor" d="M168,40a16,16,0,0,1,16,16v40l-24-8-24,8V56a16,16,0,0,1,16-16Z" opacity="0.9"/>
+  </symbol>
+  <symbol id="wwl-icon-book-open" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M24,56V200a8,8,0,0,0,8,8H96V48H32A8,8,0,0,0,24,56Z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M232,56V200a8,8,0,0,1-8,8H160V48h64A8,8,0,0,1,232,56Z"/>
+  </symbol>
+  <symbol id="wwl-icon-cloud" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M160,40a56,56,0,0,0-49.74,30.3A40,40,0,0,0,40,104a32,32,0,0,0,32,32H216a24,24,0,0,0,0-48H200a40,40,0,0,0-40-48Z"/>
+  </symbol>
+  <symbol id="wwl-icon-frame" viewBox="0 0 256 256">
+    <rect x="40" y="48" width="176" height="160" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <rect x="72" y="80" width="112" height="96" rx="4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" opacity="0.85"/>
+  </symbol>
+  <symbol id="wwl-icon-paint-brush" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M208,48l-80,80-32-32,80-80a16,16,0,0,1,22.63,0l9.37,9.37a16,16,0,0,1,0,22.63Z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M96,136,48,184l24,24,48-48"/>
+  </symbol>
+  <symbol id="wwl-icon-flower-tulip" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M128,224V120"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M88,96c0-24,18-40,40-40s40,16,40,40c0,32-40,56-40,56S88,128,88,96Z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M64,120c-16-8-24-24-16-40s24-24,40-16"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M192,120c16-8,24-24,16-40s-24-24-40-16"/>
+  </symbol>
+  <symbol id="wwl-icon-hand" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M96,104V64a8,8,0,0,1,16,0v40M128,96V56a8,8,0,0,1,16,0V96M160,104V72a8,8,0,0,1,16,0v56c0,48-40,72-72,72-40,0-72-32-72-72V120a8,8,0,0,1,16,0v8"/>
+  </symbol>
+  <symbol id="wwl-icon-spreads" viewBox="0 0 256 256">
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M40,72h64v112H48a8,8,0,0,1-8-8V72Z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M96,72h64v112H104a8,8,0,0,1-8-8V72Z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M152,72h64v112H160a8,8,0,0,1-8-8V72Z"/>
+  </symbol>
+</svg>

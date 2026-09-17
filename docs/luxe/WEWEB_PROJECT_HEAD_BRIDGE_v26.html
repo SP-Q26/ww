@@ -1,0 +1,866 @@
+<!--
+  WhisperingWoodsLUXE — Project Head BRIDGE only (v27)
+  WeWeb canvas = layout, colors, type, hero shell, sticky, hovers, 1024 shell.
+  Head = config + JS/CSS the editor cannot own (YouTube iframe crop, gallery drawer, SEO/mailto).
+  Smoke: document.documentElement.getAttribute("data-ww-head-version") === "2026.09.15.v27"
+  See: docs/luxe/LUXE_CANVAS_VS_HEAD.md
+-->
+
+<script>
+window.WW_HEAD_VERSION = "2026.09.15.v27";
+window.WW_SITE_CONFIG = {
+  head_version: "2026.09.15.v27",
+  site_url: "https://whisperingwoodsluxe.com/",
+  email: "bookings@whisperingwoodsluxe.com",
+  heirloom_url: "https://whisperingwoodsluxe.com/heirloom",
+  terms_url: "https://whisperingwoodsluxe.com/terms",
+  privacy_url: "https://whisperingwoodsluxe.com/privacypolicy",
+  faq_url: "#faq",
+  tour_booking_url: "https://calendar.app.google/d3iGi3bVmyjSdxyn9"
+};
+</script>
+
+<style>
+/* @ww-head-module bridge-chrome — gallery drawer + poetry fade only */
+.ww-dreamline.is-fading { opacity: 0.35; transition: opacity 0.18s ease; }
+.ww-drawer-backdrop {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(30, 45, 36, 0.42);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+  visibility: hidden;
+}
+.ww-drawer-backdrop.is-open { opacity: 1; pointer-events: auto; visibility: visible; }
+#ww-gallery-drawer:not(.is-open), .ww-gallery-drawer:not(.is-open) {
+  display: none !important; visibility: hidden !important; pointer-events: none !important;
+}
+#ww-gallery-backdrop:not(.is-open) {
+  display: none !important; visibility: hidden !important; pointer-events: none !important;
+}
+.ww-drawer, .ww-gallery-drawer, #ww-gallery-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 210;
+  width: min(100%, 24rem); max-width: 100%;
+  background: #f9f6f0; border-left: 1px solid #e5dfd5;
+  box-shadow: -16px 0 48px rgba(30, 45, 36, 0.14);
+  transform: translateX(104%);
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column;
+  padding: calc(1.25rem + env(safe-area-inset-top, 0px)) 1.25rem calc(4rem + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+}
+.ww-drawer.is-open, #ww-gallery-drawer.is-open, .ww-gallery-drawer.is-open {
+  transform: translateX(0); display: flex !important; visibility: visible !important; pointer-events: auto !important;
+}
+.ww-drawer__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e5dfd5; }
+.ww-drawer__title { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.35rem; color: #1e2d24; margin: 0; }
+.ww-drawer__close { min-width: 44px; min-height: 44px; border: 1px solid #e5dfd5; border-radius: 4px; background: transparent; color: #1e2d24; cursor: pointer; font-size: 1.25rem; line-height: 1; }
+.ww-gallery-drawer__scroll img { width: 100%; height: auto; display: block; border-radius: 4px; }
+.ww-gallery-drawer__frame { margin: 0 0 1rem; }
+.ww-gallery-drawer__lede, .ww-gallery-drawer__empty { font-size: 0.95rem; line-height: 1.55; color: #2c2623; }
+
+/* @ww-head-module bridge-hero-youtube — crop letterbox + hide iframe until load (canvas cannot) */
+.ww-element-68072bf6-8fbe-4292-acd2-a776d68bc1fe {
+  position: relative !important;
+  overflow: hidden !important;
+  min-height: 100svh !important;
+  background: #141f19 !important;
+}
+.ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee,
+.ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee .ww-video-youtube {
+  position: absolute !important;
+  inset: -8% !important;
+  width: 116% !important;
+  height: 116% !important;
+  overflow: hidden !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  background: #141f19 !important;
+}
+.ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee iframe,
+.ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee .ww-video-youtube iframe {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 320% !important;
+  height: 120% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  transform: translate(-50%, -50%) scale(1.08) !important;
+  border: 0 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+.ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 10px #141f19, inset 0 0 0 11px rgba(198, 161, 91, 0.22);
+}
+html:not([data-ww-hero-video-ready]) .ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee iframe {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68bc1fe::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(165deg, #1a2820 0%, #141f19 50%, #0f1712 100%);
+  pointer-events: none;
+}
+
+/* Sticky pill — transparent glass (backup if DS class returns) */
+#ww-sticky-nav {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+</style>
+
+<script>
+(function wwSeasonMood() {
+  "use strict";
+
+  var DREAM_LINES = {
+    spring: "Begin where the woods meet the aisle.",
+    summer: "Long light on the ponds — the whole weekend ahead.",
+    autumn: "Gold on forty acres, still only yours.",
+  };
+
+  var DEFAULT_OFF =
+    "Forty acres of private woods on a 40-acre estate — yours for the weekend.";
+  var STORAGE_KEY = "ww-season";
+
+  var WEWEB_TABS = {
+    "8b68b655-aefa-4e90-aedd-9da03fa83f04": "spring",
+    "71f57801-4f90-4b3e-983a-9b266f6de9a2": "summer",
+    "acf6e8c7-9f3a-41c7-b491-7123eded81db": "autumn",
+  };
+
+  var POETRY_UID = "cd1c365d-76ee-4806-824d-ebef5f137aee";
+  var activeSeason = null;
+
+  function root() {
+    return document.documentElement;
+  }
+
+  function poetryEl() {
+    return (
+      document.querySelector(".ww-dreamline") ||
+      document.querySelector(".ww-element-" + POETRY_UID)
+    );
+  }
+
+  function getSeason() {
+    try {
+      var stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === null) return "";
+      return stored;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function applyTokens(season) {
+    if (!season || !DREAM_LINES[season]) {
+      root().setAttribute("data-season", "");
+      document.body && document.body.setAttribute("data-season", "");
+      return;
+    }
+    root().setAttribute("data-season", season);
+    document.body && document.body.setAttribute("data-season", season);
+  }
+
+  function updatePoetry(season, opts) {
+    opts = opts || {};
+    var el = poetryEl();
+    if (!el) return;
+
+    var line = season && DREAM_LINES[season] ? DREAM_LINES[season] : DEFAULT_OFF;
+    if (opts.skipDream) {
+      el.textContent = line;
+      return;
+    }
+
+    el.classList.add("is-fading");
+    window.setTimeout(function () {
+      el.textContent = line;
+      el.classList.remove("is-fading");
+    }, 180);
+  }
+
+  function highlightTabs(season) {
+    Object.keys(WEWEB_TABS).forEach(function (uid) {
+      var tab = document.querySelector(".ww-element-" + uid);
+      if (!tab) return;
+      var on = WEWEB_TABS[uid] === season;
+      tab.classList.toggle("ww-season-tab--active", on);
+      tab.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+
+    document.querySelectorAll(".ww-season__pill, .ww-season-sticky button").forEach(function (btn) {
+      var on = btn.getAttribute("data-season") === season;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function setSeason(season, opts) {
+    opts = opts || {};
+    season = season && DREAM_LINES[season] ? season : "";
+    if (!opts.force && activeSeason === season) return;
+    activeSeason = season;
+    applyTokens(season);
+
+    if (!season || !DREAM_LINES[season]) {
+      updatePoetry("", opts);
+      highlightTabs("");
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {}
+      if (!opts.silent) {
+        document.dispatchEvent(new CustomEvent("ww:season-change", { detail: { season: "" } }));
+      }
+      return;
+    }
+
+    try {
+      localStorage.setItem(STORAGE_KEY, season);
+    } catch (e) {}
+
+    updatePoetry(season, opts);
+    highlightTabs(season);
+
+    if (!opts.silent) {
+      document.dispatchEvent(
+        new CustomEvent("ww:season-change", { detail: { season: season } })
+      );
+    }
+  }
+
+  function bindPills() {
+    document.querySelectorAll(".ww-season__pill, .ww-season-sticky button").forEach(function (pill) {
+      pill.addEventListener("click", function () {
+        setSeason(pill.getAttribute("data-season"));
+      });
+    });
+  }
+
+  function bindWeWebTabs() {
+    Object.keys(WEWEB_TABS).forEach(function (uid) {
+      var tab = document.querySelector(".ww-element-" + uid);
+      if (!tab || tab.dataset.wwSeasonBound) return;
+      tab.dataset.wwSeasonBound = "1";
+      tab.style.cursor = "pointer";
+      tab.setAttribute("role", "button");
+      tab.setAttribute("tabindex", "0");
+      tab.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        setSeason(WEWEB_TABS[uid]);
+      });
+      tab.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          setSeason(WEWEB_TABS[uid]);
+        }
+      });
+    });
+  }
+
+  function initStickySeasonBar() {
+    var bar = document.querySelector(".ww-season-sticky");
+    var anchor = document.querySelector("#ww-season-anchor, .ww-season");
+    if (!bar || !anchor) return;
+
+    var shown = false;
+    function onScroll() {
+      var y = anchor.getBoundingClientRect().bottom;
+      var want = y < -80;
+      if (want !== shown) {
+        shown = want;
+        bar.classList.toggle("is-visible", want);
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  function initTourLinks() {
+    var cfg = window.WW_SITE_CONFIG || {};
+    var url = cfg.tour_booking_url;
+    if (!url || url.indexOf("REPLACE_") === 0) return;
+
+    document.querySelectorAll("[data-ww-tour]").forEach(function (el) {
+      if (el.tagName === "A") {
+        el.href = url;
+        el.target = "_blank";
+        el.rel = "noopener noreferrer";
+      }
+    });
+
+    document.querySelectorAll(".ww-sticky a.is-primary").forEach(function (el) {
+      el.href = url;
+      el.target = "_blank";
+      el.rel = "noopener noreferrer";
+    });
+  }
+
+  function syncFromWeWebVariable() {
+    var cfg = window.WW_SITE_CONFIG || {};
+    var varId = cfg.active_season_var;
+    if (!varId || typeof wwLib === "undefined" || !wwLib.wwVariable) return null;
+    try {
+      var val = wwLib.wwVariable.getValue(varId);
+      if (val === "" || val === null || val === undefined) return "";
+      if (DREAM_LINES[val]) return val;
+    } catch (e) {}
+    return null;
+  }
+
+  function boot() {
+    
+    var initial = getSeason();
+    setSeason(initial, { skipDream: true, silent: true });
+    bindPills();
+    bindWeWebTabs();
+    initStickySeasonBar();
+    initTourLinks();
+    [400, 1200, 2500].forEach(function (ms) {
+      window.setTimeout(bindWeWebTabs, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+
+  window.wwSetSeason = setSeason;
+})();
+
+</script>
+
+<script>
+/**
+ * Whispering Woods — one gallery library, two displays
+ * @ww-head-module gallery-drawer
+ */
+</script>
+
+<script>
+(function wwGalleryDrawer() {
+  "use strict";
+
+  var GALLERY_VAR = "f7cfb366-eba3-4fc9-b3ff-5b67d379c7f1";
+  var VENUE_SECTION_UID = "49446105-625e-4277-a7f7-d8f600112d2a";
+  var GALLERY_BTN_UID = "bf83eccd-ea4a-4921-8045-b37bff010d1c";
+  var DRAWER_ID = "ww-gallery-drawer";
+  var BACKDROP_ID = "ww-gallery-backdrop";
+  var open = false;
+  var seen = Object.create(null);
+
+  function normalizeItem(item) {
+    if (!item) return null;
+    if (typeof item === "string") return { url: item, alt: "Whispering Woods venue" };
+    var url = item.url || item.src || item.image || item.path;
+    if (!url || url.indexOf("no_image") !== -1) return null;
+    return { url: url, alt: item.alt || item.title || "Whispering Woods venue" };
+  }
+
+  function pushImage(list, candidate) {
+    var item = normalizeItem(candidate);
+    if (!item || seen[item.url]) return;
+    seen[item.url] = true;
+    list.push(item);
+  }
+
+  function fromVariable() {
+    if (typeof wwLib === "undefined" || !wwLib.wwVariable) return [];
+    var list = [];
+    try {
+      var raw = wwLib.wwVariable.getValue(GALLERY_VAR);
+      if (Array.isArray(raw)) {
+        raw.forEach(function (item) {
+          pushImage(list, item);
+        });
+      } else if (raw && typeof raw === "object") {
+        if (Array.isArray(raw.items)) raw.items.forEach(function (item) { pushImage(list, item); });
+        else if (Array.isArray(raw.data)) raw.data.forEach(function (item) { pushImage(list, item); });
+        else Object.keys(raw).forEach(function (key) {
+          pushImage(list, raw[key]);
+        });
+      }
+    } catch (e) {}
+    return list;
+  }
+
+  function fromDom() {
+    var list = [];
+    var inner = document.querySelector(".ww-element-" + VENUE_SECTION_UID);
+    var section = inner ? inner.closest(".section-base") : null;
+    var roots = [
+      section,
+      inner,
+      document.querySelector('[name="Gallery Slider"]'),
+    ].filter(Boolean);
+
+    if (!roots.length) roots = [document.body];
+
+    roots.forEach(function (root) {
+      root.querySelectorAll("img").forEach(function (img) {
+        var src = img.currentSrc || img.src;
+        if (!src || src.indexOf("200w.gif") !== -1 || src.indexOf("no_image") !== -1) return;
+        if (img.naturalWidth === 1 && img.naturalHeight === 1) return;
+        pushImage(list, { url: src, alt: img.alt });
+      });
+    });
+
+    return list;
+  }
+
+  function getImages() {
+    seen = Object.create(null);
+    var fromVar = fromVariable();
+    if (fromVar.length) return fromVar;
+    return fromDom();
+  }
+
+  function ensureShell() {
+    if (document.getElementById(DRAWER_ID)) return;
+
+    var backdrop = document.createElement("div");
+    backdrop.id = BACKDROP_ID;
+    backdrop.className = "ww-drawer-backdrop";
+    backdrop.setAttribute("aria-hidden", "true");
+    backdrop.addEventListener("click", closeDrawer);
+
+    var drawer = document.createElement("aside");
+    drawer.id = DRAWER_ID;
+    drawer.className = "ww-drawer ww-gallery-drawer";
+    drawer.setAttribute("role", "dialog");
+    drawer.setAttribute("aria-modal", "true");
+    drawer.setAttribute("aria-label", "Full gallery");
+    drawer.innerHTML =
+      '<div class="ww-drawer__head">' +
+      '<h2 class="ww-drawer__title">The Grounds</h2>' +
+      '<button type="button" class="ww-drawer__close" aria-label="Close gallery">×</button>' +
+      "</div>" +
+      '<p class="ww-gallery-drawer__lede">Forty acres — ceremony, ponds, woods, and light.</p>' +
+      '<div class="ww-gallery-drawer__scroll" data-ww-gallery-scroll></div>';
+
+    drawer.querySelector(".ww-drawer__close").addEventListener("click", closeDrawer);
+    document.body.appendChild(backdrop);
+    document.body.appendChild(drawer);
+  }
+
+  function renderImages() {
+    var scroll = document.querySelector("[data-ww-gallery-scroll]");
+    if (!scroll) return;
+
+    var images = getImages();
+    if (!images.length) {
+      scroll.innerHTML =
+        '<p class="ww-gallery-drawer__empty">Photos are loading — scroll the gallery above or refresh.</p>';
+      return;
+    }
+
+    scroll.innerHTML = images
+      .map(function (item, i) {
+        return (
+          '<figure class="ww-gallery-drawer__frame">' +
+          '<img src="' +
+          item.url +
+          '" alt="' +
+          (item.alt || "").replace(/"/g, "&quot;") +
+          '" loading="' +
+          (i < 3 ? "eager" : "lazy") +
+          '" decoding="async" />' +
+          "</figure>"
+        );
+      })
+      .join("");
+  }
+
+  function openDrawer() {
+    ensureShell();
+    renderImages();
+    open = true;
+    document.getElementById(BACKDROP_ID).classList.add("is-open");
+    document.getElementById(DRAWER_ID).classList.add("is-open");
+    document.body.classList.add("ww-drawer-open");
+    var closeBtn = document.getElementById(DRAWER_ID).querySelector(".ww-drawer__close");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeDrawer() {
+    if (!open) return;
+    open = false;
+    var backdrop = document.getElementById(BACKDROP_ID);
+    var drawer = document.getElementById(DRAWER_ID);
+    if (backdrop) backdrop.classList.remove("is-open");
+    if (drawer) drawer.classList.remove("is-open");
+    document.body.classList.remove("ww-drawer-open");
+  }
+
+  function isGalleryTrigger(el) {
+    if (!el) return false;
+    if (el.closest('[data-ww-gallery-open], [name="View Full Gallery Button"]')) return true;
+    if (el.closest(".ww-element-" + GALLERY_BTN_UID)) return true;
+    var btn = el.closest("button, a");
+    if (btn && /view full gallery/i.test(btn.textContent || "")) return true;
+    return false;
+  }
+
+  function bindTriggers() {
+    document.addEventListener(
+      "click",
+      function (ev) {
+        if (isGalleryTrigger(ev.target)) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          ev.stopImmediatePropagation();
+          openDrawer();
+          return;
+        }
+
+        var slide = ev.target.closest(
+          '[name="Gallery Slider"], [name*="Gallery Slide Photo"], .ww-element-' + VENUE_SECTION_UID + ' img'
+        );
+        if (slide && !ev.target.closest("[class*='navigation'], [class*='pagination'], button")) {
+          ev.preventDefault();
+          openDrawer();
+        }
+      },
+      true
+    );
+
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape") closeDrawer();
+    });
+  }
+
+  function boot() {
+    bindTriggers();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+
+  window.wwOpenGalleryDrawer = openDrawer;
+  window.wwCloseGalleryDrawer = closeDrawer;
+})();
+
+</script>
+
+<script>
+(function wwHeroVideoReady() {
+  "use strict";
+  var ROOT_SEL = ".ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee";
+  var marked = false;
+
+  function markReady() {
+    if (marked) return;
+    marked = true;
+    document.documentElement.setAttribute("data-ww-hero-video-ready", "1");
+  }
+
+  function watch() {
+    var root = document.querySelector(ROOT_SEL);
+    if (!root) {
+      markReady();
+      return;
+    }
+    var iframe = root.querySelector("iframe");
+    if (!iframe) {
+      window.setTimeout(watch, 180);
+      return;
+    }
+    iframe.addEventListener("load", markReady, { once: true });
+    window.setTimeout(markReady, 2800);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", watch, { once: true });
+  } else {
+    watch();
+  }
+})();
+</script>
+
+<script>
+(function wwSiteBridge() {
+  "use strict";
+
+  var cfg = window.WW_SITE_CONFIG || {};
+  var FOOTER_UID = "1255087b-18e5-40e9-9ebf-5331b87c470e";
+  var SOCIAL_UID = "8ec0279f-29d5-4bad-a787-826510df5a0a";
+  var booted = false;
+  var finished = false;
+  var EMAIL = (cfg.email || "bookings@whisperingwoodsluxe.com").replace(/^mailto:/i, "");
+  var MAILTO = "mailto:" + EMAIL;
+  var TOUR_URL = cfg.tour_booking_url || "https://calendar.app.google/d3iGi3bVmyjSdxyn9";
+  var TERMS_URL = cfg.terms_url || "https://whisperingwoodsluxe.com/terms";
+  var PRIVACY_URL = cfg.privacy_url || "https://whisperingwoodsluxe.com/privacypolicy";
+  var TERMS_UID = "10284d25-dad2-419a-9b8a-f489e2b26835";
+  var PRIVACY_UID = "ed95f9ea-10f0-4d6d-a7f3-d0204bcc0c06";
+  var TOUR_RE = /book a tour|tour the grounds|^tour$/i;
+
+  function setEnv() {
+    var host = location.hostname || "";
+    var isProd =
+      host.indexOf("whisperingwoodsluxe.com") !== -1 ||
+      (host.indexOf("weweb.io") === -1 &&
+        host.indexOf("localhost") === -1 &&
+        host.indexOf("vercel.app") !== -1);
+    document.documentElement.setAttribute("data-ww-env", isProd ? "production" : "preview");
+  }
+
+  function cleanMailto(raw) {
+    var value = String(raw || "").trim();
+    while (/^mailto:/i.test(value)) {
+      value = value.replace(/^mailto:/i, "");
+    }
+    return value.replace(/^mailto:/i, "");
+  }
+
+  function sanitizeMailtoHrefs() {
+    document.querySelectorAll('a[href*="mailto"], a[to*="mailto"]').forEach(function (a) {
+      var href = a.getAttribute("href") || a.getAttribute("to") || "";
+      var email = cleanMailto(href);
+      if (!email) return;
+      var fixed = "mailto:" + email;
+      if (a.getAttribute("href") !== fixed) a.setAttribute("href", fixed);
+      if (a.hasAttribute("to") && a.getAttribute("to") !== fixed) a.setAttribute("to", fixed);
+    });
+  }
+
+  function wireMailtoClick() {
+    if (document.documentElement.dataset.wwMailtoDelegated) return;
+    document.documentElement.dataset.wwMailtoDelegated = "1";
+
+    document.addEventListener(
+      "click",
+      function (ev) {
+        var a = ev.target.closest('a[href*="mailto"], a[to*="mailto"]');
+        if (!a) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        window.location.href = MAILTO;
+      },
+      true
+    );
+  }
+
+  function wireTourDelegation() {
+    if (document.documentElement.dataset.wwTourDelegated) return;
+    document.documentElement.dataset.wwTourDelegated = "1";
+
+    document.addEventListener(
+      "click",
+      function (ev) {
+        var el = ev.target.closest("a, button");
+        if (!el) return;
+        var text = (el.textContent || "").trim();
+        if (!TOUR_RE.test(text)) return;
+        if (el.closest("#ww-sticky-nav") && !el.closest("#ww-sticky-nav.is-expanded")) return;
+        var href = el.getAttribute("href") || "";
+        if (href && href.indexOf("calendar.app.google") !== -1) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        window.open(TOUR_URL, "_blank", "noopener,noreferrer");
+      },
+      true
+    );
+  }
+
+  function linkFromTextEl(uid, url) {
+    var el = document.querySelector(".ww-element-" + uid);
+    if (!el) return;
+    var a = el.closest("a") || el.querySelector("a");
+    if (!a && el.tagName === "A") a = el;
+    if (!a) return;
+    a.setAttribute("href", url);
+    a.setAttribute("target", "_blank");
+    a.setAttribute("rel", "noopener noreferrer");
+  }
+
+  function fixFooterLegalLinks() {
+    linkFromTextEl(TERMS_UID, TERMS_URL);
+    linkFromTextEl(PRIVACY_UID, PRIVACY_URL);
+
+    document.querySelectorAll('a[href*="privacy"], a[href*="/terms"]').forEach(function (a) {
+      var href = (a.getAttribute("href") || "").toLowerCase();
+      var text = (a.textContent || "").trim().toLowerCase();
+      if (text.indexOf("privacy") !== -1) {
+        if (href !== PRIVACY_URL.toLowerCase()) a.setAttribute("href", PRIVACY_URL);
+        return;
+      }
+      if (text.indexOf("terms") !== -1) {
+        if (href !== TERMS_URL.toLowerCase()) a.setAttribute("href", TERMS_URL);
+        return;
+      }
+      if (href === "/privacy" || href.endsWith("/privacy/")) {
+        a.setAttribute("href", PRIVACY_URL);
+      }
+    });
+  }
+
+  function labelTrustLinks() {
+    if (document.documentElement.dataset.wwTrustLabeled) return;
+    var labeled = false;
+    var map = [
+      { match: /theknot\.com/i, label: "5.0 The Knot", stars: "5.0" },
+      { match: /facebook\.com/i, label: "Facebook", stars: "5.0" },
+      { match: /google\.com\/maps/i, label: "Google 4.9", stars: "4.9" },
+    ];
+
+    document.querySelectorAll("a").forEach(function (a) {
+      if (a.dataset.wwTrustLabeled) return;
+      var href = a.href || "";
+      var text = (a.textContent || "").trim();
+      if (!/^[0-9.]+$/.test(text) && text.length > 2) return;
+
+      for (var i = 0; i < map.length; i++) {
+        if (!map[i].match.test(href)) continue;
+        a.setAttribute("aria-label", map[i].label + " reviews");
+        a.title = map[i].label;
+        if (a.childElementCount === 0 || text.length <= 4) {
+          a.textContent = map[i].label;
+        }
+        a.classList.add("ww-trust-badge");
+        a.dataset.wwTrustLabeled = "1";
+        labeled = true;
+        break;
+      }
+    });
+
+    if (labeled) document.documentElement.dataset.wwTrustLabeled = "1";
+  }
+
+  function footerEl() {
+    return document.querySelector(".ww-element-" + FOOTER_UID);
+  }
+
+  function injectFooterReviews() {
+    var footer = footerEl();
+    if (!footer) return false;
+    if (footer.querySelector(".ww-footer-reviews")) return true;
+
+    var ratings = cfg.ratings || {};
+    var items = [ratings.knot, ratings.google, ratings.facebook].filter(function (r) {
+      return r && r.url;
+    });
+    if (!items.length) return true;
+
+    var nav = document.createElement("nav");
+    nav.className = "ww-footer-reviews";
+    nav.setAttribute("aria-label", "Guest reviews");
+
+    items.forEach(function (r) {
+      var a = document.createElement("a");
+      a.className = "ww-footer-reviews__link";
+      a.href = r.url;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.innerHTML =
+        '<span class="ww-footer-reviews__stars">' +
+        r.stars +
+        "</span> " +
+        (r.label || "Reviews");
+      nav.appendChild(a);
+    });
+
+    var social = footer.querySelector(".ww-element-" + SOCIAL_UID);
+    if (social && social.parentElement) {
+      social.parentElement.insertBefore(nav, social);
+    } else {
+      footer.appendChild(nav);
+    }
+    return true;
+  }
+
+  function injectFooterSeo() {
+    var footer = footerEl();
+    if (!footer) return false;
+    if (footer.querySelector(".ww-footer-seo")) return true;
+
+    var p = document.createElement("p");
+    p.className = "ww-footer-seo";
+    p.textContent =
+      "Private estate senior portraits on the same 40-acre Whispering Woods grounds — Class of 2027, limited roster.";
+    footer.appendChild(p);
+    return true;
+  }
+
+  function injectJsonLd() {
+    if (document.getElementById("ww-jsonld")) return;
+
+    var script = document.createElement("script");
+    script.id = "ww-jsonld";
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      name: "Whispering Woods Luxe",
+      description:
+        "Private estate senior portraits for the Class of 2027 on 40 acres at Whispering Woods Estate. All-inclusive estate day experience with optional heirloom keepsakes.",
+      url: "https://whisperingwoodsluxe.com/",
+      email: EMAIL,
+      areaServed: "Chicago North Shore, Barrington, Hinsdale, Naperville, Geneva, Illinois",
+    });
+    document.head.appendChild(script);
+  }
+
+  function runPass() {
+    if (finished) return;
+    setEnv();
+    sanitizeMailtoHrefs();
+    wireMailtoClick();
+    wireTourDelegation();
+    fixFooterLegalLinks();
+    labelTrustLinks();
+    injectJsonLd();
+
+    if (injectFooterReviews() && injectFooterSeo()) {
+      finished = true;
+    }
+  }
+
+  function boot() {
+    if (booted) return;
+    booted = true;
+    runPass();
+    [400, 1200, 2500].forEach(function (ms) {
+      window.setTimeout(function () {
+        sanitizeMailtoHrefs();
+        runPass();
+        if (ms >= 1200) finished = true;
+      }, ms);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+
+</script>
+
+<script>
+(function () {
+  "use strict";
+  function boot() {
+    document.documentElement.setAttribute("data-ww-head-version", "2026.09.15.v27");
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>

@@ -36,8 +36,14 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
     fi
   fi
 
-  # Commits not on origin/main yet (pre-push style)
-  if git rev-parse origin/main >/dev/null 2>&1; then
+  # Commits not on upstream yet (pre-push style). Prefer tracking branch (e.g. origin/luxe), not always main.
+  UPSTREAM_REF=""
+  if git rev-parse '@{u}' >/dev/null 2>&1; then
+    UPSTREAM_REF='@{u}'
+  elif git rev-parse origin/main >/dev/null 2>&1; then
+    UPSTREAM_REF='origin/main'
+  fi
+  if [[ -n "$UPSTREAM_REF" ]]; then
     while IFS= read -r line; do
       ae="${line%% |*}"
       an="${line#*| }"
@@ -49,7 +55,7 @@ if git rev-parse --git-dir >/dev/null 2>&1; then
         echo "FAIL: blocked email in unpushed history: $ae"
         FAIL=1
       fi
-    done < <(git log origin/main..HEAD --format='%ae | %an' 2>/dev/null || true)
+    done < <(git log "$UPSTREAM_REF"..HEAD --format='%ae | %an' 2>/dev/null || true)
   fi
 fi
 

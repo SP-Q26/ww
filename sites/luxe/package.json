@@ -1,0 +1,6 @@
+{
+  "name": "wwluxe-vercel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static heirloom checkout + legal + /api/wwluxe (no WeWeb Vite build)"
+}

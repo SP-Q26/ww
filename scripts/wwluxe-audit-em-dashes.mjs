@@ -20,7 +20,7 @@ const fix = args.includes('--fix');
 const dirArg = args.find((a) => a.startsWith('--dir='));
 const targetDir = path.resolve(
   ROOT,
-  dirArg ? dirArg.slice('--dir='.length) : 'docs/whispering-woods-luxe'
+  dirArg ? dirArg.slice('--dir='.length) : 'docs/luxe'
 );
 
 /** Heuristic replacements for markdown / copy blocks (review --fix diffs). */

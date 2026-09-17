@@ -1,6 +1,20 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "",
+  "buildCommand": "",
+  "framework": null,
   "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/heirloom/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/keepsakes/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/order/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/terms/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/privacypolicy/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/privacy-policy/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/heirloom", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/heirloom/", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/keepsakes", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/keepsakes/", "destination": "/whispering-woods-luxe/order/index.html" },
     { "source": "/order", "destination": "/whispering-woods-luxe/order/index.html" },
     { "source": "/order/", "destination": "/whispering-woods-luxe/order/index.html" },
     { "source": "/terms", "destination": "/whispering-woods-luxe/terms/index.html" },
@@ -8,6 +22,8 @@
     { "source": "/privacypolicy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
     { "source": "/privacypolicy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
     { "source": "/privacy-policy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
-    { "source": "/privacy-policy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" }
+    { "source": "/privacy-policy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/booked", "destination": "/whispering-woods-luxe/booked/index.html" },
+    { "source": "/booked/", "destination": "/whispering-woods-luxe/booked/index.html" }
   ]
 }

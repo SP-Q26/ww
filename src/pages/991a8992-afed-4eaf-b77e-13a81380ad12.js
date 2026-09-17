@@ -12,7 +12,6 @@ import element_9ecb2cfc_cef7_4be8_b736_3e17a3b7e9ff from "@weweb-internal/ext-el
 import element_aa29a661_07ce_484e_8abb_456186211282 from "@weweb-internal/ext-element-aa29a661-07ce-484e-8abb-456186211282";
 import element_b783dc65_d528_4f74_8c14_e27c934c39b1 from "@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1";
 import element_c6c0c00e_49fd_4cb9_bd78_5bc09945721e from "@weweb-internal/ext-element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e";
-import element_cf63c911_3951_4ab7_ba8f_37e7fa30e09d from "@weweb-internal/ext-element-cf63c911-3951-4ab7-ba8f-37e7fa30e09d";
 import element_d7904e9d_fc9a_4d80_9e32_728e097879ad from "@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad";
 import element_deb10a01_5eef_4aa1_9017_1b51c2ad6fd0 from "@weweb-internal/ext-element-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0";
 
@@ -95,12 +94,6 @@ export default async function registerPageComponents(app) {
         "type": "element"
     },
     {
-        "baseId": "cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
-        "importPath": "@weweb-internal/ext-element-cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
-        "name": "wwobject-cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
-        "type": "element"
-    },
-    {
         "baseId": "d7904e9d-fc9a-4d80-9e32-728e097879ad",
         "importPath": "@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad",
         "name": "wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad",
@@ -133,7 +126,6 @@ app.component("wwobject-9ecb2cfc-cef7-4be8-b736-3e17a3b7e9ff", element_9ecb2cfc_
 app.component("wwobject-aa29a661-07ce-484e-8abb-456186211282", element_aa29a661_07ce_484e_8abb_456186211282);
 app.component("wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1", element_b783dc65_d528_4f74_8c14_e27c934c39b1);
 app.component("wwobject-c6c0c00e-49fd-4cb9-bd78-5bc09945721e", element_c6c0c00e_49fd_4cb9_bd78_5bc09945721e);
-app.component("wwobject-cf63c911-3951-4ab7-ba8f-37e7fa30e09d", element_cf63c911_3951_4ab7_ba8f_37e7fa30e09d);
 app.component("wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad", element_d7904e9d_fc9a_4d80_9e32_728e097879ad);
 app.component("wwobject-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0", element_deb10a01_5eef_4aa1_9017_1b51c2ad6fd0);
 

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="179" height="179" role="img" aria-hidden="true">
+  <g transform="translate(80 80)">
+    <circle r="58" fill="none" stroke="#C6A15B" stroke-width="1.4" stroke-opacity="0.28" stroke-dasharray="72 292" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="1.35s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="52" fill="none" stroke="#7B8E7A" stroke-width="1" stroke-opacity="0.18" stroke-dasharray="40 287" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" from="360" to="0" dur="2.1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g transform="translate(80 118)">
+    <circle cx="0" cy="0" r="2.2" fill="#C27A59" opacity="0">
+      <animate attributeName="opacity" values="0;0.85;0.7" keyTimes="0;0.15;1" dur="1.2s" fill="freeze"/>
+    </circle>
+    <path d="M0 0 L0 -42" fill="none" stroke="#7B8E7A" stroke-width="2.8" stroke-linecap="round" stroke-dasharray="48" stroke-dashoffset="48">
+      <animate attributeName="stroke-dashoffset" values="48;0" dur="0.55s" begin="0.08s" fill="freeze"/>
+    </path>
+    <path d="M0 -28 C-14 -32 -22 -40 -26 -52" fill="none" stroke="#C6A15B" stroke-width="2" stroke-linecap="round" stroke-dasharray="36" stroke-dashoffset="36">
+      <animate attributeName="stroke-dashoffset" values="36;0" dur="0.42s" begin="0.38s" fill="freeze"/>
+    </path>
+    <path d="M0 -30 C12 -34 20 -42 24 -54" fill="none" stroke="#C6A15B" stroke-width="2" stroke-linecap="round" stroke-dasharray="36" stroke-dashoffset="36">
+      <animate attributeName="stroke-dashoffset" values="36;0" dur="0.42s" begin="0.45s" fill="freeze"/>
+    </path>
+    <path d="M0 -42 C-8 -52 -10 -62 -8 -72" fill="none" stroke="#7B8E7A" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="34" stroke-dashoffset="34">
+      <animate attributeName="stroke-dashoffset" values="34;0" dur="0.38s" begin="0.58s" fill="freeze"/>
+    </path>
+    <path d="M0 -44 C9 -54 12 -64 10 -74" fill="none" stroke="#7B8E7A" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="34" stroke-dashoffset="34">
+      <animate attributeName="stroke-dashoffset" values="34;0" dur="0.38s" begin="0.64s" fill="freeze"/>
+    </path>
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.4s" begin="0.78s" fill="freeze"/>
+      <animateTransform attributeName="transform" type="scale" from="0.5" to="1" dur="0.5s" begin="0.78s" fill="freeze"/>
+      <ellipse cx="-18" cy="-58" rx="7" ry="11" fill="#7B8E7A" transform="rotate(-28 -18 -58)" opacity="0.92"/>
+      <ellipse cx="20" cy="-60" rx="7" ry="11" fill="#7B8E7A" transform="rotate(24 20 -60)" opacity="0.92"/>
+      <ellipse cx="-8" cy="-78" rx="6" ry="10" fill="#C6A15B" transform="rotate(-12 -8 -78)" opacity="0.88"/>
+      <ellipse cx="12" cy="-80" rx="6" ry="10" fill="#C6A15B" transform="rotate(16 12 -80)" opacity="0.88"/>
+    </g>
+    <circle cx="0" cy="-88" r="5.5" fill="none" stroke="#C6A15B" stroke-width="1.6" opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.3s" begin="0.95s" fill="freeze"/>
+      <animate attributeName="r" values="2;5.5" dur="0.35s" begin="0.95s" fill="freeze"/>
+    </circle>
+    <circle cx="0" cy="-88" r="2.5" fill="#FDFBF7" opacity="0">
+      <animate attributeName="opacity" values="0;0.9" dur="0.25s" begin="1.05s" fill="freeze"/>
+    </circle>
+  </g>
+</svg>

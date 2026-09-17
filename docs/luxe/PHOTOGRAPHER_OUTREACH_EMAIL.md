@@ -2,110 +2,85 @@
 
 **Use:** Direct invite · you researched them · no application form  
 **Date:** Saturday **October 18, 2026** · Harvard, IL  
-**Attach:** `PHOTOGRAPHER_DAY_RATE_SOW.pdf`
+**Attach:** `PHOTOGRAPHER_DAY_RATE_SOW.pdf`  
+**Updated:** 2026-09-14 · three **zone leads** · **$950** + **$50 fuel** (**$1,000** all-in) · JPEG or RAW handoff
 
 ---
 
-## Subject lines
+## Subject line
 
-**Lead:** `WWLuxe · Oct 18 lead photographer · top-rated wedding estate · Harvard, IL`  
-**Zone:** `WWLuxe · Oct 18 zone photographer · top-rated wedding estate · Harvard, IL`
+`You're invited · Zone lead photographer · Oct 18 · Whispering Woods · Harvard, IL`
 
 ---
 
-## Email body
+## Email body (send this)
 
 ```
 Hi [Name],
 
-We’re building the photo crew for The Estate Senior Experience — a one-day senior portrait production at Whispering Woods in Harvard, IL, one of the top-rated wedding venues in the country. We’re reaching out to you directly because we want shooters who will be most creative when shooting is all they have to worry about.
+I’m reaching out because we’re building the photo crew for something we’ve never done quite this way before — and your work is exactly the kind of artistic variety we want on set.
 
-Clarity first: capture-only. No post. No client sales. HMU, scheduling, golf carts, and a dedicated assistant for you for the day are on us. You focus on the shots. We handle everything else. Fed on property. Zero bullshit.
+On Sunday, October 18, 2026, Whispering Woods in Harvard, IL hosts our Mother-Daughter Senior Experience: a full production day for 24 seniors on our private estate — ponds, woodland, barn, and the Chalet — with professional HMU, mocktails, golf-cart logistics, and a fed crew. It’s meant to feel fun, stunning, challenging, and new: a proper professional shoot in a place couples already trust for the biggest day of their lives. I hope you’ll join us.
 
-THE DAY · SATURDAY, OCTOBER 18, 2026
-• Arrive by 8:55 AM — estate may still be in turnover (cleaners); we’ll place you when zones are ready
-• 9:10 AM — team meeting (zones · tether · golden board)
-• 10:00 AM — HMU starts · Chalet opens (3 salon chairs · 40 min glam + fashion consult)
-• ~10:50 AM — first seniors to zones (morning wave)
-• 12:30–1:30 PM — lunch window (crew meal + client mocktail ceremony · morning wave rolling sendoffs)
-• Two-wave day: morning carousel through ~2:40 PM · afternoon wave golden push 4:50–6:15 PM
-• 4:50 PM — Zone 2 indoor wardrobe closes (outdoor/tent through golden)
-• 7:00 PM — hard out · USB verified · crew release
+We’re hiring three photographers as zone leads — same role, same respect, same day rate. Each of you owns one primary backdrop zone for the day; seniors rotate through all three, so every family receives three distinct looks and three perspectives woven into one cohesive album. Whispering Woods is your commercial client. We handle culling, color grading, album design, client communication, payments, and delivery. You show up, connect with the girls (and moms when the flow brings them to your set), shoot beautifully, and hand off files before you leave. No editing backlog. No client admin. No selling.
 
-FLOW
-• 24 seniors · two waves of 12 · codename on call sheet (Firstname-Codename)
-• Morning (S01–S12): full carousel — Z3 → Z2 indoor wardrobe (2×7 min changes) → Z1 + Mom walk → sendoff
-• Afternoon (S13–S24): indoor prep 3:30–4:50 (wardrobe + tether Look 1) → GOLDEN SPRINT 4:50–6:15 all outdoor
-• 4:50 PM: Z2 indoor wardrobe CLOSES — outdoor tent + mom sprint only through golden
-• ~12 min in your zone per senior (+ 10–15 min Mom Milestone on lead · dedicated outdoor spots)
+Day anchors (detailed call sheet to follow):
+· Crew on property by 8:30 AM · photographers on set by 8:55 AM · team huddle
+· HMU starts 9:50 AM · zones rolling shortly after
+· Golden-hour push late afternoon · hard out by 7:00 PM
 
-ZONE ASSIGNMENTS
-• Zone 3 — zone shooter ($800) · Look 1 · **fully untethered** (estate movement)
-• Zone 2 — zone shooter ($800) · wardrobe hub · Look 2 **indoor bay** (we provide **wireless** to **projector room** live view · PA runs laptop — you shoot, no cable)
-• Zone 1 — **lead** ($1,000) · Look 3 · **Mom Milestone / mom sprint** finale (10–15 min · pre-mapped walks)
+What you can count on from us:
+· $950 day rate + $50 fuel at check-in (**$1,000** all-in; all three zone leads equal)
+· Full catered lunch, snacks, coffee, water, and mocktails on property
+· A dedicated assistant at your station all day — schedule, reflectors, bags, keeping you moving
+· Behind-the-scenes photos of you on set, for your own website, social, and profiles (we’ll share selects; tag us when you post — it only helps both of us)
 
-GOLDEN HOUR (4:50–6:15 PM)
-All three photogs shoot outdoor non-stop. Target 4–5 seniors each across the block. Afternoon wave gets the hero light — this is the marketing window for spring/fall 2027. Rain = moody barn/porch same board.
+Your station: you’ll work one assigned zone while subjects rotate to you — roughly 15–20 minutes of shooting per senior in your zone (wardrobe time is built into the hub station; we’ll walk the full flow at the morning huddle). Rain or shine, we pivot and keep the line moving.
 
-YOUR ROLE
-[LEAD — $1,000/day · ZONE 1]
-• Look 3 + **Mom Milestone** at dedicated outdoor spots (~10–15 min per senior with mom)
-• Bring portable lighting for your zone
-• Crew quality bar · folder standard on drives · no tether duty
+End-of-day handoff:
+· High-resolution JPEG or RAW — your choice. Fine JPEG is completely fine if that’s your workflow; we’d rather have a fast, clean transfer than a midnight card dump.
+· USB 3.0+ (or agreed encrypted transfer) same day before departure
+· One folder per senior: YYYY-MM-DD_Firstname-Codename_Zone# (codenames on our call sheet)
+· Please don’t format cards until we confirm the copy
 
-[ZONE — $800/day · ZONE 2 OR ZONE 3]
-• Zone 2: indoor wardrobe hub until 4:50 · Look 2 · then outdoor L2 in golden sprint
-• Zone 2: Look 2 indoor bay · wireless feed to Chalet (PA runs laptop · you stay mobile in the bay)
-• Zone 3: Look 1 · no tether — movement on the estate
-• Assistant handles reflectors, cards, bags
+Social: use any of your images for portfolio and marketing — tag and credit Whispering Woods / WWLuxe when you share. We want you proud and loud out there.
 
-GEAR
-We provide: reflectors/V-flats · rain-day lighting in barn + projector room · one assistant per photographer.
+Payment: 50% due seven calendar days before October 18; 50% after we verify your handoff drive.
 
-You bring: full-frame body (backup or fast card workflow strongly recommended) · 24–70 and/or 70–200 · batteries/cards for up to 24 sessions in your zone.
+If this sounds like your kind of day, reply and let me know that October 18 works and that these terms work for you. I’ll send a simple one-page Independent Contractor Agreement and payment details to make it official.
 
-Rain or shine. Some of the best images on this property have been rainy and overcast days — we pivot to indoor editorial zones when we need to, and we keep moving.
+Any questions on gear, backdrops, or timing — I’m here. Thank you for considering it. October 18 is going to be a fantastic day on the property.
 
-PAY
-• 50% due 7 calendar days before October 18
-• 50% after USB handoff and we confirm files copied clear
+Warmly,
 
-DELIVERY
-• USB 3.0+ · RAW · same day
-• Folders: YYYY-MM-DD_Firstname-Codename_Zone# (codename on our call sheet)
-• Do not format cards before we verify the copy
-
-USAGE & BTS
-• Tags/credit welcome on finished, retouched selects we release — not on RAWs or unculled files
-• Short BTS for your reel on property is fine if it doesn’t slow the line
-
-REPEAT CREW
-Strong performers get first call for Spring and Fall 2027 estate senior days.
-
-If you’re in, reply with: (1) lead or zone · (2) Oct 18 hold confirmed · (3) any gear notes for lead lighting or wireless compatibility (Z2 bay).
-
-One contact for the day. We’ll send the one-page SOW to sign.
-
-[Producer name]
-[Phone]
-[Email]
-Whispering Woods Luxe
+AJ Nichols
+Whispering Woods Events LLC
+whisperingwoodsevents.com
+[Your phone] · [Your email]
 ```
+
+**Attach:** `PHOTOGRAPHER_DAY_RATE_SOW.pdf`
 
 ---
 
-## Internal · day math (Oct 18)
+## Internal · day anchors (Oct 18)
 
-See **`OCT_18_RUN_OF_DAY.md`**.
+See **`OCT_18_RUN_OF_DAY.md`** (update HMU to **9:50** when call sheet prints).
 
-- **Arrive 8:55** · **9:10 meeting** · **HMU 10:00** · **first Z3 ~10:50**
-- **Lunch 12:30–1:30** · **golden 4:50–6:15** · **Z2 indoor off 4:50** · **hard out 7:00**
-- Zone 2 wardrobe (2×7 min changes) is the bottleneck — hit pacing targets or the line slips.
+| Anchor | Time |
+|--------|------|
+| Crew on property | **8:30 AM** |
+| Photographers on set | **8:55 AM** |
+| HMU starts | **9:50 AM** |
+| Golden push | **4:50–6:15 PM** (per run-of-day) |
+| Hard out | **7:00 PM** |
+
+**Crew budget (photo · Oct 18 · contracted):** 3 × **$1,000** = **$3,000** · **~$700** internal flex (unallocated — not promised to crew)
 
 ---
 
 ## DM shorten
 
 ```
-Oct 18 · Whispering Woods · arrive 8:55 · 9:10 mtg · HMU 10 · zones ~10:50 · golden 4:50–6:15 · hard out 7 · 24 seniors · assistant · capture only · zone $800 lead $1k · 50% T-7 · 50% after drive. Email sent — reply if in.
+Oct 18 · WW · zone lead $1000 · photogs 8:55 · HMU 9:50 · out 7 · assistant · chef boards · JPEG or RAW · social+tag OK · BTS provided. Email sent — reply if in.
 ```

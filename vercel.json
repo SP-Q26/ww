@@ -1,0 +1,35 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm ci",
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "outputDirectory": "dist",
+  "framework": null,
+  "git": {
+    "deploymentEnabled": {
+      "luxe": true
+    }
+  },
+  "redirects": [
+    { "source": "/home", "destination": "/", "permanent": false },
+    { "source": "/home/", "destination": "/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/heirloom/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/keepsakes/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/order/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/terms/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/privacypolicy/assets/:path*", "destination": "/whispering-woods-luxe/assets/:path*" },
+    { "source": "/heirloom", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/heirloom/", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/keepsakes", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/keepsakes/", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/order", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/order/", "destination": "/whispering-woods-luxe/order/index.html" },
+    { "source": "/terms", "destination": "/whispering-woods-luxe/terms/index.html" },
+    { "source": "/terms/", "destination": "/whispering-woods-luxe/terms/index.html" },
+    { "source": "/privacypolicy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/privacypolicy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/privacy-policy", "destination": "/whispering-woods-luxe/privacypolicy/index.html" },
+    { "source": "/privacy-policy/", "destination": "/whispering-woods-luxe/privacypolicy/index.html" }
+  ]
+}

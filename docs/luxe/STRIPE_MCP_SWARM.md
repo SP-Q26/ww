@@ -22,8 +22,8 @@
 
 | Flow | Entry | Backend today | Stripe mode |
 |------|--------|---------------|-------------|
-| Estate book | WeWeb modal → Xano | Xano workflows → Stripe Session | **$710** deposit · `WWL-DEPOSIT-710` |
-| Estate balance | Xano scheduled (~T-10) | Xano | **$710** · `WWL-ESTATE-BALANCE-710` |
+| Estate book | WeWeb modal → Xano | Xano workflows → Stripe Session | **Always** **`WWL-DEPOSIT-710`** ($710 non-refundable) + **`WWL-ESTATE-BALANCE-710`** when paying in full at book, or balance at T−10 · optional **`WWL-CHALET-PREORDER-1420`** · **`BOOKING_MODAL_PAYMENT_PLANS.md`** · `lib/mmi/estate-checkout-lines.mjs` |
+| Estate balance | Xano **T−10** email + charge | Xano | **$710** · `WWL-ESTATE-BALANCE-710` (deposit path only) · Chalet pre-order last call same email |
 | Keepsakes / Chalet | `/order` → `POST /api/wwluxe/keepsake-checkout` | Vercel serverless | `price_data` + `metadata.wwluxe_sku` per line |
 
 **Law:** Do not restructure `wf_booking_form_submit` — only swap API URLs / Stripe price IDs in Xano after catalog exists.
@@ -96,7 +96,7 @@ Run with **Stripe MCP** on the new account (test mode first, then live).
 
 For each SKU:
 
-1. **Product** `name` = Display name · `description` = Description column · `metadata`: `{ "wwluxe_sku": "<Internal SKU>" }`.
+1. **Product** `name` = Display name · `description` = Description column · `metadata`: use `productMetadata()` from `lib/mmi/stripe-metadata.mjs` (`mmi_*` + legacy `wwluxe_sku`). See `docs/MMI_STRIPE_METADATA_SCHEMA.md`.
 2. **Price** one-time USD · `unit_amount` = cents column · same `metadata.wwluxe_sku` on price (optional but helps reporting).
 3. Paste IDs back into §1 table · commit IDs to operator sheet (not necessarily git if using env-only price IDs later).
 

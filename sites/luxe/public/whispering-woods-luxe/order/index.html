@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="description" content="Design your Whispering Woods Luxe heirloom collection at published estate retail. Reserve at your pace from the Chalet table. Same portrait team from estate day to album." />
   <title>Design Your Collection · Whispering Woods Luxe</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="../assets/wwluxe-shared.css" />
+  <link rel="icon" href="/heirloom/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/heirloom/assets/wwluxe-shared.css" />
   <script>
     window.WWLUXE_CONFIG = {
       termsUrl: "https://whisperingwoodsluxe.com/terms",
@@ -18,11 +18,18 @@
   </script>
 </head>
 <body>
+  <div class="wwl-splash" id="wwl-splash" aria-busy="true" aria-label="Loading collection">
+    <img class="wwl-splash__tree" src="/heirloom/assets/heirloom-splash-tree.svg" width="179" height="179" alt="" />
+    <p class="wwl-splash__text">Opening the atelier…</p>
+  </div>
   <div class="wwl-wrap">
     <header class="wwl-hero">
       <div class="wwl-top">
         <p class="wwl-hero__sub">The Estate Senior Experience</p>
-        <a class="wwl-link" id="back-home" href="https://whisperingwoodsluxe.com/">← Estate site</a>
+        <div class="wwl-top__actions">
+          <button type="button" class="wwl-reset-btn" id="reset-session" title="Clear selections and form for the next family">Start fresh</button>
+          <a class="wwl-link" id="back-home" href="https://whisperingwoodsluxe.com/">← Estate site</a>
+        </div>
       </div>
       <div class="wwl-brand">Whispering Woods <em>Luxe</em></div>
     </header>
@@ -33,11 +40,13 @@
       <div class="wwl-step" data-step-label="3">3 · Reserve</div>
     </div>
 
+    <p class="wwl-trust" role="note">Keepsakes are optional · published prices always</p>
+
     <div class="wwl-intro">
       <p class="wwl-eyebrow">Chalet atelier</p>
       <h1 id="page-title">Design your collection</h1>
       <p class="wwl-intro__lede">Reserve your heirlooms</p>
-      <p class="wwl-intro__body">Published estate retail · no reveal-room surprises. Keepsakes are optional. Take your time.</p>
+      <p class="wwl-intro__body">Published market retail on every piece · no reveal-room surprises. Nothing here is required for your estate day.</p>
       <p class="wwl-cover__intro" id="intro-mode-note">You have seen the albums and papers at the Chalet table. When you are ready, curate your once-in-a-lifetime collection here. We refine every detail together in a relaxed design consult after you reserve.</p>
       <div class="wwl-cart-preview wwl-hidden" id="cart-preview" aria-live="polite"></div>
       <p class="wwl-mode-quiet" id="mode-quiet-wrap">
@@ -50,7 +59,7 @@
       Reservation received. Stripe will email your receipt shortly. Our studio will follow up with your Chalet design consult and next steps.
     </div>
     <div class="wwl-banner wwl-hidden" id="banner-checkout-cancel" role="status">
-      Checkout paused. Your collection is saved on this device. Continue whenever you are ready.
+      Checkout paused. Your collection is saved on this device until you tap <strong>Start fresh</strong> for the next family.
     </div>
     <div class="wwl-banner wwl-hidden" id="banner-draft-restored" role="status">
       Welcome back. We restored your collection draft on this device.
@@ -69,13 +78,14 @@
           <div class="wwl-grid">
             <article class="wwl-product" data-product="chalet" data-section="preorder">
               <button type="button" class="wwl-product__head" aria-expanded="false">
-                <span class="wwl-product__chev" aria-hidden="true">▾</span>
+                <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-book-bookmark"></use></svg></span>
                 <div class="wwl-product__main">
                   <span class="wwl-badge">Reservation window · closes 7 days before estate day</span>
                   <h3>Chalet Collection</h3>
                   <p class="tagline">Heirloom album · digital gallery · framed print 20×24</p>
                 </div>
                 <div class="wwl-product__price"><small>$1,775</small>$1,420</div>
+                <span class="wwl-product__chev" aria-hidden="true">▾</span>
               </button>
               <div class="wwl-product__body">
                 <div class="wwl-product__inner">
@@ -101,12 +111,13 @@
           <div class="wwl-grid wwl-grid--2">
             <article class="wwl-product" data-product="album" data-section="alacarte">
               <button type="button" class="wwl-product__head" aria-expanded="false">
-                <span class="wwl-product__chev">▾</span>
+                <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-book-open"></use></svg></span>
                 <div class="wwl-product__main">
                   <h3>Heirloom Album 10×10</h3>
                   <p class="tagline">15 spreads included · layflat · semi-matte</p>
                 </div>
                 <div class="wwl-product__price">$955</div>
+                <span class="wwl-product__chev" aria-hidden="true">▾</span>
               </button>
               <div class="wwl-product__body">
                 <div class="wwl-product__inner">
@@ -126,12 +137,13 @@
 
             <article class="wwl-product" data-product="digital" data-section="alacarte">
               <button type="button" class="wwl-product__head" aria-expanded="false">
-                <span class="wwl-product__chev">▾</span>
+                <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-cloud"></use></svg></span>
                 <div class="wwl-product__main">
                   <h3>Digital Gallery</h3>
                   <p class="tagline">Full-res · private link · print release</p>
                 </div>
                 <div class="wwl-product__price">$395</div>
+                <span class="wwl-product__chev" aria-hidden="true">▾</span>
               </button>
               <div class="wwl-product__body">
                 <div class="wwl-product__inner">
@@ -151,12 +163,13 @@
 
             <article class="wwl-product" data-product="frame" data-section="alacarte">
               <button type="button" class="wwl-product__head" aria-expanded="false">
-                <span class="wwl-product__chev">▾</span>
+                <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-frame"></use></svg></span>
                 <div class="wwl-product__main">
                   <h3>Framed Print 20×24</h3>
                   <p class="tagline">Archival · ready to hang</p>
                 </div>
                 <div class="wwl-product__price">$425</div>
+                <span class="wwl-product__chev" aria-hidden="true">▾</span>
               </button>
               <div class="wwl-product__body">
                 <div class="wwl-product__inner">
@@ -179,12 +192,13 @@
         <div class="wwl-grid wwl-grid--2" id="section-addons">
           <article class="wwl-product" data-product="retouch" data-section="addons">
             <button type="button" class="wwl-product__head" aria-expanded="false">
-              <span class="wwl-product__chev">▾</span>
+              <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-paint-brush"></use></svg></span>
               <div class="wwl-product__main">
                 <h3>Extra Retouches</h3>
                 <p class="tagline">Up to 7 additional images · not in Chalet bundle</p>
               </div>
               <div class="wwl-product__price">$195</div>
+              <span class="wwl-product__chev" aria-hidden="true">▾</span>
             </button>
             <div class="wwl-product__body">
               <div class="wwl-product__inner">
@@ -202,12 +216,13 @@
 
           <article class="wwl-product" data-product="fineart" data-section="addons">
             <button type="button" class="wwl-product__head" aria-expanded="false">
-              <span class="wwl-product__chev">▾</span>
+              <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-flower-tulip"></use></svg></span>
               <div class="wwl-product__main">
                 <h3>Fine Art Paper</h3>
                 <p class="tagline">Museum-grade upgrade</p>
               </div>
               <div class="wwl-product__price">+$395</div>
+              <span class="wwl-product__chev" aria-hidden="true">▾</span>
             </button>
             <div class="wwl-product__body">
               <div class="wwl-product__inner">
@@ -225,12 +240,13 @@
 
           <article class="wwl-product" data-product="mini" data-section="addons">
             <button type="button" class="wwl-product__head" aria-expanded="false">
-              <span class="wwl-product__chev">▾</span>
+              <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-hand"></use></svg></span>
               <div class="wwl-product__main">
                 <h3>Parent Mini 6×6</h3>
                 <p class="tagline">Mom &amp; daughter keepsake</p>
               </div>
               <div class="wwl-product__price">$345</div>
+              <span class="wwl-product__chev" aria-hidden="true">▾</span>
             </button>
             <div class="wwl-product__body">
               <div class="wwl-product__inner">
@@ -248,12 +264,13 @@
 
           <article class="wwl-product wwl-grid--full" data-product="spreads" data-section="addons" style="grid-column:1/-1;">
             <button type="button" class="wwl-product__head" aria-expanded="false">
-              <span class="wwl-product__chev">▾</span>
+              <span class="wwl-medallion" aria-hidden="true"><svg class="wwl-medallion__icon"><use href="/heirloom/assets/wwluxe-medallion-icons.svg#wwl-icon-spreads"></use></svg></span>
               <div class="wwl-product__main">
                 <h3>Extra Album Spreads</h3>
                 <p class="tagline">15 included · $55 each or 5 for $255</p>
               </div>
               <div class="wwl-product__price" id="spread-price-hint">—</div>
+              <span class="wwl-product__chev" aria-hidden="true">▾</span>
             </button>
             <div class="wwl-product__body">
               <div class="wwl-product__inner">
@@ -356,7 +373,7 @@
       <div class="wwl-paybar__inner">
         <div class="wwl-paybar__total">
           <strong id="total-amount-main">$0</strong>
-          <span id="total-sub-main">Curate your collection to begin</span>
+          <span id="total-sub-main">Keepsakes are optional · published prices always</span>
         </div>
         <button type="button" class="wwl-btn wwl-btn--gold" id="pay-btn-main" disabled>
           <span id="pay-btn-label-main">Review collection</span>
@@ -371,6 +388,6 @@
       <a href="mailto:bookings@whisperingwoodsluxe.com">bookings@whisperingwoodsluxe.com</a>
     </footer>
   </div>
-  <script src="../assets/wwluxe-order.js" defer></script>
+  <script src="/heirloom/assets/wwluxe-order.js" defer></script>
 </body>
 </html>

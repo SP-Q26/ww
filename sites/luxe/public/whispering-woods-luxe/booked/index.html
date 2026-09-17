@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f3ede4" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Whispering Woods Luxe estate reservation confirmation." />
+  <title>Reservation received · Whispering Woods Luxe</title>
+  <link rel="icon" href="/heirloom/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/heirloom/assets/wwluxe-shared.css" />
+</head>
+<body class="wwl-confirm-page">
+  <main class="wwl-confirm" id="wwl-confirm" aria-live="polite">
+    <div class="wwl-confirm__tree-wrap" aria-hidden="true">
+      <img class="wwl-confirm__tree" src="/heirloom/assets/heirloom-splash-tree.svg" width="179" height="179" alt="" />
+    </div>
+
+    <p class="wwl-confirm__eyebrow" id="confirm-eyebrow">Whispering Woods Luxe</p>
+    <h1 class="wwl-confirm__title" id="confirm-title">Payment received</h1>
+    <p class="wwl-confirm__lede" id="confirm-lede">Your estate reservation is confirmed.</p>
+
+    <div class="wwl-confirm__card">
+      <p class="wwl-confirm__body" id="confirm-body">
+        Stripe will email your receipt shortly. Our studio will send your booking summary, estate day details, and what to expect next — usually within one business day.
+      </p>
+      <p class="wwl-confirm__ref wwl-hidden" id="confirm-ref" hidden></p>
+    </div>
+
+    <p class="wwl-confirm__quiet" id="confirm-quiet">
+      No further action is needed on this screen. If something looks wrong, reply to your receipt email or write
+      <a class="wwl-confirm__mail" href="mailto:bookings@whisperingwoodsluxe.com">bookings@whisperingwoodsluxe.com</a>.
+    </p>
+
+    <a class="wwl-btn wwl-btn--gold wwl-confirm__home" id="confirm-home" href="https://whisperingwoodsluxe.com/">Return to the estate site</a>
+  </main>
+
+  <script>
+    (function () {
+      var q = new URLSearchParams(window.location.search);
+      var ref = (q.get("ref") || "").trim();
+      var cancelled =
+        q.get("cancelled") === "1" ||
+        q.get("booked") === "0" ||
+        q.get("balance_paid") === "0";
+      var balanceOk = q.get("balance_paid") === "1";
+
+      var title = document.getElementById("confirm-title");
+      var lede = document.getElementById("confirm-lede");
+      var body = document.getElementById("confirm-body");
+      var refEl = document.getElementById("confirm-ref");
+      var quiet = document.getElementById("confirm-quiet");
+      var eyebrow = document.getElementById("confirm-eyebrow");
+
+      if (cancelled) {
+        document.title = "Checkout paused · Whispering Woods Luxe";
+        title.textContent = "Checkout paused";
+        lede.textContent = "Your spot is not reserved yet.";
+        body.textContent =
+          "You left before payment finished. When you are ready, open Secure my spot again from the estate site — we will walk you through the same calm checkout.";
+        quiet.textContent = "Questions? We are here at bookings@whisperingwoodsluxe.com.";
+        quiet.innerHTML =
+          'Questions? Write <a class="wwl-confirm__mail" href="mailto:bookings@whisperingwoodsluxe.com">bookings@whisperingwoodsluxe.com</a>.';
+        eyebrow.textContent = "Whispering Woods Luxe";
+        return;
+      }
+
+      if (balanceOk) {
+        title.textContent = "Balance received";
+        lede.textContent = "Your estate experience is paid in full.";
+        body.textContent =
+          "Stripe will email your receipt. We will confirm any final estate day details by email — nothing else to do here.";
+      }
+
+      if (ref) {
+        refEl.textContent = "Reference · " + ref;
+        refEl.hidden = false;
+        refEl.classList.remove("wwl-hidden");
+      }
+    })();
+  </script>
+</body>
+</html>

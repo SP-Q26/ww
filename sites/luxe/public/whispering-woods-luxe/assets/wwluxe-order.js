@@ -5,6 +5,43 @@
 (function () {
   "use strict";
 
+  var SPLASH_MIN_MS = 2200;
+  var splashStarted = Date.now();
+
+  function initSplash() {
+    var splash = document.getElementById("wwl-splash");
+    if (!splash) return;
+    document.body.classList.add("wwl-splash-active");
+    var reduced =
+      window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var minMs = reduced ? 400 : SPLASH_MIN_MS;
+
+    function dismiss() {
+      var elapsed = Date.now() - splashStarted;
+      var wait = Math.max(0, minMs - elapsed);
+      window.setTimeout(function () {
+        splash.classList.add("is-out");
+        splash.setAttribute("aria-busy", "false");
+        document.body.classList.remove("wwl-splash-active");
+        window.setTimeout(function () {
+          if (splash.parentNode) splash.parentNode.removeChild(splash);
+        }, 600);
+      }, wait);
+    }
+
+    if (document.readyState === "complete") {
+      dismiss();
+    } else {
+      window.addEventListener("load", dismiss, { once: true });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSplash);
+  } else {
+    initSplash();
+  }
+
   var SPREAD_UNIT = 55;
   var SPREAD_BUNDLE = { qty: 5, price: 255 };
   var MAX_SPREADS = 10;
@@ -50,7 +87,7 @@
     return {
       chalet: {
         sku: "WWL-CHALET-PREORDER-1420",
-        label: "Chalet Collection · estate reservation",
+        label: "Chalet Collection · Pre-order only",
         price: 1420
       },
       album: { sku: "WWL-ALBUM-HEIRLOOM-955", label: "Heirloom Album 10×10", price: 955 },
@@ -216,6 +253,71 @@
     }
   }
 
+  var EMPTY_SUB_COPY = "Keepsakes are optional · published prices always";
+
+  function hideTransientBanners() {
+    [
+      "banner-checkout-success",
+      "banner-checkout-cancel",
+      "banner-draft-restored",
+      "banner-addons"
+    ].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.add("wwl-hidden");
+    });
+  }
+
+  function clearContactFields() {
+    ["#name", "#email", "#senior", "#ref", "#notes"].forEach(function (sel) {
+      var el = $(sel);
+      if (el) el.value = "";
+    });
+    var terms = $("#terms-accept");
+    if (terms) terms.checked = false;
+  }
+
+  function resetSessionForNextGuest() {
+    var kiosk = document.body.classList.contains("kiosk");
+    if (
+      !kiosk &&
+      !window.confirm(
+        "Clear all selections and form fields on this device for the next family?"
+      )
+    ) {
+      return;
+    }
+    clearDraft();
+    hideTransientBanners();
+    var urlMode = new URLSearchParams(window.location.search).get("mode");
+    state.step = 1;
+    state.chalet = false;
+    state.items = {};
+    state.spreadsSelected = false;
+    state.spreads = 0;
+    state.cover = "leather";
+    state.expanded = null;
+    state.contact = {};
+    clearContactFields();
+    if (urlMode === "addons") {
+      setMode("addons");
+    } else {
+      state.mode = "preorder";
+      var introNote = $("#intro-mode-note");
+      if (introNote) {
+        introNote.textContent =
+          "You have seen the albums and papers at the Chalet table. When you are ready, curate your once-in-a-lifetime collection here. We refine every detail together in a relaxed design consult after you reserve.";
+      }
+      var addonsBanner = $("#banner-addons");
+      if (addonsBanner) addonsBanner.classList.add("wwl-hidden");
+      syncModeLinks();
+      updatePageContext();
+      applySectionVisibility();
+    }
+    updatePreorderWindow();
+    setStep(1);
+    render();
+  }
+
   function updatePreorderWindow() {
     var days = daysUntilEvent();
     if (days !== null && days <= PREORDER_CLOSE_DAYS) {
@@ -370,8 +472,8 @@
     }).length;
     var sub =
       paidCount === 0
-        ? "Curate your collection to begin"
-        : paidCount + " piece" + (paidCount > 1 ? "s" : "") + " selected";
+        ? EMPTY_SUB_COPY
+        : paidCount + " piece" + (paidCount > 1 ? "s" : "") + " · published prices";
     ["#total-sub-main"].forEach(function (sel) {
       var el = $(sel);
       if (el) el.textContent = sub;
@@ -624,8 +726,8 @@
       total_cents: data.total * 100,
       terms_version: "2026-09-09",
       source: document.body.classList.contains("kiosk") ? "chalet_kiosk" : "order_web",
-      success_url: origin + "/order?checkout=success&session_id={CHECKOUT_SESSION_ID}",
-      cancel_url: origin + "/order?checkout=cancelled"
+      success_url: origin + "/heirloom?checkout=success&session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: origin + "/heirloom?checkout=cancelled"
     };
   }
 
@@ -751,6 +853,10 @@
       backReview.addEventListener("click", function () {
         if (state.step > 1) setStep(state.step - 1);
       });
+    }
+    var resetBtn = $("#reset-session");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", resetSessionForNextGuest);
     }
     if (state.mode === "addons") {
       setMode("addons");

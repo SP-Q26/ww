@@ -4,6 +4,9 @@
 
 ---
 
+**Schema:** `docs/luxe/XANO_SCHEMA.md` (WWL-prefixed tables · batch API law)  
+**Tax:** `docs/luxe/STRIPE_TAX_WYOMING.md` · env `WWLUXE_TAX_*_JSON` · `lib/mmi/stripe-checkout-tax-lines.mjs`
+
 ## Surfaces
 
 | Flow | URL | Backend |

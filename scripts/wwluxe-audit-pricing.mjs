@@ -3,13 +3,13 @@
  * Fail CI / pre-publish if stale WWLuxe pricing or customer-facing lab names remain.
  * Usage: node scripts/wwluxe-audit-pricing.mjs
  */
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
 const SCAN_DIRS = [
-  join(ROOT, "docs/whispering-woods-luxe"),
-  join(ROOT, "public/docs/whispering-woods-luxe"),
+  join(ROOT, "docs/luxe"),
+  join(ROOT, "public/docs/luxe"),
   join(ROOT, "public/whispering-woods-luxe"),
 ];
 
@@ -40,6 +40,7 @@ function walk(dir, files = []) {
 let failures = 0;
 
 for (const dir of SCAN_DIRS) {
+  if (!existsSync(dir)) continue;
   for (const file of walk(dir)) {
     const rel = relative(ROOT, file);
     const text = readFileSync(file, "utf8");
