@@ -7,6 +7,8 @@ import {
   MMI_STATEMENT_SUFFIX,
   wwluxeKeepsakeSessionMetadata,
 } from "../../lib/mmi/stripe-metadata.mjs";
+import { stripeCheckoutAutomaticTaxParams } from "../../lib/mmi/wwl-tax-locations.mjs";
+import { WWLUXE_SKU_TAX } from "../../lib/mmi/stripe-product-tax.mjs";
 
 function flattenParams(obj, prefix = "") {
   const out = [];
@@ -108,7 +110,24 @@ export default async function handler(req, res) {
 
   let lineItems;
   try {
-    lineItems = body.lines.map(lineItemFromPayloadRow);
+    lineItems = body.lines.map((row) => {
+      const item = lineItemFromPayloadRow(row);
+      const tax = WWLUXE_SKU_TAX[row.sku];
+      const withTax = {
+        ...item,
+        tax_behavior: "exclusive",
+      };
+      if (tax?.tax_code) {
+        withTax.price_data = {
+          ...item.price_data,
+          product_data: {
+            ...item.price_data.product_data,
+            tax_code: tax.tax_code,
+          },
+        };
+      }
+      return withTax;
+    });
   } catch (err) {
     return res.status(400).json({ error: err.message || "invalid_line" });
   }
@@ -124,6 +143,7 @@ export default async function handler(req, res) {
       applyCheckoutDiscountOptions({
         mode: "payment",
         line_items: lineItems,
+        ...stripeCheckoutAutomaticTaxParams(),
         success_url: successUrl,
         cancel_url: cancelUrl,
         customer_email: contact.email,
@@ -145,7 +165,6 @@ export default async function handler(req, res) {
               "Thank you. Your heirloom collection is in motion. We will reach out shortly with next steps from the Chalet atelier.",
           },
         },
-        billing_address_collection: "auto",
         phone_number_collection: { enabled: true },
       })
     );
