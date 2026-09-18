@@ -34,8 +34,7 @@ After any change to production branch:
 |----------|----------|--------|
 | `STRIPE_SECRET_KEY` | **Yes** (heirloom `/api/wwluxe/keepsake-checkout`) | MMI live `sk_live_…` (same account as `STRIPE_IDS_LIVE.md`) |
 | `WWLUXE_SITE_ORIGIN` | **Recommended** | `https://whisperingwoodsluxe.com` (Stripe return URLs on heirloom) |
-| `WWLUXE_ALLOW_PROMOTION_CODES` | **Optional · operator smoke** | `true` on **Vercel** (heirloom) **and Xano** (estate `wwl/book`) — Checkout shows “Add promotion code”; you enter a **live** Stripe promotion code. **Unset** before moms book. |
-| `WWLUXE_SMOKE_COUPON_ID` | Legacy | Auto-applies coupon id (no promo field). Prefer `WWLUXE_ALLOW_PROMOTION_CODES` + Dashboard promo code. |
+| `WWLUXE_ALLOW_PROMOTION_CODES` | **Optional · operator smoke** | `true` on **Vercel** + **Xano** — Checkout promo field only. **Do not** use `WWLUXE_SMOKE_COUPON_ID` (Stripe rejects `discounts` + `allow_promotion_codes`). Unset before launch. |
 
 **Estate book is Xano-only** for Stripe session create — Vercel env alone does not affect the booking modal.
 

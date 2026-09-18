@@ -5,6 +5,7 @@
 // Paid seat (deposit_paid / paid_in_full) is webhook-only (06). Abandoned checkout stays pending until ops or checkout.session.expired release.
 // Line law: lib/mmi/estate-checkout-lines.mjs (deposit always; full adds balance; optional Chalet)
 // If Xano rejects dynamic line_items keys, see PASTE_ORDER.md (unroll four branches).
+// Paste v2.6 · operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true only (promo field at Checkout). Never send discounts + allow_promotion_codes together.
 
 query "wwl/book" verb=POST {
   api_group = "wwl_ops"
@@ -293,7 +294,7 @@ query "wwl/book" verb=POST {
       }
     }
 
-    // Operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true → Stripe Checkout promo field (you type the code). Unset before public launch.
+    // Operator smoke only: WWLUXE_ALLOW_PROMOTION_CODES=true → promo field (Method B). Unset env + re-paste before launch. Do not set WWLUXE_SMOKE_COUPON_ID (conflicts with Stripe).
     var $promo_codes_on {
       value = (($env.WWLUXE_ALLOW_PROMOTION_CODES|to_text|to_lower) == "true") || (($env.WWLUXE_ALLOW_PROMOTION_CODES|to_text) == "1")
     }
@@ -302,21 +303,6 @@ query "wwl/book" verb=POST {
       if ($promo_codes_on) {
         var.update $stripe_params {
           value = $stripe_params|set:"allow_promotion_codes":"true"
-        }
-      }
-    }
-
-    // Legacy auto-coupon (only if promo field off): WWLUXE_SMOKE_COUPON_ID = Stripe coupon id.
-    var $smoke_coupon {
-      value = ($env.WWLUXE_SMOKE_COUPON_ID|to_text|trim)
-    }
-
-    conditional {
-      if (($promo_codes_on == false) && ($smoke_coupon != "")) {
-        var.update $stripe_params {
-          value = $stripe_params
-            |set:"discounts[0][coupon]":$smoke_coupon
-            |set:"allow_promotion_codes":"false"
         }
       }
     }

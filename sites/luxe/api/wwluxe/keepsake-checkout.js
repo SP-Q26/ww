@@ -68,20 +68,14 @@ function parseBody(req) {
   return body;
 }
 
-/** Operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true → Checkout promo field (estate + heirloom). */
+/** Operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true → Checkout promo field only (no discounts param). */
 function applyCheckoutDiscountOptions(sessionParams) {
   const promoOn = /^(1|true|yes)$/i.test(
     String(process.env.WWLUXE_ALLOW_PROMOTION_CODES || "").trim()
   );
   if (promoOn) {
     sessionParams.allow_promotion_codes = true;
-    return sessionParams;
   }
-  const smokeCoupon = String(process.env.WWLUXE_SMOKE_COUPON_ID || "").trim();
-  if (smokeCoupon) {
-    sessionParams.discounts = [{ coupon: smokeCoupon }];
-  }
-  sessionParams.allow_promotion_codes = false;
   return sessionParams;
 }
 

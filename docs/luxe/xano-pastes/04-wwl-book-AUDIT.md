@@ -24,6 +24,7 @@ The failing live log (`req_JwqToEAdRj9Lue`) is **`invalid_request_error`**: `cus
 | `shipping_address_collection` | US | Tangible / tax ship-to |
 | `automatic_tax[enabled]` | `true` | Stripe Tax calculates; CPA configures registrations in Dashboard |
 | `line_items[n][price]` | from `wwl_stripe_sku` | Live `price_…` when `WWL_STRIPE_SECRET_KEY` is `sk_live_…` |
+| `allow_promotion_codes` | when `WWLUXE_ALLOW_PROMOTION_CODES=true` | Operator smoke · type promotion code at Checkout · unset before launch |
 | `success_url` / `cancel_url` | input or `WWL_PUBLIC_ORIGIN` + `/booked` | Default success uses **`slot_ref\|url_encode`** (· in ref) |
 | **Do not send** | `customer_update` | Requires `customer=cus_…` |
 
@@ -42,6 +43,7 @@ Paid roster state: webhook **`06`** only (`deposit_paid` / `paid_in_full`).
 |----------|------|
 | `WWL_STRIPE_SECRET_KEY` | `sk_test_…` or `sk_live_…` — must match `price_` rows |
 | `WWL_PUBLIC_ORIGIN` | Default return URLs (`https://whisperingwoodsluxe.com` or Vercel preview) |
+| `WWLUXE_SMOKE_COUPON_ID` | *(operator)* live Stripe **coupon** id → auto discount on Checkout (paste **v2.5+**) |
 
 Webhook / `whsec_` does **not** affect opening Checkout.
 
