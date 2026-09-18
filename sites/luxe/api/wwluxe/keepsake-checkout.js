@@ -1,14 +1,14 @@
 import {
   lineItemFromPayloadRow,
   siteOriginFromRequest,
-} from "../../lib/wwluxe/stripe-catalog.mjs";
+} from "../../sites/luxe/lib/wwluxe/stripe-catalog.mjs";
 import {
   MMI_BRANDS,
   MMI_STATEMENT_SUFFIX,
   wwluxeKeepsakeSessionMetadata,
-} from "../../../../lib/mmi/stripe-metadata.mjs";
-import { stripeCheckoutAutomaticTaxParams } from "../../../../lib/mmi/wwl-tax-locations.mjs";
-import { WWLUXE_SKU_TAX } from "../../../../lib/mmi/stripe-product-tax.mjs";
+} from "../../lib/mmi/stripe-metadata.mjs";
+import { stripeCheckoutAutomaticTaxParams } from "../../lib/mmi/wwl-tax-locations.mjs";
+import { WWLUXE_SKU_TAX } from "../../lib/mmi/stripe-product-tax.mjs";
 
 function flattenParams(obj, prefix = "") {
   const out = [];
