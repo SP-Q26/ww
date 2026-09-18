@@ -4,3 +4,12 @@
 .vercel
 node_modules
 *.log
+
+# WeWeb GitHub publish junk (never commit — git owns sites/luxe static legal)
+/index.html
+/terms/
+/privacypolicy/
+/privacy/
+/features/
+.tmp-mcp-*.json
+.tmp-privacy-ww-source.json

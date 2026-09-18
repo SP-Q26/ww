@@ -1,8 +1,10 @@
-# WeWeb → GitHub → `main` (WW monorepo)
+# WeWeb → GitHub → `luxe` → `main` (WW monorepo)
 
-**Same law as SPQ `weweb-export` → `main`:** WeWeb publishes with the **logged-in operator email**. GitHub **“Block command line pushes that expose my email”** should stay **ON** — WeWeb’s server push will often **fail (GH007)**. That is expected.
+**Same law as SPQ:** WeWeb publishes with the **logged-in operator email**. GitHub **“Block command line pushes that expose my email”** should stay **ON**.
 
-**You always clean up commit metadata locally**, then push as **S.P. + noreply**.
+**Luxe WWL:** point WeWeb GitHub integration at branch **`luxe`** (not `main`). WeWeb may push there with operator email; **never** treat `origin/luxe` as production.
+
+**Production:** operator merges export onto **`main`** with **S.P. + noreply** only (`scripts/merge-luxe-export-to-main.sh`).
 
 ---
 
@@ -23,36 +25,41 @@ Connecting WeWeb to `SP-Q26/ww` is **optional**. If you do, treat every WeWeb Gi
 
 ---
 
-## Operator flow (after WeWeb “Publish to GitHub”)
+## Operator flow (after WeWeb “Publish to GitHub” → **`luxe`**)
 
 1. **Leave** GitHub email privacy block enabled.
-2. **Fetch** whatever WeWeb managed to push (or merge export locally if push failed):
+2. **Fetch** WeWeb’s push:
    ```bash
    cd ~/ww
    git fetch origin
-   git checkout main   # or merge WeWeb branch if you use one
-   git pull --rebase origin main
+   git log -1 origin/luxe --format='%ae %s'   # expect operator email — OK on luxe only
    ```
-3. **Rewrite authors** on commits since `origin/main`:
+3. **Merge export onto main** (resolve export conflicts; restore postbuild bridge):
    ```bash
-   ./scripts/cleanup-git-authors-after-weweb.sh
+   ./scripts/merge-luxe-export-to-main.sh
    ```
-4. **Verify** (also runs on pre-commit if hooks enabled):
+   Add git-owned files (`sites/luxe/public/…` legal v1.3, `docs/luxe/canvas/hero-splash-tree.svg`, etc.). **Do not** add root `/features/`, `/terms/`, `index.html` (gitignored junk).
+4. **Commit on `main`** with noreply author (squash is fine):
+   ```bash
+   git reset --soft origin/main   # optional: one commit, drops WeWeb authors from main history
+   git add -A
+   git commit -m "Ship WeWeb export vNN on main …"
+   ```
+5. **Verify** and **push main only**:
    ```bash
    ./scripts/verify-git-identity.sh
+   git push origin main
    ```
-5. **Push** (force-with-lease only if you rewrote already-pushed commits):
-   ```bash
-   ./scripts/push-main-after-cleanup.sh
-   ```
-   Or manually: `git push --force-with-lease origin main`
+
+If WeWeb ever pushed to `main` by mistake, use `./scripts/cleanup-git-authors-after-weweb.sh` then `./scripts/push-main-after-cleanup.sh` (force-with-lease).
 
 ---
 
 ## One-liner (agent / operator)
 
 ```bash
-cd ~/ww && git fetch origin && ./scripts/cleanup-git-authors-after-weweb.sh origin/main && ./scripts/push-main-after-cleanup.sh
+cd ~/ww && git fetch origin && ./scripts/merge-luxe-export-to-main.sh
+# then commit + verify-git-identity.sh + git push origin main
 ```
 
 ---

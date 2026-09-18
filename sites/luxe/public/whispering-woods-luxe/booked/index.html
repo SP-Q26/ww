@@ -10,6 +10,10 @@
   <link rel="icon" href="/heirloom/assets/favicon.png" type="image/png" sizes="512x512" />
   <link rel="apple-touch-icon" href="/heirloom/assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="/heirloom/assets/wwluxe-shared.css" />
+  <script>
+    window.WWL_META_PIXEL_ID = "2254112335167924";
+  </script>
+  <script src="/heirloom/assets/wwl-meta-pixel.js" defer></script>
 </head>
 <body class="wwl-confirm-page">
   <main class="wwl-confirm" id="wwl-confirm" aria-live="polite" aria-busy="true">
@@ -85,6 +89,17 @@
         refEl.textContent = "Reference · " + ref;
         refEl.hidden = false;
         refEl.classList.remove("wwl-hidden");
+      }
+
+      if (!cancelled && typeof window.wwlMetaPurchase === "function") {
+        var paidFull = q.get("paid") === "full";
+        try {
+          window.wwlMetaPurchase({
+            value: paidFull ? 1420 : 710,
+            currency: "USD",
+            content_name: paidFull ? "Estate experience (paid in full)" : "Estate retainer",
+          });
+        } catch (e) {}
       }
 
       function revealContent() {

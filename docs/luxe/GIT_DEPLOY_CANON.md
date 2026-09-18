@@ -2,15 +2,25 @@
 
 **Repo:** `SP-Q26/ww` (`~/ww`)
 
-## One branch: `main`
+## Two git branches by design: `luxe` (WeWeb) → `main` (production)
 
 | Step | Owner |
 |------|--------|
-| WeWeb publish → GitHub | **WeWeb** → branch **`main`** (default; email / GitHub integration expectations) |
+| WeWeb publish → GitHub | **`luxe`** only — WeWeb signs commits with the **operator login email** (GH007 if you aimed at `main`) |
+| Operator merge | **`main`** — squash or merge export from `origin/luxe`, **S.P. + noreply** author only |
 | Vercel production build | **`main`** @ repo root (`.`) |
 | Heirloom slice + APIs | `sites/luxe/` merged in **`postbuild`** / `scripts/vercel-build.sh` — not a separate deploy repo |
 
-**Do not** maintain a parallel **`luxe`** git branch for day-to-day Luxe work. Preview vs production is **WeWeb preview** vs **Vercel** (`luxe-omega.vercel.app` / custom domain), not two git branches.
+WeWeb **must not** push directly to **`main`**. Keep GitHub **“Block command line pushes that expose my email”** on. After each publish:
+
+```bash
+cd ~/ww
+./scripts/merge-luxe-export-to-main.sh
+# commit on main (noreply), restore sites/luxe legal if needed
+./scripts/verify-git-identity.sh && git push origin main
+```
+
+See `docs/WEWEB_GITHUB_PUBLISH.md`. Ignore WeWeb root junk via `.gitignore` (`/features/`, `/terms/`, root `index.html`, etc.).
 
 ## Vercel project `luxe` (dashboard) — **use this one**
 
@@ -54,22 +64,19 @@ After env change: **Redeploy** production (or wait for next `main` push).
 ## Operator loop
 
 ```text
-WeWeb publish to GitHub (main)
+WeWeb publish → GitHub (branch luxe)
+  → merge-luxe-export-to-main.sh + noreply commit on main
   → Vercel auto-builds main
-  → smoke PREVIEW_HOST=https://luxe-omega.vercel.app bash sites/luxe/scripts/smoke-luxe-swarm.sh
+  → SMOKE_PROD=1 bash sites/luxe/scripts/smoke-paths.sh
 ```
 
-## Legacy branch `luxe`
+## Branch `luxe` (WeWeb sink)
 
-If `origin/luxe` still exists from an old experiment, either delete it on GitHub or fast-forward it to `main` once:
+`origin/luxe` is the **intended** WeWeb publish target. **`origin/main`** is canonical for Vercel and identity. Optional after a main push:
 
 ```bash
-cd ~/ww
-git fetch origin
-git push origin main:refs/heads/luxe   # optional mirror; safe if luxe is abandoned
+git push origin main:refs/heads/luxe   # mirror tip for WeWeb diff only; not required
 ```
-
-Canonical tip is always **`origin/main`**.
 
 ## Identity
 
