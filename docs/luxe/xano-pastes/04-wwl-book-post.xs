@@ -293,13 +293,26 @@ query "wwl/book" verb=POST {
       }
     }
 
-    // Operator live smoke only: Xano env WWLUXE_SMOKE_COUPON_ID = Stripe coupon id (not promo code). Remove after test.
+    // Operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true → Stripe Checkout promo field (you type the code). Unset before public launch.
+    var $promo_codes_on {
+      value = (($env.WWLUXE_ALLOW_PROMOTION_CODES|to_text|to_lower) == "true") || (($env.WWLUXE_ALLOW_PROMOTION_CODES|to_text) == "1")
+    }
+
+    conditional {
+      if ($promo_codes_on) {
+        var.update $stripe_params {
+          value = $stripe_params|set:"allow_promotion_codes":"true"
+        }
+      }
+    }
+
+    // Legacy auto-coupon (only if promo field off): WWLUXE_SMOKE_COUPON_ID = Stripe coupon id.
     var $smoke_coupon {
       value = ($env.WWLUXE_SMOKE_COUPON_ID|to_text|trim)
     }
 
     conditional {
-      if ($smoke_coupon != "") {
+      if (($promo_codes_on == false) && ($smoke_coupon != "")) {
         var.update $stripe_params {
           value = $stripe_params
             |set:"discounts[0][coupon]":$smoke_coupon

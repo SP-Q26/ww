@@ -68,8 +68,15 @@ function parseBody(req) {
   return body;
 }
 
-/** Operator-only live smoke: set WWLUXE_SMOKE_COUPON_ID on Vercel, then remove. No promo code field for moms. */
+/** Operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true → Checkout promo field (estate + heirloom). */
 function applyCheckoutDiscountOptions(sessionParams) {
+  const promoOn = /^(1|true|yes)$/i.test(
+    String(process.env.WWLUXE_ALLOW_PROMOTION_CODES || "").trim()
+  );
+  if (promoOn) {
+    sessionParams.allow_promotion_codes = true;
+    return sessionParams;
+  }
   const smokeCoupon = String(process.env.WWLUXE_SMOKE_COUPON_ID || "").trim();
   if (smokeCoupon) {
     sessionParams.discounts = [{ coupon: smokeCoupon }];

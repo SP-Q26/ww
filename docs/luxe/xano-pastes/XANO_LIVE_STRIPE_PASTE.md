@@ -35,7 +35,7 @@ Xano → **Settings → Environment variables** (ops API group).
 | `WWL_STRIPE_SECRET_KEY` | Your MMI **`sk_live_…`** (Developers → API keys, Live mode) |
 | `WWL_STRIPE_WEBHOOK_SECRET` | Live **`whsec_…`** after you create the live webhook (see below) |
 | `WWL_PUBLIC_ORIGIN` | Pre-DNS smoke: `https://luxe-omega.vercel.app` · production: `https://whisperingwoodsluxe.com` |
-| `WWLUXE_SMOKE_COUPON_ID` | **Operator only** · live Stripe **Coupon** id (Dashboard → Products → Coupons → id, not customer-facing code). Re-paste `04-wwl-book-post.xs` so `discounts[0][coupon]` is sent. **Remove** after live smoke. |
+| `WWLUXE_ALLOW_PROMOTION_CODES` | **`true`** for operator smoke · re-paste `04-wwl-book-post.xs` · enter your live **Promotion code** at Checkout · **unset** before launch |
 
 Leave `WWL_OPS_API_KEY` / `WWL_CRON_SECRET` as you already run them (unchanged for Stripe flip).
 

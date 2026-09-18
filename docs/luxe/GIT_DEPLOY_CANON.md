@@ -34,9 +34,10 @@ After any change to production branch:
 |----------|----------|--------|
 | `STRIPE_SECRET_KEY` | **Yes** (heirloom `/api/wwluxe/keepsake-checkout`) | MMI live `sk_live_…` (same account as `STRIPE_IDS_LIVE.md`) |
 | `WWLUXE_SITE_ORIGIN` | **Recommended** | `https://whisperingwoodsluxe.com` (Stripe return URLs on heirloom) |
-| `WWLUXE_SMOKE_COUPON_ID` | **Optional · operator only · remove after smoke** | Stripe **coupon id** — auto-applied on **Vercel** `/heirloom` only unless also set in **Xano** (estate `wwl/book`). Unset everywhere before moms book. |
+| `WWLUXE_ALLOW_PROMOTION_CODES` | **Optional · operator smoke** | `true` on **Vercel** (heirloom) **and Xano** (estate `wwl/book`) — Checkout shows “Add promotion code”; you enter a **live** Stripe promotion code. **Unset** before moms book. |
+| `WWLUXE_SMOKE_COUPON_ID` | Legacy | Auto-applies coupon id (no promo field). Prefer `WWLUXE_ALLOW_PROMOTION_CODES` + Dashboard promo code. |
 
-**Not on Vercel:** estate modal book uses **Xano** `WWL_STRIPE_SECRET_KEY` + `WWL_PUBLIC_ORIGIN` — set **`WWLUXE_SMOKE_COUPON_ID` in Xano too** for live estate smoke (deposit + Chalet cart).
+**Estate book is Xano-only** for Stripe session create — Vercel env alone does not affect the booking modal.
 
 After env change: **Redeploy** production (or wait for next `main` push).
 

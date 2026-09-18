@@ -15,7 +15,7 @@
 | `WWL_CRON_SECRET` | `wwl/schedule/t10` | You generate — see below |
 | `WWL_TAX_WY_ORIGIN_JSON` | *(optional)* Stripe Tax origin | One-line JSON · WY HQ |
 | `WWL_TAX_IL_PERFORMANCE_JSON` | *(optional)* IL estate performance | One-line JSON · Harvard, IL |
-| `WWLUXE_SMOKE_COUPON_ID` | *(operator only)* `wwl/book` live smoke | Stripe **Coupon** id · requires `04` smoke block · **unset** before public booking |
+| `WWLUXE_ALLOW_PROMOTION_CODES` | *(operator smoke)* `wwl/book` | `true` → Checkout promo field · create code in Stripe Dashboard · **unset** before launch |
 
 Pastes read these as `$env.WWL_STRIPE_SECRET_KEY`, `$env.WWL_OPS_API_KEY`, etc.
 
