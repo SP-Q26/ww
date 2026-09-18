@@ -112,6 +112,8 @@ query "wwl/schedule/t10" verb=POST {
               |set:"metadata[slot_ref]":$slot_ref
               |set:"metadata[estate_payment_type]":"deposit"
               |set:"automatic_tax[enabled]":"true"
+              |set:"billing_address_collection":"required"
+              |set:"shipping_address_collection[allowed_countries][0]":"US"
           } as $stripe_raw
 
           var $stripe_body {
