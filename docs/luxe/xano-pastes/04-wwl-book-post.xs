@@ -293,6 +293,21 @@ query "wwl/book" verb=POST {
       }
     }
 
+    // Operator live smoke only: Xano env WWLUXE_SMOKE_COUPON_ID = Stripe coupon id (not promo code). Remove after test.
+    var $smoke_coupon {
+      value = ($env.WWLUXE_SMOKE_COUPON_ID|to_text|trim)
+    }
+
+    conditional {
+      if ($smoke_coupon != "") {
+        var.update $stripe_params {
+          value = $stripe_params
+            |set:"discounts[0][coupon]":$smoke_coupon
+            |set:"allow_promotion_codes":"false"
+        }
+      }
+    }
+
     api.request {
       url = "https://api.stripe.com/v1/checkout/sessions"
       method = "POST"
