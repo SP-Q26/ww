@@ -5,7 +5,7 @@
 // Paid seat (deposit_paid / paid_in_full) is webhook-only (06). Abandoned checkout stays pending until ops or checkout.session.expired release.
 // Line law: lib/mmi/estate-checkout-lines.mjs (deposit always; full adds balance; optional Chalet)
 // If Xano rejects dynamic line_items keys, see PASTE_ORDER.md (unroll four branches).
-// Paste v2.6 · operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true only (promo field at Checkout). Never send discounts + allow_promotion_codes together.
+// Paste v2.7 · receipt: payment_intent_data[receipt_email] + Dashboard Customer emails → Successful payments ON.
 
 query "wwl/book" verb=POST {
   api_group = "wwl_ops"
@@ -250,6 +250,7 @@ query "wwl/book" verb=POST {
         |set:"success_url":$success_url
         |set:"cancel_url":$cancel_url
         |set:"customer_email":($input.parent_email|to_text|trim)
+        |set:"payment_intent_data[receipt_email]":($input.parent_email|to_text|trim)
         |set:"metadata[mmi_brand]":"wwluxe"
         |set:"metadata[mmi_lane]":"wwluxe_estate_booking"
         |set:"metadata[mmi_event_key]":$event_key

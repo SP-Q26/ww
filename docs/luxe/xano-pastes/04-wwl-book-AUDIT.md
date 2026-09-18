@@ -20,6 +20,7 @@ The failing live log (`req_JwqToEAdRj9Lue`) is **`invalid_request_error`**: `cus
 |-------|--------|--------|
 | `mode` | `payment` | |
 | `customer_email` | parent email | Guest checkout — **no** `customer` id |
+| `payment_intent_data[receipt_email]` | parent email | Stripe receipt email target (also enable **Settings → Customer emails → Successful payments**) |
 | `billing_address_collection` | `required` | Address for **automatic_tax** (replaces `customer_update`) |
 | `shipping_address_collection` | US | Tangible / tax ship-to |
 | `automatic_tax[enabled]` | `true` | Stripe Tax calculates; CPA configures registrations in Dashboard |
@@ -43,7 +44,7 @@ Paid roster state: webhook **`06`** only (`deposit_paid` / `paid_in_full`).
 |----------|------|
 | `WWL_STRIPE_SECRET_KEY` | `sk_test_…` or `sk_live_…` — must match `price_` rows |
 | `WWL_PUBLIC_ORIGIN` | Default return URLs (`https://whisperingwoodsluxe.com` or Vercel preview) |
-| `WWLUXE_SMOKE_COUPON_ID` | *(operator)* live Stripe **coupon** id → auto discount on Checkout (paste **v2.5+**) |
+| `WWLUXE_ALLOW_PROMOTION_CODES` | `true` for operator smoke (paste **v2.6+**) · **remove** `WWLUXE_SMOKE_COUPON_ID` if set |
 
 Webhook / `whsec_` does **not** affect opening Checkout.
 

@@ -724,7 +724,7 @@
           return { sku: r.sku, label: r.label, amount_cents: r.price * 100 };
         }),
       total_cents: data.total * 100,
-      terms_version: "2026-09-09",
+      terms_version: "2026-09-18",
       source: document.body.classList.contains("kiosk") ? "chalet_kiosk" : "order_web",
       success_url: origin + "/heirloom?checkout=success&session_id={CHECKOUT_SESSION_ID}",
       cancel_url: origin + "/heirloom?checkout=cancelled"

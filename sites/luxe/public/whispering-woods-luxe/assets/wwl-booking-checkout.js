@@ -9,7 +9,7 @@
   'use strict';
 
   var XANO_BOOK = 'https://xfog-zdyr-rbyx.n7e.xano.io/api:E6ai6f3e/wwl/book';
-  var TOS_VERSION = '2026-09-09';
+  var TOS_VERSION = '2026-09-18';
   var SESSION_CODE = '01-Fall';
 
   var VAR_TOS = 'cf11c98d-0535-4846-b38f-cde7c2a851b1';

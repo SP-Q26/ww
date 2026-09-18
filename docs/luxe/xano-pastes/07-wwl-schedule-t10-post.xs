@@ -101,6 +101,7 @@ query "wwl/schedule/t10" verb=POST {
             params = {}
               |set:"mode":"payment"
               |set:"customer_email":$email
+              |set:"payment_intent_data[receipt_email]":$email
               |set:"success_url":("https://whisperingwoodsluxe.com/booked?balance_paid=1&ref=" ~ $slot_ref)
               |set:"cancel_url":"https://whisperingwoodsluxe.com/booked?cancelled=1"
               |set:"line_items[0][price]":$balance_price
