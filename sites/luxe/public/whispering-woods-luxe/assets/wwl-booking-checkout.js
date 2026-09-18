@@ -1,6 +1,9 @@
 /**
  * WW Luxe · Tour Booking Modal → Xano wwl/book → Stripe Checkout
- * Mirror: docs/luxe/paste/wwl-booking-checkout-active.js
+ * Pattern: SPQ custom-code/index-stripe-payment-active.js
+ *
+ * WeWeb wf_booking_form_submit → custom-js:
+ *   return await wwlBookingSubmitCheckout(event, context);
  */
 (function (global) {
   'use strict';
@@ -26,6 +29,7 @@
     return String(v == null ? '' : v).trim();
   }
 
+  // Component modal vars (e.g. bookingSubmitted) live on context.component — not project variables.
   var COMPONENT_VAR_IDS = {
     '5998463a-9be2-4fd0-be63-75a4c5af9377': true,
     'cf11c98d-0535-4846-b38f-cde7c2a851b1': true,
@@ -165,6 +169,7 @@
 
   global.wwlBookingSubmitCheckout = wwlBookingSubmitCheckout;
 
+  // Home pill + modal counter — project variable 4e60cc52… (not component scope)
   var ROSTER_OPEN_VAR = '4e60cc52-8513-4e93-b3b8-af02bf2305b2';
   var ROSTER_URL =
     'https://xfog-zdyr-rbyx.n7e.xano.io/api:E6ai6f3e/wwl/roster?session_code=' +

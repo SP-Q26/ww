@@ -1,12 +1,14 @@
 # Vercel MCP · setup + audit
 
-## MCP status in Cursor (2026-09-17 re-check)
+## MCP status in Cursor (2026-09-17 evening re-check)
 
 | Check | Result |
 |-------|--------|
 | Namespace `plugin-vercel-vercel` | **Ready** (tools load) |
-| `list_teams` | **Empty** — session not scoped to a Vercel team |
+| `mcp_auth` | **Called** — plugin reports authenticated |
+| `list_teams` | **Still empty** — OAuth scope not bound to a team in this session |
 | `get_git_deployment_context` | **Empty teams** — same auth gap |
+| `list_projects` (`team_HqMoC6Iyl5J5qMn9YmR6pJRL`) | **Failed to list projects** |
 | `get_project` (`luxe` / `prj_zYZT3zKw07mQmYGdXY8e5DARl8z3`, team `spq`) | **403** — re-auth to scope **spq** |
 | `list_deployments` (same project + team) | **403** (same message) |
 | `get_deployment` (`luxe-omega.vercel.app`) | **403** (same message) |
