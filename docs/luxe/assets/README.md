@@ -4,14 +4,14 @@
 
 | File | Use |
 |------|-----|
-| `wwluxe-favicon.png` | Primary · upload to WeWeb (Project → Settings → Favicon) or Home page favicon field |
-| `favicon.svg` | Lightweight SVG backup |
-| `../../public/whispering-woods-luxe/favicon-32.png` | 32×32 variant |
-| `../../public/whispering-woods-luxe/apple-touch-icon.png` | 180×180 touch icon |
+| `wwluxe-favicon.png` | Master 512×512 · upload to WeWeb (Project → Settings → Favicon) or Home page favicon field |
+| `../../sites/luxe/public/whispering-woods-luxe/assets/favicon.png` | Heirloom / terms / booked static pages |
+| `../../sites/luxe/public/whispering-woods-luxe/assets/apple-touch-icon.png` | 180×180 touch icon |
+| `../../public/images/*-wwluxe-favicon.png` + `public/favicon.ico` | WeWeb export / estate SPA (regenerate from master when mark changes) |
 
 **WeWeb:** `wwluxe-favicon.png` is in the media library. Home page favicon assigned via MCP (`designs/1b8147da-2812-42a5-946e-f83c582d3071/sections/wwluxe-favicon.png`). Re-upload only if you replace the mark.
 
-Mark: stylized **W** from twin trees / gothic arch · gold `#C6A15B` on charcoal.
+Mark: estate tree medallion (gold + sage on black) · 512×512 PNG canon.
 
 ## Print brief
 

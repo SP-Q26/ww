@@ -155,16 +155,27 @@
     });
 
     if (state.spreadsSelected && state.spreads > 0) {
-      var sp = spreadPrice(state.spreads);
-      lines.push({
-        sku:
-          state.spreads % 5 === 0 && state.spreads >= 5
-            ? "WWL-SPREAD-5-255×" + state.spreads / 5
-            : "WWL-SPREAD-1-55×" + state.spreads,
-        label: "Extra spreads (" + state.spreads + ")",
-        price: sp
-      });
-      total += sp;
+      var n = state.spreads;
+      var bundles = Math.floor(n / SPREAD_BUNDLE.qty);
+      var rest = n % SPREAD_BUNDLE.qty;
+      var spreadLabel =
+        "Extra spreads (" + n + ")";
+      for (var bi = 0; bi < bundles; bi++) {
+        lines.push({
+          sku: "WWL-SPREAD-5-255",
+          label: spreadLabel,
+          price: SPREAD_BUNDLE.price
+        });
+        total += SPREAD_BUNDLE.price;
+      }
+      for (var si = 0; si < rest; si++) {
+        lines.push({
+          sku: "WWL-SPREAD-1-55",
+          label: spreadLabel,
+          price: SPREAD_UNIT
+        });
+        total += SPREAD_UNIT;
+      }
     }
 
     if (needsCoverChoice()) {
@@ -756,7 +767,8 @@
         json = {};
       }
       if (!res.ok) {
-        var hint = json.hint || json.error || "checkout_unavailable";
+        var hint =
+          json.message || json.hint || json.error || "checkout_unavailable";
         throw new Error(hint);
       }
       if (json.checkout_url) {

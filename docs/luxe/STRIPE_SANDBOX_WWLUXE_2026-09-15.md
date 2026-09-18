@@ -37,7 +37,7 @@ If **`manage_stripe_accounts`** / `access.stripe.com` opens but the **permission
 
 | Phase | Images |
 |-------|--------|
-| **Test / launch** | One **house mark** per product (or shared) is enough — same pattern as Innsegall `innsegall.com/stripe/*.png`. Use `https://whisperingwoodsluxe.com/heirloom/assets/favicon.svg` until square PNGs ship. |
+| **Test / launch** | One **house mark** per product (or shared) is enough — same pattern as Innsegall `innsegall.com/stripe/*.png`. Use `https://whisperingwoodsluxe.com/heirloom/assets/favicon.png`. |
 | **Later (conversion)** | Lifestyle or product mockups on Checkout — optional polish, not a payment blocker. |
 
 **Recommended before live:** add `sites/luxe/public/stripe/wwluxe-mark.png` (512×512) and per-tier icons if you want parity with Innsegall (`estate.png`, `chalet.png`, `album.png`). Deploy on Vercel, then set each Stripe Product `images[]` to `https://whisperingwoodsluxe.com/stripe/…` (add rewrite if you serve from `/stripe/` at apex).

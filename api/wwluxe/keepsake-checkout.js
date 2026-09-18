@@ -1,14 +1,15 @@
-import {
-  lineItemFromPayloadRow,
-  siteOriginFromRequest,
-} from "../../sites/luxe/lib/wwluxe/stripe-catalog.mjs";
+import { siteOriginFromRequest } from "../../sites/luxe/lib/wwluxe/stripe-catalog.mjs";
 import {
   MMI_BRANDS,
   MMI_STATEMENT_SUFFIX,
   wwluxeKeepsakeSessionMetadata,
 } from "../../lib/mmi/stripe-metadata.mjs";
-import { stripeCheckoutAutomaticTaxParams } from "../../lib/mmi/wwl-tax-locations.mjs";
-import { WWLUXE_SKU_TAX } from "../../lib/mmi/stripe-product-tax.mjs";
+import { stripeLineItemsForKeepsakeRows } from "../../lib/mmi/keepsake-checkout-lines.mjs";
+import {
+  wwlGuestCheckoutPromoParams,
+  wwlGuestCheckoutTaxAndAddressParams,
+  wwlStripeSecretFromEnv,
+} from "../../lib/mmi/stripe-guest-checkout.mjs";
 
 function flattenParams(obj, prefix = "") {
   const out = [];
@@ -68,28 +69,18 @@ function parseBody(req) {
   return body;
 }
 
-/** Operator smoke: WWLUXE_ALLOW_PROMOTION_CODES=true → Checkout promo field only (no discounts param). */
-function applyCheckoutDiscountOptions(sessionParams) {
-  const promoOn = /^(1|true|yes)$/i.test(
-    String(process.env.WWLUXE_ALLOW_PROMOTION_CODES || "").trim()
-  );
-  if (promoOn) {
-    sessionParams.allow_promotion_codes = true;
-  }
-  return sessionParams;
-}
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "method_not_allowed" });
   }
 
-  const secret = process.env.STRIPE_SECRET_KEY || process.env.WWLUXE_STRIPE_SECRET_KEY;
+  const secret = wwlStripeSecretFromEnv();
   if (!secret) {
     return res.status(503).json({
       error: "stripe_not_configured",
-      hint: "Set STRIPE_SECRET_KEY or WWLUXE_STRIPE_SECRET_KEY on Vercel for /api/wwluxe/keepsake-checkout",
+      hint:
+        "Set STRIPE_SECRET_KEY, WWLUXE_STRIPE_SECRET_KEY, or WWL_STRIPE_SECRET_KEY on Vercel",
     });
   }
 
@@ -111,19 +102,7 @@ export default async function handler(req, res) {
 
   let lineItems;
   try {
-    lineItems = body.lines.map((row) => {
-      const item = lineItemFromPayloadRow(row);
-      const tax = WWLUXE_SKU_TAX[row.sku];
-      const price_data = {
-        ...item.price_data,
-        tax_behavior: "exclusive",
-        product_data: {
-          ...item.price_data.product_data,
-          ...(tax?.tax_code ? { tax_code: tax.tax_code } : {}),
-        },
-      };
-      return { ...item, price_data };
-    });
+    lineItems = stripeLineItemsForKeepsakeRows(body.lines, secret);
   } catch (err) {
     return res.status(400).json({ error: err.message || "invalid_line" });
   }
@@ -131,39 +110,21 @@ export default async function handler(req, res) {
   const metadata = wwluxeKeepsakeSessionMetadata(body, contact);
 
   try {
-    const seniorNote = contact.senior
-      ? ` for ${String(contact.senior).slice(0, 80)}`
-      : "";
-    const session = await stripeCreateCheckoutSession(
-      secret,
-      applyCheckoutDiscountOptions({
-        mode: "payment",
-        line_items: lineItems,
-        ...stripeCheckoutAutomaticTaxParams(),
-        success_url: successUrl,
-        cancel_url: cancelUrl,
-        customer_email: contact.email,
-        client_reference_id: contact.ref || undefined,
+    const session = await stripeCreateCheckoutSession(secret, {
+      mode: "payment",
+      line_items: lineItems,
+      ...wwlGuestCheckoutTaxAndAddressParams(),
+      ...wwlGuestCheckoutPromoParams(),
+      success_url: successUrl,
+      cancel_url: cancelUrl,
+      customer_email: contact.email,
+      payment_intent_data: {
         metadata,
-        payment_intent_data: {
-          metadata,
-          description: `Whispering Woods Luxe · Chalet reservation${seniorNote}`,
-          receipt_email: contact.email,
-          statement_descriptor_suffix: MMI_STATEMENT_SUFFIX[MMI_BRANDS.WWLUXE],
-        },
-        custom_text: {
-          submit: {
-            message:
-              "Complete your reservation. Stripe will email your receipt. Our studio will follow up with your Chalet design consult.",
-          },
-          after_submit: {
-            message:
-              "Thank you. Your heirloom collection is in motion. We will reach out shortly with next steps from the Chalet atelier.",
-          },
-        },
-        phone_number_collection: { enabled: true },
-      })
-    );
+        receipt_email: contact.email,
+        statement_descriptor_suffix: MMI_STATEMENT_SUFFIX[MMI_BRANDS.WWLUXE],
+      },
+      metadata,
+    });
 
     return res.status(200).json({
       checkout_url: session.url,

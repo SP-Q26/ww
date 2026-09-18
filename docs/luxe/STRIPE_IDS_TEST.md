@@ -29,6 +29,6 @@
 **Pay in full:** same session still uses **two** estate prices (deposit + remainder), not `WWL-ESTATE-1420`.
 
 **URLs:** Estate products → `https://whisperingwoodsluxe.com/` · Heirlooms → `https://whisperingwoodsluxe.com/heirloom`  
-**Image:** `https://whisperingwoodsluxe.com/heirloom/assets/favicon.svg` (swap for 512px PNG when ready)
+**Image:** `https://whisperingwoodsluxe.com/heirloom/assets/favicon.png`
 
 **Live mode:** Re-run `node scripts/seed-mmi-wwluxe-stripe-test.mjs` with `sk_live_…` on MMI only — then duplicate this table as `STRIPE_IDS_LIVE.md`.
