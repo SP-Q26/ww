@@ -114,20 +114,15 @@ export default async function handler(req, res) {
     lineItems = body.lines.map((row) => {
       const item = lineItemFromPayloadRow(row);
       const tax = WWLUXE_SKU_TAX[row.sku];
-      const withTax = {
-        ...item,
+      const price_data = {
+        ...item.price_data,
         tax_behavior: "exclusive",
+        product_data: {
+          ...item.price_data.product_data,
+          ...(tax?.tax_code ? { tax_code: tax.tax_code } : {}),
+        },
       };
-      if (tax?.tax_code) {
-        withTax.price_data = {
-          ...item.price_data,
-          product_data: {
-            ...item.price_data.product_data,
-            tax_code: tax.tax_code,
-          },
-        };
-      }
-      return withTax;
+      return { ...item, price_data };
     });
   } catch (err) {
     return res.status(400).json({ error: err.message || "invalid_line" });
