@@ -66,14 +66,13 @@ function parseBody(req) {
   return body;
 }
 
-/** Optional operator smoke / promo — never hardcode coupon IDs in git. */
+/** Operator-only live smoke: set WWLUXE_SMOKE_COUPON_ID on Vercel, then remove. No promo code field for moms. */
 function applyCheckoutDiscountOptions(sessionParams) {
   const smokeCoupon = String(process.env.WWLUXE_SMOKE_COUPON_ID || "").trim();
   if (smokeCoupon) {
     sessionParams.discounts = [{ coupon: smokeCoupon }];
   }
-  const allowPromo = String(process.env.WWLUXE_ALLOW_PROMOTION_CODES || "").toLowerCase();
-  sessionParams.allow_promotion_codes = allowPromo === "1" || allowPromo === "true";
+  sessionParams.allow_promotion_codes = false;
   return sessionParams;
 }
 

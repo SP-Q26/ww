@@ -34,8 +34,7 @@ After any change to production branch:
 |----------|----------|--------|
 | `STRIPE_SECRET_KEY` | **Yes** (heirloom `/api/wwluxe/keepsake-checkout`) | MMI live `sk_live_…` (same account as `STRIPE_IDS_LIVE.md`) |
 | `WWLUXE_SITE_ORIGIN` | **Recommended** | `https://whisperingwoodsluxe.com` (Stripe return URLs on heirloom) |
-| `WWLUXE_ALLOW_PROMOTION_CODES` | **Optional** | `1` or `true` — Stripe Checkout shows “Add promotion code” (your secret live promo; not in git) |
-| `WWLUXE_SMOKE_COUPON_ID` | **Optional · remove after smoke** | Stripe **coupon id** (e.g. `abc123`) auto-applied on every heirloom session while set — use only for your own live test, then delete env + deactivate coupon |
+| `WWLUXE_SMOKE_COUPON_ID` | **Optional · operator only · remove after smoke** | Stripe **coupon id** — auto-applied server-side (no promo field on Checkout). Unset before moms use `/heirloom`. |
 
 **Not on Vercel:** estate modal book uses **Xano** `WWL_STRIPE_SECRET_KEY` + `WWL_PUBLIC_ORIGIN` — set in Xano, not duplicated here unless you add server routes later.
 
