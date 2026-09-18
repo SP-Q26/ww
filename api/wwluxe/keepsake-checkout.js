@@ -22,7 +22,7 @@ function flattenParams(obj, prefix = "") {
     return out;
   }
   for (const [key, value] of Object.entries(obj)) {
-    const next = prefix ? `${prefix}[${key]}` : key;
+    const next = prefix ? `${prefix}[${key}]` : key;
     if (value === undefined) continue;
     if (value !== null && typeof value === "object") {
       out.push(...flattenParams(value, next));
@@ -64,6 +64,17 @@ function parseBody(req) {
     }
   }
   return body;
+}
+
+/** Optional operator smoke / promo — never hardcode coupon IDs in git. */
+function applyCheckoutDiscountOptions(sessionParams) {
+  const smokeCoupon = String(process.env.WWLUXE_SMOKE_COUPON_ID || "").trim();
+  if (smokeCoupon) {
+    sessionParams.discounts = [{ coupon: smokeCoupon }];
+  }
+  const allowPromo = String(process.env.WWLUXE_ALLOW_PROMOTION_CODES || "").toLowerCase();
+  sessionParams.allow_promotion_codes = allowPromo === "1" || allowPromo === "true";
+  return sessionParams;
 }
 
 export default async function handler(req, res) {
@@ -109,34 +120,36 @@ export default async function handler(req, res) {
     const seniorNote = contact.senior
       ? ` for ${String(contact.senior).slice(0, 80)}`
       : "";
-    const session = await stripeCreateCheckoutSession(secret, {
-      mode: "payment",
-      line_items: lineItems,
-      success_url: successUrl,
-      cancel_url: cancelUrl,
-      customer_email: contact.email,
-      client_reference_id: contact.ref || undefined,
-      metadata,
-      payment_intent_data: {
+    const session = await stripeCreateCheckoutSession(
+      secret,
+      applyCheckoutDiscountOptions({
+        mode: "payment",
+        line_items: lineItems,
+        success_url: successUrl,
+        cancel_url: cancelUrl,
+        customer_email: contact.email,
+        client_reference_id: contact.ref || undefined,
         metadata,
-        description: `Whispering Woods Luxe · Chalet reservation${seniorNote}`,
-        receipt_email: contact.email,
-        statement_descriptor_suffix: MMI_STATEMENT_SUFFIX[MMI_BRANDS.WWLUXE],
-      },
-      custom_text: {
-        submit: {
-          message:
-            "Complete your reservation. Stripe will email your receipt. Our studio will follow up with your Chalet design consult.",
+        payment_intent_data: {
+          metadata,
+          description: `Whispering Woods Luxe · Chalet reservation${seniorNote}`,
+          receipt_email: contact.email,
+          statement_descriptor_suffix: MMI_STATEMENT_SUFFIX[MMI_BRANDS.WWLUXE],
         },
-        after_submit: {
-          message:
-            "Thank you. Your heirloom collection is in motion. We will reach out shortly with next steps from the Chalet atelier.",
+        custom_text: {
+          submit: {
+            message:
+              "Complete your reservation. Stripe will email your receipt. Our studio will follow up with your Chalet design consult.",
+          },
+          after_submit: {
+            message:
+              "Thank you. Your heirloom collection is in motion. We will reach out shortly with next steps from the Chalet atelier.",
+          },
         },
-      },
-      allow_promotion_codes: false,
-      billing_address_collection: "auto",
-      phone_number_collection: { enabled: true },
-    });
+        billing_address_collection: "auto",
+        phone_number_collection: { enabled: true },
+      })
+    );
 
     return res.status(200).json({
       checkout_url: session.url,

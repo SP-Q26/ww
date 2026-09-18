@@ -766,11 +766,14 @@
       }
       throw new Error("no_checkout_url");
     } catch (err) {
-      console.info("WWLuxe order draft (API pending)", payload, err.message);
+      console.warn("WWLuxe checkout failed", payload, err.message);
+      var reason = String(err.message || "checkout_unavailable").replace(/_/g, " ");
       alert(
-        "Secure checkout is connecting soon.\n\nTotal: $" +
+        "We could not open secure checkout.\n\nTotal: $" +
           (payload.total_cents / 100).toLocaleString() +
-          "\n\nWhen live, you will complete your reservation on Stripe and receive your receipt by email. The studio will follow up with your Chalet design consult."
+          "\n\n" +
+          reason +
+          "\n\nIf this continues, email bookings@whisperingwoodsluxe.com and we will complete your reservation manually."
       );
       labels.forEach(function (el) {
         el.textContent = "Complete reservation";
