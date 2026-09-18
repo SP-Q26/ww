@@ -1,5 +1,5 @@
 /**
- * First paint: pine + sprout tree (#ww-critical-splash).
+ * First paint: pine + sprout tree (#ww-critical-splash); SVG rings spin + sprout grows then breathes until handoff.
  * Hand off to canvas Hero Load Splash, then hero video (data-ww-hero-video-ready=1).
  */
 import fs from "fs";
