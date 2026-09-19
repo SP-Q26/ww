@@ -118,10 +118,6 @@ window.WW_SITE_CONFIG = {
   pointer-events: none;
   box-shadow: inset 0 0 0 10px #141f19, inset 0 0 0 11px rgba(198, 161, 91, 0.22);
 }
-html:not([data-ww-hero-video-ready]) .ww-element-63c3ad17-1c03-49e0-b69c-be61ce0028ee iframe {
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
 html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68bc1fe::before {
   content: "";
   position: absolute;
@@ -850,25 +846,25 @@ html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68
 })();
 </script>
 
-<script>
-(function wwHeroSplashHardOut() {
+<script id="ww-luxe-splash-bail">
+(function () {
   var MS = 1500;
-  var SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
+  var SPLASH = ".ww-element-17f047b4-78f5-44c4-94a0-e24018d60df9";
   function bail() {
     document.documentElement.setAttribute("data-ww-hero-video-ready", "1");
-    var critical = document.getElementById("ww-critical-splash");
-    if (critical) {
-      critical.classList.add("is-out");
-      window.setTimeout(function () {
-        if (critical.parentNode) critical.parentNode.removeChild(critical);
-      }, 400);
-    }
-    var canvas = document.querySelector(".ww-element-" + SPLASH_UID);
-    if (canvas) {
-      canvas.style.setProperty("opacity", "0", "important");
-      canvas.style.setProperty("visibility", "hidden", "important");
+    var c = document.getElementById("ww-critical-splash");
+    if (c && c.parentNode) c.parentNode.removeChild(c);
+    var el = document.querySelector(SPLASH);
+    if (el) {
+      el.style.setProperty("display", "none", "important");
+      el.style.setProperty("opacity", "0", "important");
+      el.style.setProperty("visibility", "hidden", "important");
     }
   }
+  bail();
   window.setTimeout(bail, MS);
+  document.addEventListener("DOMContentLoaded", function () {
+    window.setTimeout(bail, MS);
+  });
 })();
 </script>
