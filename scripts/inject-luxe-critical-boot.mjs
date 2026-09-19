@@ -21,7 +21,7 @@ if (!welcome) {
 
 const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
 const MARKER = "ww-luxe-welcome-splash";
-const TREE_SRC = "/heirloom/assets/heirloom-splash-tree.svg";
+const TREE_SRC = "/heirloom/assets/heirloom-splash-tree-welcome.svg";
 
 const SPLASH_STYLE = `<style id="ww-critical-first-paint">
 html,body,#app{background-color:#141f19!important}
@@ -39,7 +39,7 @@ html.ww-welcome-lock #app{
 }
 #ww-critical-splash.ww-green-out .ww-welcome__bg{opacity:0}
 #ww-critical-splash .ww-welcome__tree{
-  position:relative;z-index:1;width:min(268px,78vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center
+  position:relative;z-index:1;width:min(214px,62vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center
 }
 #ww-critical-splash .ww-welcome__sk-tree{
   position:absolute;inset:0;border-radius:50%;
@@ -70,9 +70,8 @@ const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/s
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
 var TREE_SRC="${TREE_SRC}";
 var WALL_MS=1750;
-var DRAW_HOLD_MS=1050;
+var DRAW_HOLD_MS=1320;
 var REDUCED_MS=400;
-var IDLE_MAX_MS=80;
 var splashStart=performance.now();
 var r=document.documentElement;
 var timers=[];
@@ -125,8 +124,8 @@ function mountTree(){
   img.className="ww-welcome__tree-img";
   img.alt="";
   img.decoding="async";
-  img.width=268;
-  img.height=268;
+  img.width=214;
+  img.height=214;
   function live(){
     wrap.classList.add("is-live");
     scheduleFades(performance.now());
@@ -139,13 +138,7 @@ function mountTree(){
 function arm(){
   r.style.backgroundColor="#141f19";
   if(document.body)document.body.style.backgroundColor="#141f19";
-  if(window.requestIdleCallback){
-    requestIdleCallback(function(){
-      requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
-    },{timeout:IDLE_MAX_MS});
-  }else{
-    requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
-  }
+  requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
 }
 arm();
 })();</script>`;
@@ -194,7 +187,7 @@ if (!fs.existsSync(indexPath)) {
 let html = fs.readFileSync(indexPath, "utf8");
 
 html = html.replace(
-  /<link rel="preload" href="\/heirloom\/assets\/heirloom-splash-tree\.svg"[^>]*>\s*/g,
+  /<link rel="preload" href="\/heirloom\/assets\/heirloom-splash-tree[^"]*"[^>]*>\s*/g,
   ""
 );
 html = html.replace(/<script id="ww-luxe-welcome-splash">[\s\S]*?<\/script>\s*/g, "");

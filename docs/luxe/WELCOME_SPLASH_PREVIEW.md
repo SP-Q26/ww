@@ -5,8 +5,8 @@
 **Sequence (≤1750ms wall):**
 
 1. Pine green + **CSS skellie** (gold shimmer disc) while Vue/WeWeb boots (`#app` locked).
-2. **`rel=preload`** + `<img src="/heirloom/assets/heirloom-splash-tree.svg">` mounted after **idle (≤80ms) + 2× rAF** — same asset as `/booked`.
-3. **1050ms after img load:** full stroke draw on solid pine → green layer fades (0.45s).
+2. **`rel=preload`** + `<img src="/heirloom/assets/heirloom-splash-tree-welcome.svg">` after **2× rAF** (slower draw + one gold ring lap; booked keeps base SVG).
+3. **1320ms after img load:** full draw on solid pine → green fade (0.45s). Tree **214px / 62vw** (−20%).
 4. Tree fades (0.45s); dismiss; **`data-ww-hero-video-ready`** only then (`__wwLuxeWelcomePending` blocks canvas boot from early flag).
 
 **Reduced motion:** static tree, 400ms.
