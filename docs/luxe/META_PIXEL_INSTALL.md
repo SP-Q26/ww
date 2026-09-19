@@ -13,7 +13,7 @@ Meta Business Suite → **Datasets** (Pixel) → copy the **15-digit ID**.
 Push **`preview`** branch. Postbuild injects into `dist/index.html`:
 
 - `WW_SITE_CONFIG.meta_pixel_id` (if config block exists)
-- `window.WWL_META_PIXEL_ID` + `/heirloom/assets/wwl-meta-pixel.js`
+- **After welcome handoff** (end of `<body>`): async load `/heirloom/assets/wwl-meta-pixel.js` so head never blocks the critical splash tree
 
 **Do not** paste Meta’s raw snippet in Project Head — strip step will fail the build.
 

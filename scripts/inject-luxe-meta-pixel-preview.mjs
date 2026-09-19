@@ -25,10 +25,39 @@ if (!PIXEL_ID) {
 }
 
 const MARKER = 'id="ww-luxe-meta-pixel-preview"';
-const SNIPPET = `<script ${MARKER}>
+/** Booked has no welcome gate — load pixel in head. */
+const BOOKED_SNIPPET = `<script ${MARKER}>
 window.WWL_META_PIXEL_ID="${PIXEL_ID}";
 </script>
-<script src="/heirloom/assets/wwl-meta-pixel.js"></script>`;
+<script src="/heirloom/assets/wwl-meta-pixel.js" defer></script>`;
+/** Home: never block <body> parse — wait until welcome splash hands off (or timeout). */
+const HOME_SNIPPET = `<script ${MARKER}>
+(function(){
+var PIXEL_ID="${PIXEL_ID}";
+var MAX_WAIT_MS=2200;
+var t0=performance.now();
+function loadPixel(){
+window.WWL_META_PIXEL_ID=PIXEL_ID;
+var s=document.createElement("script");
+s.src="/heirloom/assets/wwl-meta-pixel.js";
+s.async=true;
+(document.head||document.documentElement).appendChild(s);
+}
+function welcomeDone(){
+if(window.__wwLuxeWelcomePending===false)return true;
+var el=document.getElementById("ww-critical-splash");
+if(!el||!el.parentNode)return true;
+if(performance.now()-t0>MAX_WAIT_MS)return true;
+return false;
+}
+function arm(){
+if(welcomeDone()){loadPixel();return;}
+setTimeout(arm,80);
+}
+if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",arm);}
+else{arm();}
+})();
+</script>`;
 
 function injectHome() {
   const indexPath = path.join(ROOT, "dist", "index.html");
@@ -56,14 +85,14 @@ function injectHome() {
     }
   }
 
-  const headClose = html.indexOf("</head>");
-  if (headClose === -1) {
-    console.error("inject-luxe-meta-pixel-preview: no </head> in index.html");
+  const bodyClose = html.lastIndexOf("</body>");
+  if (bodyClose === -1) {
+    console.error("inject-luxe-meta-pixel-preview: no </body> in index.html");
     process.exit(1);
   }
-  html = html.slice(0, headClose) + SNIPPET + html.slice(headClose);
+  html = html.slice(0, bodyClose) + HOME_SNIPPET + html.slice(bodyClose);
   fs.writeFileSync(indexPath, html);
-  console.log("inject-luxe-meta-pixel-preview: home ok");
+  console.log("inject-luxe-meta-pixel-preview: home ok (post-welcome)");
 }
 
 function injectBooked() {
@@ -85,7 +114,7 @@ function injectBooked() {
   }
   const headClose = html.indexOf("</head>");
   if (headClose === -1) return;
-  html = html.slice(0, headClose) + SNIPPET + html.slice(headClose);
+  html = html.slice(0, headClose) + BOOKED_SNIPPET + html.slice(headClose);
   fs.writeFileSync(bookedPath, html);
   console.log("inject-luxe-meta-pixel-preview: booked ok");
 }
