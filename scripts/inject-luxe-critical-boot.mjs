@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: pine, skellie, CSS rings + static tree (no SMIL during Vue boot), ≤1600ms wall.
+ * Branch `preview` only: pine, skellie, Lottie welcome (CSS fallback), ≤1600ms wall.
  */
 import fs from "fs";
 import path from "path";
@@ -21,7 +21,10 @@ if (!welcome) {
 
 const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
 const MARKER = "ww-luxe-welcome-splash";
-const TREE_SRC = "/heirloom/assets/heirloom-splash-tree-static.svg";
+const LOTTIE_SRC = "/heirloom/assets/heirloom-welcome.json";
+const TREE_FALLBACK = "/heirloom/assets/heirloom-splash-tree-static.svg";
+const LOTTIE_CDN =
+  "https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js";
 
 const SPLASH_STYLE = `<style id="ww-critical-first-paint">
 html,body,#app{background-color:#141f19!important}
@@ -51,48 +54,40 @@ html.ww-welcome-lock #app{
   0%{background-position:100% 0}
   100%{background-position:-100% 0}
 }
+#ww-critical-splash .ww-welcome__lottie{
+  width:100%;height:100%;opacity:0;transition:opacity .25s ease
+}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__sk-tree{display:none}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__lottie{opacity:1}
 #ww-critical-splash .ww-welcome__rings{
   position:absolute;inset:0;opacity:0;pointer-events:none
 }
 #ww-critical-splash .ww-welcome__ring{
-  position:absolute;left:50%;top:50%;border-radius:50%;box-sizing:border-box;
-  border:1.5px solid transparent
+  position:absolute;left:50%;top:50%;border-radius:50%;box-sizing:border-box;border:1.5px solid transparent
 }
 #ww-critical-splash .ww-welcome__ring--gold{
   width:72%;height:72%;margin:-36% 0 0 -36%;
-  border-color:rgba(198,161,91,0.32);
-  border-top-color:rgba(198,161,91,0.55);
-  transform:rotate(0deg);
-  will-change:transform
+  border-color:rgba(198,161,91,0.32);border-top-color:rgba(198,161,91,0.55);
+  transform:rotate(0deg)
 }
 #ww-critical-splash .ww-welcome__ring--sage{
   width:65%;height:65%;margin:-32.5% 0 0 -32.5%;
-  border-color:rgba(123,142,122,0.2);
-  border-bottom-color:rgba(123,142,122,0.38);
-  transform:rotate(0deg);
-  will-change:transform
+  border-color:rgba(123,142,122,0.2);border-bottom-color:rgba(123,142,122,0.38)
 }
-#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__rings{opacity:1}
-#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__ring--gold{
+#ww-critical-splash .ww-welcome__tree.is-live.ww-fallback .ww-welcome__rings{opacity:1}
+#ww-critical-splash .ww-welcome__tree.is-live.ww-fallback .ww-welcome__ring--gold{
   animation:ww-ring-gold 1.1s linear 1 forwards
 }
-#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__ring--sage{
+#ww-critical-splash .ww-welcome__tree.is-live.ww-fallback .ww-welcome__ring--sage{
   animation:ww-ring-sage 1.65s linear 1 forwards
 }
 @keyframes ww-ring-gold{to{transform:rotate(360deg)}}
 @keyframes ww-ring-sage{to{transform:rotate(-360deg)}}
 #ww-critical-splash .ww-welcome__tree-img{
-  position:relative;z-index:2;width:100%;height:auto;display:block;
-  opacity:0;transform:scale(0.94) translateZ(0);
-  will-change:opacity,transform
+  position:relative;z-index:2;width:100%;height:auto;display:block;opacity:0;
+  transform:scale(0.94);animation:ww-welcome-tree-in .7s cubic-bezier(0.22,1,0.36,1) forwards
 }
-#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__sk-tree{display:none}
-#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__tree-img{
-  animation:ww-welcome-tree-in .7s cubic-bezier(0.22,1,0.36,1) forwards
-}
-@keyframes ww-welcome-tree-in{
-  to{opacity:1;transform:scale(1) translateZ(0)}
-}
+@keyframes ww-welcome-tree-in{to{opacity:1;transform:scale(1)}}
 #ww-critical-splash.ww-tree-out .ww-welcome__tree{
   opacity:0;transition:opacity .4s ease
 }
@@ -101,10 +96,13 @@ html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
 }
 </style>`;
 
-const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/svg+xml"/>`;
+const PRELOAD = `<link rel="preload" href="${LOTTIE_SRC}" as="fetch" crossorigin="anonymous"/>`;
 
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
-var TREE_SRC="${TREE_SRC}";
+var LOTTIE_SRC="${LOTTIE_SRC}";
+var TREE_SRC="${TREE_FALLBACK}";
+var LOTTIE_CDN="${LOTTIE_CDN}";
+var RING_FRAME=33;
 var WALL_MS=1600;
 var HOLD_MS=1100;
 var REDUCED_MS=350;
@@ -130,15 +128,10 @@ function dismiss(){
   if(s&&s.parentNode)s.parentNode.removeChild(s);
   forceHeroReady();
 }
-function scheduleFades(liveAt){
+function runFades(greenAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduced){
-    later(dismiss,REDUCED_MS);
-    later(forceHeroReady,REDUCED_MS);
-    return;
-  }
+  if(reduced){later(dismiss,REDUCED_MS);later(forceHeroReady,REDUCED_MS);return;}
   var wallEnd=splashStart+WALL_MS;
-  var greenAt=liveAt+HOLD_MS;
   var treeAt=greenAt+120;
   var doneAt=Math.min(wallEnd,treeAt+400);
   later(function(){var s=splash();if(s)s.classList.add("ww-green-out");},Math.max(0,greenAt-performance.now()));
@@ -146,32 +139,72 @@ function scheduleFades(liveAt){
   later(dismiss,Math.max(0,doneAt-performance.now()));
   later(forceHeroReady,Math.max(0,wallEnd-performance.now()));
 }
-function goLive(wrap){
-  var t=performance.now();
-  wrap.classList.add("is-live");
-  scheduleFades(t);
+function scheduleFadesAfterRing(){
+  runFades(performance.now());
 }
-function mountTree(){
+function scheduleFadesAfterHold(liveAt){
+  runFades(liveAt+HOLD_MS);
+}
+function mountTreeCss(){
   var wrap=document.querySelector(".ww-welcome__tree");
-  if(!wrap){scheduleFades(performance.now());return;}
+  if(!wrap){scheduleFadesAfterRing();return;}
+  wrap.classList.add("is-live","ww-fallback");
   var img=new Image();
   img.className="ww-welcome__tree-img";
   img.alt="";
-  img.decoding="async";
-  img.fetchPriority="high";
   img.width=214;
   img.height=214;
-  function ready(){goLive(wrap);}
-  img.onload=ready;
-  img.onerror=ready;
+  var liveAt=performance.now();
+  img.onload=function(){scheduleFadesAfterHold(liveAt);};
+  img.onerror=function(){scheduleFadesAfterHold(liveAt);};
   img.src=TREE_SRC;
   wrap.appendChild(img);
+}
+function mountLottie(){
+  var box=document.getElementById("ww-welcome-lottie");
+  var wrap=document.querySelector(".ww-welcome__tree");
+  if(!box||!wrap||!window.lottie){mountTreeCss();return;}
+  wrap.classList.add("is-live");
+  var scheduled=false;
+  function ringDone(){
+    if(scheduled)return;
+    scheduled=true;
+    scheduleFadesAfterRing();
+  }
+  try{
+    var anim=window.lottie.loadAnimation({
+      container:box,
+      renderer:"svg",
+      loop:false,
+      autoplay:true,
+      path:LOTTIE_SRC,
+      rendererSettings:{preserveAspectRatio:"xMidYMid meet",progressiveLoad:true}
+    });
+    anim.addEventListener("enterFrame",function(){
+      if(anim.currentFrame>=RING_FRAME)ringDone();
+    });
+    anim.addEventListener("complete",ringDone);
+    anim.addEventListener("data_failed",mountTreeCss);
+    anim.addEventListener("error",mountTreeCss);
+  }catch(e){mountTreeCss();}
+}
+function loadLottieLib(cb){
+  if(window.lottie){cb();return;}
+  var s=document.createElement("script");
+  s.src=LOTTIE_CDN;
+  s.onload=cb;
+  s.onerror=mountTreeCss;
+  document.head.appendChild(s);
 }
 function arm(){
   r.style.backgroundColor="#141f19";
   if(document.body)document.body.style.backgroundColor="#141f19";
+  var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var start=function(){
-    requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
+    if(reduced){mountTreeCss();return;}
+    loadLottieLib(function(){
+      requestAnimationFrame(function(){requestAnimationFrame(mountLottie);});
+    });
   };
   if(window.requestIdleCallback){requestIdleCallback(start,{timeout:IDLE_MS});}
   else{later(start,80);}
@@ -182,7 +215,7 @@ arm();
 const THEME_META = `<meta name="theme-color" content="#141f19"/>`;
 
 function bodySplashMarkup() {
-  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true"><div class="ww-welcome__sk-tree"></div><div class="ww-welcome__rings"><span class="ww-welcome__ring ww-welcome__ring--gold"></span><span class="ww-welcome__ring ww-welcome__ring--sage"></span></div></div></div>${ORCHESTRATOR}`;
+  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true"><div class="ww-welcome__sk-tree"></div><div id="ww-welcome-lottie" class="ww-welcome__lottie"></div><div class="ww-welcome__rings"><span class="ww-welcome__ring ww-welcome__ring--gold"></span><span class="ww-welcome__ring ww-welcome__ring--sage"></span></div></div></div>${ORCHESTRATOR}`;
 }
 
 function stripWelcomeSplash(html) {
@@ -223,7 +256,7 @@ if (!fs.existsSync(indexPath)) {
 let html = fs.readFileSync(indexPath, "utf8");
 
 html = html.replace(
-  /<link rel="preload" href="\/heirloom\/assets\/heirloom-splash-tree[^"]*"[^>]*>\s*/g,
+  /<link rel="preload" href="\/heirloom\/assets\/heirloom-(splash-tree[^"]*|welcome\.json)"[^>]*>\s*/g,
   ""
 );
 html = html.replace(/<script id="ww-luxe-welcome-splash">[\s\S]*?<\/script>\s*/g, "");
@@ -272,4 +305,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview welcome · CSS rings + static tree · 1.6s)");
+console.log("inject-luxe-critical-boot: ok (preview welcome · Lottie + CSS fallback · 1.6s)");

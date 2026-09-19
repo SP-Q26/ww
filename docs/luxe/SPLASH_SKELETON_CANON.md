@@ -8,7 +8,7 @@
 |------|--------|
 | **One owner** | Per route: either canvas **or** git/Vercel critical — never two splash UIs + two `data-ww-hero-video-ready` clocks. |
 | **Heavy app behind lock** | While welcome runs: `html.ww-welcome-lock #app { visibility: hidden }`. SPA still boots; user must not see partial layout. |
-| **Tree asset (home preview)** | `heirloom-splash-tree-static.svg` + **CSS ring rotation** + tree **scale-in** — no SMIL during Vue boot (SMIL stutters = “pieces of a draw”). Booked/order keep animated `heirloom-splash-tree.svg`. |
+| **Tree asset (home preview)** | **`heirloom-welcome.json`** (Lottie; `node scripts/generate-heirloom-welcome-lottie.mjs`). CSS+static **fallback** if Lottie fails. Booked/order keep `heirloom-splash-tree.svg`. |
 | **Mount** | Shimmer → `requestIdleCallback` (≤120ms) → 2× `rAF` → static `<img>` + rings. |
 | **Timing** | **1100ms after `is-live`** (one gold lap) → fades. **Hard wall 1600ms**. **214px / 62vw**. |
 | **Hero ready** | Set `data-ww-hero-video-ready` only when welcome dismisses; block canvas boot from setting it early (`__wwLuxeWelcomePending`). |
