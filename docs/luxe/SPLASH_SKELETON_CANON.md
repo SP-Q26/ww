@@ -9,8 +9,8 @@
 | **One owner** | Per route: either canvas **or** git/Vercel critical — never two splash UIs + two `data-ww-hero-video-ready` clocks. |
 | **Heavy app behind lock** | While welcome runs: `html.ww-welcome-lock #app { visibility: hidden }`. SPA still boots; user must not see partial layout. |
 | **Home preview** | **CSS rings** + predrawn `heirloom-splash-tree-static.svg` (one `<img>`). No Lottie/SMIL on first paint. Booked/order: animated `heirloom-splash-tree.svg`. |
-| **Mount** | Brief shimmer → idle ≤80ms → static tree + rings together. |
-| **Timing** | **~520ms hold** after tree shows → fades. **Hard wall 1400ms**. **214px / 62vw**. |
+| **Mount** | Brief shimmer → idle ≤48ms → static tree + rings together. |
+| **Timing** | **~72ms hold** after tree load (fade anchor = `onload`). **Hard wall 1100ms**. Frame **193px / 56vw**; tree **52%** inside rings. |
 | **Hero ready** | Set `data-ww-hero-video-ready` only when welcome dismisses; block canvas boot from setting it early (`__wwLuxeWelcomePending`). |
 | **Reduced motion** | `prefers-reduced-motion`: static img, **400ms** total, no draw wait. |
 | **Branch** | Welcome inject: **`preview`** only until operator promotes. **`main`**: uninject (WeWeb owns hero). |

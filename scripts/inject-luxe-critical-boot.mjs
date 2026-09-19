@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: pine, rings + predrawn static tree, short hold, ≤1400ms wall.
+ * Branch `preview` only: pine, rings + predrawn static tree, minimal hold, ≤1100ms wall.
  */
 import fs from "fs";
 import path from "path";
@@ -39,7 +39,7 @@ html.ww-welcome-lock #app{
 }
 #ww-critical-splash.ww-green-out .ww-welcome__bg{opacity:0}
 #ww-critical-splash .ww-welcome__tree{
-  position:relative;z-index:1;width:min(214px,62vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center
+  position:relative;z-index:1;width:min(193px,56vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center
 }
 #ww-critical-splash .ww-welcome__sk-tree{
   position:absolute;inset:0;border-radius:50%;
@@ -52,7 +52,7 @@ html.ww-welcome-lock #app{
   100%{background-position:-100% 0}
 }
 #ww-critical-splash .ww-welcome__rings{
-  position:absolute;inset:0;opacity:0;pointer-events:none
+  position:absolute;inset:0;opacity:0;pointer-events:none;z-index:1
 }
 #ww-critical-splash .ww-welcome__ring{
   position:absolute;left:50%;top:50%;border-radius:50%;box-sizing:border-box;border:1.5px solid transparent
@@ -77,10 +77,11 @@ html.ww-welcome-lock #app{
 @keyframes ww-ring-gold{to{transform:rotate(360deg)}}
 @keyframes ww-ring-sage{to{transform:rotate(-360deg)}}
 #ww-critical-splash .ww-welcome__tree-img{
-  position:relative;z-index:2;width:100%;height:auto;display:block;opacity:0
+  position:relative;z-index:2;width:52%;max-width:52%;height:auto;display:block;opacity:0;
+  margin-top:4%
 }
 #ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__tree-img{
-  opacity:1;transition:opacity .2s ease
+  opacity:1;transition:opacity .15s ease
 }
 #ww-critical-splash.ww-tree-out .ww-welcome__tree{
   opacity:0;transition:opacity .35s ease
@@ -94,10 +95,10 @@ const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/s
 
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
 var TREE_SRC="${TREE_SRC}";
-var WALL_MS=1400;
-var HOLD_MS=520;
-var REDUCED_MS=320;
-var IDLE_MS=80;
+var WALL_MS=1100;
+var HOLD_MS=72;
+var REDUCED_MS=260;
+var IDLE_MS=48;
 var splashStart=performance.now();
 var r=document.documentElement;
 r.classList.add("ww-welcome-lock");
@@ -123,8 +124,8 @@ function runFades(greenAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduced){later(dismiss,REDUCED_MS);later(forceHeroReady,REDUCED_MS);return;}
   var wallEnd=splashStart+WALL_MS;
-  var treeAt=greenAt+100;
-  var doneAt=Math.min(wallEnd,treeAt+350);
+  var treeAt=greenAt+80;
+  var doneAt=Math.min(wallEnd,treeAt+240);
   later(function(){var s=splash();if(s)s.classList.add("ww-green-out");},Math.max(0,greenAt-performance.now()));
   later(function(){var s=splash();if(s)s.classList.add("ww-tree-out");},Math.max(0,treeAt-performance.now()));
   later(dismiss,Math.max(0,doneAt-performance.now()));
@@ -142,10 +143,9 @@ function mountTree(){
   img.alt="";
   img.decoding="async";
   img.fetchPriority="high";
-  img.width=214;
-  img.height=214;
-  var liveAt=performance.now();
-  function show(){goLive(wrap,liveAt);}
+  img.width=193;
+  img.height=193;
+  function show(){goLive(wrap,performance.now());}
   img.onload=show;
   img.onerror=show;
   img.src=TREE_SRC;
@@ -256,4 +256,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview · rings + predrawn tree · 1.4s)");
+console.log("inject-luxe-critical-boot: ok (preview · rings + static tree · 1.2s wall)");

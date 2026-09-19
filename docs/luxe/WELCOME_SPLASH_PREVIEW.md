@@ -2,11 +2,11 @@
 
 **Canon:** `SPLASH_SKELETON_CANON.md`
 
-**Sequence (≤1400ms wall):**
+**Sequence (≤1200ms wall):**
 
 1. Pine + brief skellie (`#app` locked).
-2. **Predrawn static tree** + **CSS rings** (one gold lap) together — single `<img>`, no Lottie.
-3. **~520ms hold** → green fade → tree fade → hero (`__wwLuxeWelcomePending` gate).
+2. **Predrawn static tree** (52% inside rings) + **CSS rings** — single `<img>`.
+3. **~72ms hold** after static tree paints → fades → hero (`__wwLuxeWelcomePending` gate).
 
 **Reduced motion:** static tree, 400ms.
 
