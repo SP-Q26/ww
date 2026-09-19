@@ -1,6 +1,14 @@
 # Luxe · git + Vercel canon (single branch)
 
-**Repo:** `SP-Q26/ww` (`~/ww`)
+**Repo:** `SP-Q26/ww` (`~/ww`) — **Whispering Woods Luxe only.**
+
+| Branch | Role |
+|--------|------|
+| **`luxe`** | WeWeb GitHub publish sink (export JSON) |
+| **`preview`** | Vercel preview + splash experiments → promote **package** to `main` |
+| **`main`** | Production apex (`whisperingwoodsluxe.com`) |
+
+**Not in this repo:** Company Town, Weddings Journal, and other brands live in **separate repos/branches**. Never commit `docs/companytown/`, `docs/weddings/`, or `sites/weddings/` here (see `.gitignore`).
 
 ## Two git branches by design: `luxe` (WeWeb) → `main` (production)
 
