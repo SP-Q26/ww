@@ -12,9 +12,9 @@ Output: `sites/luxe/public/whispering-woods-luxe/assets/heirloom-welcome.json`
 - Gold + sage rings are native Lottie shapes (smooth under Vue boot).
 - **1.6s** composition @ 30fps.
 
-Preview inject loads this via **lottie-web** (CDN) when `heirloom-welcome.json` is present.
+**Not used on home preview** (experiment retired — duplicate tree layers). Kept for optional future / marketing embeds.
 
-Replace later with a designer Bodymovin export by overwriting the JSON and keeping the same path (or bump filename + inject).
+Home welcome canon: **rings + `heirloom-splash-tree-static.svg`** only (`inject-luxe-critical-boot.mjs`).
 
 ## WebP (manual / pipeline)
 

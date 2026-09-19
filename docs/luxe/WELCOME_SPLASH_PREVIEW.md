@@ -2,14 +2,11 @@
 
 **Canon:** `SPLASH_SKELETON_CANON.md`
 
-**Sequence (≤1600ms wall):**
+**Sequence (≤1400ms wall):**
 
-1. Pine + **CSS skellie** while Vue boots (`#app` locked).
-2. After **idle ≤120ms**: **static tree** + **CSS ring lap** (compositor — no SMIL stroke draw on main thread).
-3. **1100ms after live:** green fade → tree fade (0.4s).
-4. Hero ready on dismiss (`__wwLuxeWelcomePending` gate).
-
-**Why not SMIL on home:** Vue parse/hydration steals main-thread frames; stroke-dash looks like jerky “pieces.” Static tree + CSS motion reads as one clean welcome.
+1. Pine + brief skellie (`#app` locked).
+2. **Predrawn static tree** + **CSS rings** (one gold lap) together — single `<img>`, no Lottie.
+3. **~520ms hold** → green fade → tree fade → hero (`__wwLuxeWelcomePending` gate).
 
 **Reduced motion:** static tree, 400ms.
 
