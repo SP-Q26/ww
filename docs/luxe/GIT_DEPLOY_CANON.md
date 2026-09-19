@@ -16,7 +16,8 @@
 
 | Pin | SHA | Notes |
 |-----|-----|--------|
-| **`main` + `preview`** | `a325bbc` (update tag after prod smoke) | WeWeb v45 export merge; postbuild hooks preserved |
+| **`main` (prod)** | `79b3f6a` | WeWeb v45 + preview package merge commit |
+| **`preview`** | `a325bbc` | Same package (merge commit `79b3f6a` on main includes canon) |
 | **WeWeb publish sink** | `origin/luxe` @ `79bb294` | v45 publish (operator email; merge via git only) |
 | **Git tag** | `luxe-elite-backup-2026-09-19` | Set on `main` tip after smoke |
 
@@ -26,12 +27,12 @@
 cd ~/ww
 git fetch origin
 git checkout main
-git reset --hard a325bbc   # or: git checkout luxe-elite-backup-2026-09-19
+git reset --hard 79b3f6a   # or: git checkout luxe-elite-backup-2026-09-19
 ./scripts/verify-git-identity.sh
 git push origin main       # only after operator confirms; needs force if main moved
 ```
 
-**Vercel without git rewrite:** Deployments → Production deployment for commit **`a325bbc`** → Promote to Production.
+**Vercel without git rewrite:** Deployments → Production deployment for commit **`79b3f6a`** → Promote to Production.
 
 **Package includes:** `cacheVersion` **45**, welcome inject, preview pixel inject, `sites/luxe` slice, apex SEO URL rewrite in postbuild — not export-only.
 
