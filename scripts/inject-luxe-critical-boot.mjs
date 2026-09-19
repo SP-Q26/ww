@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: luxe welcome — pine + heirloom tree → fade green → fade tree → hero (≤2s).
+ * Branch `preview` only: luxe welcome — pine, skellie, heirloom img tree, ≤1750ms wall.
  */
 import fs from "fs";
 import path from "path";
@@ -8,10 +8,6 @@ import { spawnSync } from "node:child_process";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const indexPath = path.join(ROOT, "dist", "index.html");
-const svgPath = path.join(
-  ROOT,
-  "sites/luxe/public/whispering-woods-luxe/assets/heirloom-splash-tree.svg"
-);
 
 const ref = process.env.VERCEL_GIT_COMMIT_REF || "main";
 const welcome =
@@ -25,11 +21,7 @@ if (!welcome) {
 
 const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
 const MARKER = "ww-luxe-welcome-splash";
-/** Heirloom SVG stroke draw finishes ~1.05s; hold green until then. */
-const HARD_MS = 2000;
-const GREEN_OUT_MS = 1100;
-const TREE_OUT_MS = 1500;
-const DISMISS_MS = 1900;
+const TREE_SRC = "/heirloom/assets/heirloom-splash-tree.svg";
 
 const SPLASH_STYLE = `<style id="ww-critical-first-paint">
 html,body,#app{background-color:#141f19!important}
@@ -39,88 +31,129 @@ html.ww-welcome-lock #app{
 }
 #ww-critical-splash{
   position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;
-  pointer-events:none;isolation:isolate;contain:strict
+  pointer-events:none
 }
 #ww-critical-splash .ww-welcome__bg{
   position:absolute;inset:0;background-color:#141f19;
-  transition:opacity .55s ease;will-change:opacity
+  transition:opacity .45s ease
 }
 #ww-critical-splash.ww-green-out .ww-welcome__bg{opacity:0}
 #ww-critical-splash .ww-welcome__tree{
-  position:relative;z-index:1;width:min(268px,78vw);height:auto;display:block;
-  transform:translateZ(0);backface-visibility:hidden;
-  transition:opacity .55s ease,visibility .55s ease;will-change:opacity
+  position:relative;z-index:1;width:min(268px,78vw);aspect-ratio:1;display:flex;align-items:center;justify-content:center
 }
+#ww-critical-splash .ww-welcome__sk-tree{
+  position:absolute;inset:0;border-radius:50%;
+  background:linear-gradient(90deg,rgba(44,44,44,0.12) 0%,rgba(198,161,91,0.22) 45%,rgba(44,44,44,0.12) 90%);
+  background-size:200% 100%;
+  animation:ww-welcome-shimmer 1.1s ease-in-out infinite
+}
+@keyframes ww-welcome-shimmer{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
+}
+#ww-critical-splash .ww-welcome__tree-img{
+  width:100%;height:auto;display:block;opacity:0;
+  transition:opacity .35s ease
+}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__sk-tree{display:none}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__tree-img{opacity:1}
 #ww-critical-splash.ww-tree-out .ww-welcome__tree{
-  opacity:0;visibility:hidden
+  opacity:0;transition:opacity .45s ease
 }
 html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
   opacity:0!important;visibility:hidden!important;pointer-events:none!important
 }
 </style>`;
 
+const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/svg+xml"/>`;
+
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
-var HARD=${HARD_MS};
-var GREEN=${GREEN_OUT_MS};
-var TREE=${TREE_OUT_MS};
-var DONE=${DISMISS_MS};
-var SPLASH_SEL="#ww-critical-splash";
+var TREE_SRC="${TREE_SRC}";
+var WALL_MS=1750;
+var DRAW_HOLD_MS=1050;
+var REDUCED_MS=400;
+var IDLE_MAX_MS=80;
+var splashStart=performance.now();
 var r=document.documentElement;
+var timers=[];
 r.classList.add("ww-welcome-lock");
-function forceHeroReady(){r.setAttribute("data-ww-hero-video-ready","1");}
-function splash(){return document.querySelector(SPLASH_SEL);}
-function restartTreeDraw(){
-  var wrap=document.querySelector(".ww-welcome__tree");
-  if(!wrap)return;
-  var svg=wrap.querySelector("svg");
-  if(!svg)return;
-  var fresh=svg.cloneNode(true);
-  svg.replaceWith(fresh);
+window.__wwLuxeWelcomePending=true;
+var nativeSetAttr=r.setAttribute.bind(r);
+r.setAttribute=function(name,value){
+  if(name==="data-ww-hero-video-ready"&&window.__wwLuxeWelcomePending)return;
+  return nativeSetAttr(name,value);
+};
+function later(fn,ms){timers.push(setTimeout(fn,ms));}
+function forceHeroReady(){
+  window.__wwLuxeWelcomePending=false;
+  nativeSetAttr("data-ww-hero-video-ready","1");
 }
+function splash(){return document.querySelector("#ww-critical-splash");}
 function dismiss(){
   r.classList.remove("ww-welcome-lock");
   var s=splash();
   if(s&&s.parentNode)s.parentNode.removeChild(s);
   forceHeroReady();
 }
+function scheduleFades(imgAt){
+  var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduced){
+    later(dismiss,REDUCED_MS);
+    later(forceHeroReady,REDUCED_MS);
+    return;
+  }
+  var greenAt=imgAt+DRAW_HOLD_MS;
+  var wallEnd=splashStart+WALL_MS;
+  var treeAt=greenAt+160;
+  var doneAt=Math.min(wallEnd,treeAt+460);
+  if(greenAt>wallEnd-500)greenAt=wallEnd-500;
+  if(treeAt>wallEnd-460)treeAt=wallEnd-460;
+  if(doneAt<treeAt+200)doneAt=treeAt+460;
+  later(function(){
+    var s=splash();if(s)s.classList.add("ww-green-out");
+  },Math.max(0,greenAt-performance.now()));
+  later(function(){
+    var s=splash();if(s)s.classList.add("ww-tree-out");
+  },Math.max(0,treeAt-performance.now()));
+  later(dismiss,Math.max(0,doneAt-performance.now()));
+  later(forceHeroReady,Math.max(0,wallEnd-performance.now()));
+}
+function mountTree(){
+  var wrap=document.querySelector(".ww-welcome__tree");
+  if(!wrap){scheduleFades(performance.now());return;}
+  var img=new Image();
+  img.className="ww-welcome__tree-img";
+  img.alt="";
+  img.decoding="async";
+  img.width=268;
+  img.height=268;
+  function live(){
+    wrap.classList.add("is-live");
+    scheduleFades(performance.now());
+  }
+  img.onload=live;
+  img.onerror=live;
+  img.src=TREE_SRC;
+  wrap.appendChild(img);
+}
 function arm(){
   r.style.backgroundColor="#141f19";
   if(document.body)document.body.style.backgroundColor="#141f19";
-  restartTreeDraw();
-  window.setTimeout(function(){
-    var s=splash();if(s)s.classList.add("ww-green-out");
-  },GREEN);
-  window.setTimeout(function(){
-    var s=splash();if(s)s.classList.add("ww-tree-out");
-  },TREE);
-  window.setTimeout(dismiss,DONE);
-  window.setTimeout(forceHeroReady,HARD);
+  if(window.requestIdleCallback){
+    requestIdleCallback(function(){
+      requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
+    },{timeout:IDLE_MAX_MS});
+  }else{
+    requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
+  }
 }
-function start(){
-  requestAnimationFrame(function(){
-    requestAnimationFrame(arm);
-  });
-}
-start();
+arm();
 })();</script>`;
 
 const THEME_META = `<meta name="theme-color" content="#141f19"/>`;
 
-function loadSplashSvg() {
-  if (!fs.existsSync(svgPath)) {
-    console.warn("inject-luxe-critical-boot: heirloom tree svg missing at", svgPath);
-    return "";
-  }
-  return fs
-    .readFileSync(svgPath, "utf8")
-    .replace(/\s+/g, " ")
-    .replace(/>\s+</g, "><")
-    .trim();
-}
-
-function bodySplashMarkup(svg) {
-  if (!svg) return "";
-  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true">${svg}</div></div>${ORCHESTRATOR}`;
+function bodySplashMarkup() {
+  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true"><div class="ww-welcome__sk-tree"></div></div></div>${ORCHESTRATOR}`;
 }
 
 function stripWelcomeSplash(html) {
@@ -160,6 +193,10 @@ if (!fs.existsSync(indexPath)) {
 
 let html = fs.readFileSync(indexPath, "utf8");
 
+html = html.replace(
+  /<link rel="preload" href="\/heirloom\/assets\/heirloom-splash-tree\.svg"[^>]*>\s*/g,
+  ""
+);
 html = html.replace(/<script id="ww-luxe-welcome-splash">[\s\S]*?<\/script>\s*/g, "");
 html = html.replace(/<script id="ww-luxe-splash-orchestrator">[\s\S]*?<\/script>\s*/g, "");
 html = html.replace(/<script id="ww-luxe-splash-bail">[\s\S]*?<\/script>\s*/g, "");
@@ -175,6 +212,13 @@ if (html.includes('id="ww-critical-first-paint"')) {
   }
 }
 
+if (!html.includes(PRELOAD)) {
+  const headClose = html.indexOf("</head>");
+  if (headClose !== -1) {
+    html = html.slice(0, headClose) + PRELOAD + html.slice(headClose);
+  }
+}
+
 const wwCritical = /<script>\s*\(function wwCriticalFirstPaint\(\)[\s\S]*?<\/script>/;
 if (wwCritical.test(html)) {
   html = html.replace(wwCritical, "");
@@ -187,11 +231,10 @@ if (!html.includes('name="theme-color" content="#141f19"')) {
   }
 }
 
-const svg = loadSplashSvg();
 const bodyOpen = html.match(/<body[^>]*>/i);
-if (svg && bodyOpen && !html.includes('id="ww-critical-splash"')) {
+if (bodyOpen && !html.includes('id="ww-critical-splash"')) {
   const at = bodyOpen.index + bodyOpen[0].length;
-  html = html.slice(0, at) + bodySplashMarkup(svg) + html.slice(at);
+  html = html.slice(0, at) + bodySplashMarkup() + html.slice(at);
 }
 
 if (!html.includes(MARKER)) {
@@ -200,4 +243,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview welcome · heirloom tree · 2s)");
+console.log("inject-luxe-critical-boot: ok (preview welcome · skellie+img · 1.75s wall)");

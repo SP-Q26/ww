@@ -1,0 +1,14 @@
+---
+description: WW Luxe splash/skeleton — one owner, img tree, idle mount, wall cap
+alwaysApply: true
+---
+
+# Luxe splash & skeleton
+
+**Canon:** `docs/luxe/SPLASH_SKELETON_CANON.md` · **Preview welcome:** `docs/luxe/WELCOME_SPLASH_PREVIEW.md`
+
+- Never two splash systems + two `data-ww-hero-video-ready` timers on the same route.
+- Home welcome (preview): pine lock → CSS skellie → `<img>` heirloom tree after idle+2×rAF → fades; **1750ms wall**; hero-ready only on dismiss.
+- Use `heirloom-splash-tree.svg` as `<img>` + preload — not inline SMIL in dist HTML during Vue boot.
+- Prod `main`: postbuild **uninject**; canvas owns hero splash until preview is promoted.
+- `prefers-reduced-motion`: 400ms, no stroke wait.
