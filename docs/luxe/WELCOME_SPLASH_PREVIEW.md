@@ -6,7 +6,7 @@
 
 1. Pine + brief skellie (`#app` locked).
 2. **Predrawn static tree** (52% inside rings) + **CSS rings** — single `<img>`.
-3. **~72ms hold** after static tree paints → fades → hero (`__wwLuxeWelcomePending` gate).
+3. **~420ms** on tree + rings after load; fades never start before **~780ms** from first paint → hero (`__wwLuxeWelcomePending` gate). Wall **1.6s**.
 
 **Reduced motion:** static tree, 400ms.
 

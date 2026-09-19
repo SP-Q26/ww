@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: pine, rings + predrawn static tree, minimal hold, ≤1100ms wall.
+ * Branch `preview` only: pine, rings + predrawn static tree, readable hold, ≤1600ms wall.
  */
 import fs from "fs";
 import path from "path";
@@ -95,8 +95,9 @@ const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/s
 
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
 var TREE_SRC="${TREE_SRC}";
-var WALL_MS=1100;
-var HOLD_MS=72;
+var WALL_MS=1600;
+var HOLD_MS=420;
+var MIN_BEFORE_FADE_MS=780;
 var REDUCED_MS=260;
 var IDLE_MS=48;
 var splashStart=performance.now();
@@ -124,8 +125,8 @@ function runFades(greenAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduced){later(dismiss,REDUCED_MS);later(forceHeroReady,REDUCED_MS);return;}
   var wallEnd=splashStart+WALL_MS;
-  var treeAt=greenAt+80;
-  var doneAt=Math.min(wallEnd,treeAt+240);
+  var treeAt=greenAt+110;
+  var doneAt=Math.min(wallEnd,treeAt+360);
   later(function(){var s=splash();if(s)s.classList.add("ww-green-out");},Math.max(0,greenAt-performance.now()));
   later(function(){var s=splash();if(s)s.classList.add("ww-tree-out");},Math.max(0,treeAt-performance.now()));
   later(dismiss,Math.max(0,doneAt-performance.now()));
@@ -133,7 +134,8 @@ function runFades(greenAt){
 }
 function goLive(wrap,liveAt){
   wrap.classList.add("is-live");
-  runFades(liveAt+HOLD_MS);
+  var greenAt=Math.max(liveAt+HOLD_MS,splashStart+MIN_BEFORE_FADE_MS);
+  runFades(greenAt);
 }
 function mountTree(){
   var wrap=document.querySelector(".ww-welcome__tree");
