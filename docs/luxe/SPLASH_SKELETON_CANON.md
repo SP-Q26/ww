@@ -8,9 +8,9 @@
 |------|--------|
 | **One owner** | Per route: either canvas **or** git/Vercel critical — never two splash UIs + two `data-ww-hero-video-ready` clocks. |
 | **Heavy app behind lock** | While welcome runs: `html.ww-welcome-lock #app { visibility: hidden }`. SPA still boots; user must not see partial layout. |
-| **Tree asset** | Home preview: `heirloom-splash-tree-welcome.svg` (~18% slower draw, gold ring **one lap**). Static routes keep `heirloom-splash-tree.svg`. **`<img>`** + `rel=preload`. |
-| **Draw mount** | CSS shimmer on pine → mount `<img>` after 2× `rAF` (preload warms cache). |
-| **Timing** | **1320ms after img load** (full welcome draw + one gold ring lap) → fades. **Hard wall 1750ms**. Size **214px / 62vw** (−20% vs prior preview). |
+| **Tree asset (home preview)** | `heirloom-splash-tree-static.svg` + **CSS ring rotation** + tree **scale-in** — no SMIL during Vue boot (SMIL stutters = “pieces of a draw”). Booked/order keep animated `heirloom-splash-tree.svg`. |
+| **Mount** | Shimmer → `requestIdleCallback` (≤120ms) → 2× `rAF` → static `<img>` + rings. |
+| **Timing** | **1100ms after `is-live`** (one gold lap) → fades. **Hard wall 1600ms**. **214px / 62vw**. |
 | **Hero ready** | Set `data-ww-hero-video-ready` only when welcome dismisses; block canvas boot from setting it early (`__wwLuxeWelcomePending`). |
 | **Reduced motion** | `prefers-reduced-motion`: static img, **400ms** total, no draw wait. |
 | **Branch** | Welcome inject: **`preview`** only until operator promotes. **`main`**: uninject (WeWeb owns hero). |

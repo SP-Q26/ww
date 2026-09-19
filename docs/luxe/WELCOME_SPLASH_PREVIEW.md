@@ -2,12 +2,14 @@
 
 **Canon:** `SPLASH_SKELETON_CANON.md`
 
-**Sequence (≤1750ms wall):**
+**Sequence (≤1600ms wall):**
 
-1. Pine green + **CSS skellie** (gold shimmer disc) while Vue/WeWeb boots (`#app` locked).
-2. **`rel=preload`** + `<img src="/heirloom/assets/heirloom-splash-tree-welcome.svg">` after **2× rAF** (slower draw + one gold ring lap; booked keeps base SVG).
-3. **1320ms after img load:** full draw on solid pine → green fade (0.45s). Tree **214px / 62vw** (−20%).
-4. Tree fades (0.45s); dismiss; **`data-ww-hero-video-ready`** only then (`__wwLuxeWelcomePending` blocks canvas boot from early flag).
+1. Pine + **CSS skellie** while Vue boots (`#app` locked).
+2. After **idle ≤120ms**: **static tree** + **CSS ring lap** (compositor — no SMIL stroke draw on main thread).
+3. **1100ms after live:** green fade → tree fade (0.4s).
+4. Hero ready on dismiss (`__wwLuxeWelcomePending` gate).
+
+**Why not SMIL on home:** Vue parse/hydration steals main-thread frames; stroke-dash looks like jerky “pieces.” Static tree + CSS motion reads as one clean welcome.
 
 **Reduced motion:** static tree, 400ms.
 

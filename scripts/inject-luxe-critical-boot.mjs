@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: luxe welcome — pine, skellie, heirloom img tree, ≤1750ms wall.
+ * Branch `preview` only: pine, skellie, CSS rings + static tree (no SMIL during Vue boot), ≤1600ms wall.
  */
 import fs from "fs";
 import path from "path";
@@ -21,7 +21,7 @@ if (!welcome) {
 
 const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
 const MARKER = "ww-luxe-welcome-splash";
-const TREE_SRC = "/heirloom/assets/heirloom-splash-tree-welcome.svg";
+const TREE_SRC = "/heirloom/assets/heirloom-splash-tree-static.svg";
 
 const SPLASH_STYLE = `<style id="ww-critical-first-paint">
 html,body,#app{background-color:#141f19!important}
@@ -31,11 +31,11 @@ html.ww-welcome-lock #app{
 }
 #ww-critical-splash{
   position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;
-  pointer-events:none
+  pointer-events:none;transform:translateZ(0)
 }
 #ww-critical-splash .ww-welcome__bg{
   position:absolute;inset:0;background-color:#141f19;
-  transition:opacity .45s ease
+  transition:opacity .4s ease
 }
 #ww-critical-splash.ww-green-out .ww-welcome__bg{opacity:0}
 #ww-critical-splash .ww-welcome__tree{
@@ -51,14 +51,50 @@ html.ww-welcome-lock #app{
   0%{background-position:100% 0}
   100%{background-position:-100% 0}
 }
+#ww-critical-splash .ww-welcome__rings{
+  position:absolute;inset:0;opacity:0;pointer-events:none
+}
+#ww-critical-splash .ww-welcome__ring{
+  position:absolute;left:50%;top:50%;border-radius:50%;box-sizing:border-box;
+  border:1.5px solid transparent
+}
+#ww-critical-splash .ww-welcome__ring--gold{
+  width:72%;height:72%;margin:-36% 0 0 -36%;
+  border-color:rgba(198,161,91,0.32);
+  border-top-color:rgba(198,161,91,0.55);
+  transform:rotate(0deg);
+  will-change:transform
+}
+#ww-critical-splash .ww-welcome__ring--sage{
+  width:65%;height:65%;margin:-32.5% 0 0 -32.5%;
+  border-color:rgba(123,142,122,0.2);
+  border-bottom-color:rgba(123,142,122,0.38);
+  transform:rotate(0deg);
+  will-change:transform
+}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__rings{opacity:1}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__ring--gold{
+  animation:ww-ring-gold 1.1s linear 1 forwards
+}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__ring--sage{
+  animation:ww-ring-sage 1.65s linear 1 forwards
+}
+@keyframes ww-ring-gold{to{transform:rotate(360deg)}}
+@keyframes ww-ring-sage{to{transform:rotate(-360deg)}}
 #ww-critical-splash .ww-welcome__tree-img{
-  width:100%;height:auto;display:block;opacity:0;
-  transition:opacity .35s ease
+  position:relative;z-index:2;width:100%;height:auto;display:block;
+  opacity:0;transform:scale(0.94) translateZ(0);
+  will-change:opacity,transform
 }
 #ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__sk-tree{display:none}
-#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__tree-img{opacity:1}
+#ww-critical-splash .ww-welcome__tree.is-live .ww-welcome__tree-img{
+  animation:ww-welcome-tree-in .7s cubic-bezier(0.22,1,0.36,1) forwards
+}
+@keyframes ww-welcome-tree-in{
+  to{opacity:1;transform:scale(1) translateZ(0)}
+}
 #ww-critical-splash.ww-tree-out .ww-welcome__tree{
-  opacity:0;transition:opacity .45s ease
+  opacity:0;transition:opacity .4s ease
 }
 html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
   opacity:0!important;visibility:hidden!important;pointer-events:none!important
@@ -69,12 +105,12 @@ const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/s
 
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
 var TREE_SRC="${TREE_SRC}";
-var WALL_MS=1750;
-var DRAW_HOLD_MS=1320;
-var REDUCED_MS=400;
+var WALL_MS=1600;
+var HOLD_MS=1100;
+var REDUCED_MS=350;
+var IDLE_MS=120;
 var splashStart=performance.now();
 var r=document.documentElement;
-var timers=[];
 r.classList.add("ww-welcome-lock");
 window.__wwLuxeWelcomePending=true;
 var nativeSetAttr=r.setAttribute.bind(r);
@@ -82,7 +118,7 @@ r.setAttribute=function(name,value){
   if(name==="data-ww-hero-video-ready"&&window.__wwLuxeWelcomePending)return;
   return nativeSetAttr(name,value);
 };
-function later(fn,ms){timers.push(setTimeout(fn,ms));}
+function later(fn,ms){setTimeout(fn,ms);}
 function forceHeroReady(){
   window.__wwLuxeWelcomePending=false;
   nativeSetAttr("data-ww-hero-video-ready","1");
@@ -94,28 +130,26 @@ function dismiss(){
   if(s&&s.parentNode)s.parentNode.removeChild(s);
   forceHeroReady();
 }
-function scheduleFades(imgAt){
+function scheduleFades(liveAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduced){
     later(dismiss,REDUCED_MS);
     later(forceHeroReady,REDUCED_MS);
     return;
   }
-  var greenAt=imgAt+DRAW_HOLD_MS;
   var wallEnd=splashStart+WALL_MS;
-  var treeAt=greenAt+160;
-  var doneAt=Math.min(wallEnd,treeAt+460);
-  if(greenAt>wallEnd-500)greenAt=wallEnd-500;
-  if(treeAt>wallEnd-460)treeAt=wallEnd-460;
-  if(doneAt<treeAt+200)doneAt=treeAt+460;
-  later(function(){
-    var s=splash();if(s)s.classList.add("ww-green-out");
-  },Math.max(0,greenAt-performance.now()));
-  later(function(){
-    var s=splash();if(s)s.classList.add("ww-tree-out");
-  },Math.max(0,treeAt-performance.now()));
+  var greenAt=liveAt+HOLD_MS;
+  var treeAt=greenAt+120;
+  var doneAt=Math.min(wallEnd,treeAt+400);
+  later(function(){var s=splash();if(s)s.classList.add("ww-green-out");},Math.max(0,greenAt-performance.now()));
+  later(function(){var s=splash();if(s)s.classList.add("ww-tree-out");},Math.max(0,treeAt-performance.now()));
   later(dismiss,Math.max(0,doneAt-performance.now()));
   later(forceHeroReady,Math.max(0,wallEnd-performance.now()));
+}
+function goLive(wrap){
+  var t=performance.now();
+  wrap.classList.add("is-live");
+  scheduleFades(t);
 }
 function mountTree(){
   var wrap=document.querySelector(".ww-welcome__tree");
@@ -124,21 +158,23 @@ function mountTree(){
   img.className="ww-welcome__tree-img";
   img.alt="";
   img.decoding="async";
+  img.fetchPriority="high";
   img.width=214;
   img.height=214;
-  function live(){
-    wrap.classList.add("is-live");
-    scheduleFades(performance.now());
-  }
-  img.onload=live;
-  img.onerror=live;
+  function ready(){goLive(wrap);}
+  img.onload=ready;
+  img.onerror=ready;
   img.src=TREE_SRC;
   wrap.appendChild(img);
 }
 function arm(){
   r.style.backgroundColor="#141f19";
   if(document.body)document.body.style.backgroundColor="#141f19";
-  requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
+  var start=function(){
+    requestAnimationFrame(function(){requestAnimationFrame(mountTree);});
+  };
+  if(window.requestIdleCallback){requestIdleCallback(start,{timeout:IDLE_MS});}
+  else{later(start,80);}
 }
 arm();
 })();</script>`;
@@ -146,7 +182,7 @@ arm();
 const THEME_META = `<meta name="theme-color" content="#141f19"/>`;
 
 function bodySplashMarkup() {
-  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true"><div class="ww-welcome__sk-tree"></div></div></div>${ORCHESTRATOR}`;
+  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true"><div class="ww-welcome__sk-tree"></div><div class="ww-welcome__rings"><span class="ww-welcome__ring ww-welcome__ring--gold"></span><span class="ww-welcome__ring ww-welcome__ring--sage"></span></div></div></div>${ORCHESTRATOR}`;
 }
 
 function stripWelcomeSplash(html) {
@@ -236,4 +272,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview welcome · skellie+img · 1.75s wall)");
+console.log("inject-luxe-critical-boot: ok (preview welcome · CSS rings + static tree · 1.6s)");
