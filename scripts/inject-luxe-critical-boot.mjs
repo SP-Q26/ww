@@ -37,7 +37,7 @@ html.ww-welcome-lock #app{
 }
 #ww-critical-splash .ww-welcome__bg{
   position:absolute;inset:0;background-color:#141f19;
-  transition:opacity .35s ease
+  transition:opacity .1s ease-out
 }
 #ww-critical-splash.ww-green-out .ww-welcome__bg{opacity:0}
 #ww-critical-splash .ww-welcome__tree{
@@ -121,7 +121,7 @@ r.setAttribute=function(name,value){
   return nativeSetAttr(name,value);
 };
 function later(fn,ms){setTimeout(fn,ms);}
-var GREEN_FADE_MS=350;
+var GREEN_FADE_MS=100;
 var HANDOFF_FALLBACK_MS=1800;
 function releaseHandoff(){
   if(!window.__wwLuxeWelcomePending&&window.__wwHeroReadyQueued==null)return;
@@ -146,6 +146,8 @@ function dismiss(){
 function beginGreenOut(){
   r.classList.remove("ww-welcome-lock");
   releaseHandoff();
+  r.style.backgroundColor="";
+  if(document.body)document.body.style.backgroundColor="";
   var s=splash();
   if(s)s.classList.add("ww-green-out");
 }
@@ -153,7 +155,7 @@ function runFades(greenAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduced){later(dismiss,REDUCED_MS);later(ensureHeroReady,REDUCED_MS);return;}
   var wallEnd=splashStart+WALL_MS;
-  var treeAt=greenAt+GREEN_FADE_MS+24;
+  var treeAt=greenAt+GREEN_FADE_MS+16;
   var doneAt=Math.min(wallEnd,treeAt+320);
   later(beginGreenOut,Math.max(0,greenAt-performance.now()));
   later(function(){var s=splash();if(s)s.classList.add("ww-tree-out");},Math.max(0,treeAt-performance.now()));
