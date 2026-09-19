@@ -98,3 +98,11 @@ const metaPixelPreview = spawnSync(process.execPath, ['./scripts/inject-luxe-met
 if (metaPixelPreview.status !== 0) {
     process.exit(metaPixelPreview.status ?? 1);
 }
+
+const apexSeo = spawnSync(process.execPath, ['./scripts/rewrite-luxe-apex-seo-urls.mjs'], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+});
+if (apexSeo.status !== 0) {
+    process.exit(apexSeo.status ?? 1);
+}
