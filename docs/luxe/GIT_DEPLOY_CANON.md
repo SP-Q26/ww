@@ -10,15 +10,15 @@
 
 **Not in this repo:** Company Town, Weddings Journal, and other brands live in **separate repos/branches**. Never commit `docs/companytown/`, `docs/weddings/`, or `sites/weddings/` here (see `.gitignore`).
 
-## Emergency production revert (known-good package)
+## Elite backup (known-good package)
 
-**Signed off 2026-09-19** — preview welcome feel (100ms green-out, tree holds, same inject on `main` + `preview`).
+**Signed off 2026-09-19** — WeWeb **v45** canvas + preview package (welcome splash, preview Meta Pixel gate, apex sitemap/robots, `main` = `preview` same tip).
 
 | Pin | SHA | Notes |
 |-----|-----|--------|
-| **`main` (prod)** | `1cd6f2d` | Squash promote preview package; Vercel production deploy from this tip |
-| **`preview`** | `943aa4e` | Splash timing (included in prod squash) |
-| **Git tag** | `luxe-prod-known-good-2026-09-19` | Points at `1cd6f2d` |
+| **`main` + `preview`** | `a325bbc` (update tag after prod smoke) | WeWeb v45 export merge; postbuild hooks preserved |
+| **WeWeb publish sink** | `origin/luxe` @ `79bb294` | v45 publish (operator email; merge via git only) |
+| **Git tag** | `luxe-elite-backup-2026-09-19` | Set on `main` tip after smoke |
 
 **Reload prod to this exact set:**
 
@@ -26,14 +26,14 @@
 cd ~/ww
 git fetch origin
 git checkout main
-git reset --hard 1cd6f2d   # or: git checkout luxe-prod-known-good-2026-09-19
+git reset --hard a325bbc   # or: git checkout luxe-elite-backup-2026-09-19
 ./scripts/verify-git-identity.sh
 git push origin main       # only after operator confirms; needs force if main moved
 ```
 
-**Vercel without git rewrite:** Deployments → pick the **Production** deployment whose commit is `1cd6f2d` → **Promote to Production** (or Redeploy that commit).
+**Vercel without git rewrite:** Deployments → Production deployment for commit **`a325bbc`** → Promote to Production.
 
-**Package includes:** WeWeb export on branch history, `inject-luxe-critical-boot.mjs` welcome gate, postbuild heirloom merge, `cacheVersion` **44** — not export-only.
+**Package includes:** `cacheVersion` **45**, welcome inject, preview pixel inject, `sites/luxe` slice, apex SEO URL rewrite in postbuild — not export-only.
 
 ## Two git branches by design: `luxe` (WeWeb) → `main` (production)
 
