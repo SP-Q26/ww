@@ -19,6 +19,9 @@ body{margin:0}
 }
 #ww-critical-splash.is-out{opacity:0}
 #ww-critical-splash svg{width:min(32vw,140px);height:auto;display:block}
+#ww-critical-splash{animation:wwCritHardOut .45s ease 1.5s forwards}
+@keyframes wwCritHardOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+html[data-ww-hero-video-ready="1"] #ww-critical-splash{display:none!important;opacity:0!important;visibility:hidden!important}
 html:not([data-ww-hero-video-ready="1"]) .ww-element-${HERO_SPLASH_UID}{
   position:absolute!important;inset:0!important;z-index:12!important;
   display:flex!important;align-items:center!important;justify-content:center!important;
