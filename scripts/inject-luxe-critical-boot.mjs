@@ -10,6 +10,8 @@ const indexPath = path.join(ROOT, "dist", "index.html");
 const svgPath = path.join(ROOT, "docs/luxe/canvas/hero-splash-tree.svg");
 
 const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
+const ORCHESTRATOR_MARKER = "ww-luxe-splash-orchestrator";
+
 const SPLASH_STYLE = `<style id="ww-critical-first-paint">
 html,body,#app{background-color:#141f19!important}
 body{margin:0}
@@ -19,12 +21,6 @@ body{margin:0}
 }
 #ww-critical-splash.is-out{opacity:0}
 #ww-critical-splash svg{width:min(32vw,140px);height:auto;display:block}
-html:not([data-ww-hero-video-ready="1"]) .ww-element-${HERO_SPLASH_UID}{
-  position:absolute!important;inset:0!important;z-index:12!important;
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  pointer-events:none!important;opacity:1!important;visibility:visible!important;
-  transition:opacity 1.15s ease,visibility 1.15s ease
-}
 html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
   opacity:0!important;visibility:hidden!important;pointer-events:none!important
 }
@@ -33,7 +29,7 @@ html[data-ww-hero-video-ready="1"] .ww-element-63c3ad17-1c03-49e0-b69c-be61ce002
 }
 </style>`;
 
-const HEAD_BOOT = `<script>(function(){
+const ORCHESTRATOR_SCRIPT = `<script id="${ORCHESTRATOR_MARKER}">(function(){
 var r=document.documentElement;
 r.style.backgroundColor="#141f19";
 function paint(){if(document.body)document.body.style.backgroundColor="#141f19";}
@@ -66,7 +62,9 @@ window.setTimeout(forceHeroReady,5000);
 if(document.readyState==="loading"){
   document.addEventListener("DOMContentLoaded",function(){window.requestAnimationFrame(loop);});
 }else{window.requestAnimationFrame(loop);}
-})();</script><meta name="theme-color" content="#141f19"/>`;
+})();</script>`;
+
+const HEAD_BOOT = `${ORCHESTRATOR_SCRIPT}<meta name="theme-color" content="#141f19"/>`;
 
 function loadSplashSvg() {
   if (!fs.existsSync(svgPath)) {
@@ -85,6 +83,15 @@ function bodySplashMarkup(svg) {
   return `<div id="ww-critical-splash" role="status" aria-label="Loading">${svg}</div>`;
 }
 
+function injectOrchestrator(html) {
+  if (html.includes(ORCHESTRATOR_MARKER) || html.includes("HANDOFF_MAX")) {
+    return html;
+  }
+  const headClose = html.indexOf("</head>");
+  if (headClose === -1) return html;
+  return html.slice(0, headClose) + ORCHESTRATOR_SCRIPT + html.slice(headClose);
+}
+
 if (!fs.existsSync(indexPath)) {
   console.warn("inject-luxe-critical-boot: dist/index.html missing — skip");
   process.exit(0);
@@ -95,7 +102,6 @@ let html = fs.readFileSync(indexPath, "utf8");
 html = html.replace(/<script id="ww-luxe-splash-bail">[\s\S]*?<\/script>/g, "");
 
 const svg = loadSplashSvg();
-const headSnippet = HEAD_BOOT + SPLASH_STYLE;
 const headOpen = html.match(/<head[^>]*>/i);
 if (!headOpen) {
   console.warn("inject-luxe-critical-boot: no <head> — skip");
@@ -107,7 +113,19 @@ if (html.includes('id="ww-critical-first-paint"')) {
     /<style id="ww-critical-first-paint">[\s\S]*?<\/style>/,
     SPLASH_STYLE.trim()
   );
-  const oldBoot = html.indexOf('r.style.backgroundColor="#141f19"');
+} else {
+  const insertAt = headOpen.index + headOpen[0].length;
+  html = html.slice(0, insertAt) + SPLASH_STYLE + html.slice(insertAt);
+}
+
+const wwCritical = /<script>\s*\(function wwCriticalFirstPaint\(\)[\s\S]*?<\/script>/;
+if (wwCritical.test(html)) {
+  html = html.replace(
+    wwCritical,
+    ORCHESTRATOR_SCRIPT
+  );
+} else {
+  const oldBoot = html.indexOf('backgroundColor="#141f19"');
   if (oldBoot !== -1) {
     const scriptStart = html.lastIndexOf("<script>", oldBoot);
     const scriptEnd = html.indexOf("</script>", oldBoot);
@@ -115,10 +133,9 @@ if (html.includes('id="ww-critical-first-paint"')) {
       html = html.slice(0, scriptStart) + HEAD_BOOT + html.slice(scriptEnd + 9);
     }
   }
-} else {
-  const insertAt = headOpen.index + headOpen[0].length;
-  html = html.slice(0, insertAt) + headSnippet + html.slice(insertAt);
 }
+
+html = injectOrchestrator(html);
 
 if (svg) {
   html = html.replace(/<div id="ww-critical-splash"[\s\S]*?<\/div>/, "");
@@ -129,5 +146,10 @@ if (svg) {
   }
 }
 
+if (!html.includes(ORCHESTRATOR_MARKER)) {
+  console.error("inject-luxe-critical-boot: FAIL — orchestrator script missing after inject");
+  process.exit(1);
+}
+
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok" + (svg ? " (3-phase splash)" : ""));
+console.log("inject-luxe-critical-boot: ok" + (svg ? " (3-phase splash + orchestrator)" : " (orchestrator)"));
