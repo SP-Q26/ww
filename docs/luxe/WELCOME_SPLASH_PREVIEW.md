@@ -2,10 +2,12 @@
 
 **Sequence (≤1.5s total):**
 
-1. **Pine green** full viewport + **skeleton tree** SVG (`#ww-critical-splash`).
-2. **~380ms:** green **background fades to transparent**; **tree stays** visible.
-3. **~900ms:** tree **fades out**; canvas hero / landing reveals.
-4. **1200ms:** remove overlay; **1500ms hard cap** sets `data-ww-hero-video-ready=1`.
+1. **Pine green** full viewport + **heirloom splash tree** (same SVG as `/booked` and `/heirloom` order — `heirloom-splash-tree.svg`, ~50% larger than first preview pass).
+2. **~520ms:** green **background layer** fades (`.ww-welcome__bg`); **tree stays** on its own layer (no parent opacity jank).
+3. **~1080ms:** tree fades like `.wwl-splash.is-out` (0.55s ease).
+4. **~1380ms:** remove overlay; **1500ms hard cap** sets `data-ww-hero-video-ready=1`.
+
+Orchestrator runs on `DOMContentLoaded` so the tree markup exists before timers fire.
 
 **Implementation:** `scripts/inject-luxe-critical-boot.mjs` when `VERCEL_GIT_COMMIT_REF=preview`.
 

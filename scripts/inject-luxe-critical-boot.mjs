@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: luxe welcome — pine + tree → fade green (keep tree) → fade tree → hero (≤1.5s).
+ * Branch `preview` only: luxe welcome — pine + heirloom tree → fade green → fade tree → hero (≤1.5s).
  */
 import fs from "fs";
 import path from "path";
@@ -8,7 +8,10 @@ import { spawnSync } from "node:child_process";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const indexPath = path.join(ROOT, "dist", "index.html");
-const svgPath = path.join(ROOT, "docs/luxe/canvas/hero-splash-tree.svg");
+const svgPath = path.join(
+  ROOT,
+  "sites/luxe/public/whispering-woods-luxe/assets/heirloom-splash-tree.svg"
+);
 
 const ref = process.env.VERCEL_GIT_COMMIT_REF || "main";
 const welcome =
@@ -23,18 +26,29 @@ if (!welcome) {
 const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
 const MARKER = "ww-luxe-welcome-splash";
 const HARD_MS = 1500;
+const GREEN_OUT_MS = 520;
+const TREE_OUT_MS = 1080;
+const DISMISS_MS = 1380;
 
 const SPLASH_STYLE = `<style id="ww-critical-first-paint">
 html,body,#app{background-color:#141f19!important}
 body{margin:0}
 #ww-critical-splash{
   position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;
-  background-color:#141f19;pointer-events:none;
-  transition:background-color .85s ease,opacity .55s ease
+  pointer-events:none;isolation:isolate
 }
-#ww-critical-splash.ww-green-out{background-color:transparent!important}
-#ww-critical-splash.ww-tree-out{opacity:0!important}
-#ww-critical-splash svg{width:min(32vw,140px);height:auto;display:block;transition:opacity .5s ease}
+#ww-critical-splash .ww-welcome__bg{
+  position:absolute;inset:0;background-color:#141f19;
+  transition:opacity .55s ease;will-change:opacity
+}
+#ww-critical-splash.ww-green-out .ww-welcome__bg{opacity:0}
+#ww-critical-splash .ww-welcome__tree{
+  position:relative;z-index:1;width:min(268px,78vw);height:auto;display:block;
+  transition:opacity .55s ease,visibility .55s ease;will-change:opacity
+}
+#ww-critical-splash.ww-tree-out .ww-welcome__tree{
+  opacity:0;visibility:hidden
+}
 html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
   opacity:0!important;visibility:hidden!important;pointer-events:none!important
 }
@@ -42,26 +56,44 @@ html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
 
 const ORCHESTRATOR = `<script id="${MARKER}">(function(){
 var HARD=${HARD_MS};
+var GREEN=${GREEN_OUT_MS};
+var TREE=${TREE_OUT_MS};
+var DONE=${DISMISS_MS};
 var SPLASH_SEL="#ww-critical-splash";
-var CANVAS_SEL=".ww-element-${HERO_SPLASH_UID}";
 var r=document.documentElement;
 function forceHeroReady(){r.setAttribute("data-ww-hero-video-ready","1");}
-function el(){return document.querySelector(SPLASH_SEL);}
+function splash(){return document.querySelector(SPLASH_SEL);}
 function dismiss(){
-  var s=el();
+  var s=splash();
   if(s&&s.parentNode)s.parentNode.removeChild(s);
   forceHeroReady();
 }
-r.style.backgroundColor="#141f19";
-if(document.body)document.body.style.backgroundColor="#141f19";
-window.setTimeout(function(){var s=el();if(s)s.classList.add("ww-green-out");},380);
-window.setTimeout(function(){var s=el();if(s)s.classList.add("ww-tree-out");},900);
-window.setTimeout(dismiss,1200);
-window.setTimeout(forceHeroReady,HARD);
-})();</script><meta name="theme-color" content="#141f19"/>`;
+function run(){
+  r.style.backgroundColor="#141f19";
+  if(document.body)document.body.style.backgroundColor="#141f19";
+  window.setTimeout(function(){
+    var s=splash();if(s)s.classList.add("ww-green-out");
+  },GREEN);
+  window.setTimeout(function(){
+    var s=splash();if(s)s.classList.add("ww-tree-out");
+  },TREE);
+  window.setTimeout(dismiss,DONE);
+  window.setTimeout(forceHeroReady,HARD);
+}
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",run,{once:true});
+}else{
+  run();
+}
+})();</script>`;
+
+const THEME_META = `<meta name="theme-color" content="#141f19"/>`;
 
 function loadSplashSvg() {
-  if (!fs.existsSync(svgPath)) return "";
+  if (!fs.existsSync(svgPath)) {
+    console.warn("inject-luxe-critical-boot: heirloom tree svg missing at", svgPath);
+    return "";
+  }
   return fs
     .readFileSync(svgPath, "utf8")
     .replace(/\s+/g, " ")
@@ -71,7 +103,37 @@ function loadSplashSvg() {
 
 function bodySplashMarkup(svg) {
   if (!svg) return "";
-  return `<div id="ww-critical-splash" role="status" aria-label="Loading">${svg}</div>`;
+  return `<div id="ww-critical-splash" role="status" aria-label="Loading"><div class="ww-welcome__bg" aria-hidden="true"></div><div class="ww-welcome__tree" aria-hidden="true">${svg}</div></div>${ORCHESTRATOR}`;
+}
+
+function stripWelcomeSplash(html) {
+  const start = html.indexOf('<div id="ww-critical-splash"');
+  if (start === -1) return html;
+  let depth = 0;
+  let i = start;
+  while (i < html.length) {
+    if (html.startsWith("<div", i)) {
+      depth++;
+      i += 4;
+      continue;
+    }
+    if (html.startsWith("</div>", i)) {
+      depth--;
+      i += 6;
+      if (depth === 0) {
+        let end = i;
+        const after = html.slice(end);
+        const scriptMatch = after.match(
+          /^\s*<script id="ww-luxe-welcome-splash">[\s\S]*?<\/script>/
+        );
+        if (scriptMatch) end += scriptMatch[0].length;
+        return html.slice(0, start) + html.slice(end);
+      }
+      continue;
+    }
+    i++;
+  }
+  return html;
 }
 
 if (!fs.existsSync(indexPath)) {
@@ -84,6 +146,7 @@ let html = fs.readFileSync(indexPath, "utf8");
 html = html.replace(/<script id="ww-luxe-welcome-splash">[\s\S]*?<\/script>\s*/g, "");
 html = html.replace(/<script id="ww-luxe-splash-orchestrator">[\s\S]*?<\/script>\s*/g, "");
 html = html.replace(/<script id="ww-luxe-splash-bail">[\s\S]*?<\/script>\s*/g, "");
+html = stripWelcomeSplash(html);
 
 if (html.includes('id="ww-critical-first-paint"')) {
   html = html.replace(/<style id="ww-critical-first-paint">[\s\S]*?<\/style>/, SPLASH_STYLE.trim());
@@ -97,16 +160,17 @@ if (html.includes('id="ww-critical-first-paint"')) {
 
 const wwCritical = /<script>\s*\(function wwCriticalFirstPaint\(\)[\s\S]*?<\/script>/;
 if (wwCritical.test(html)) {
-  html = html.replace(wwCritical, ORCHESTRATOR.replace(/<meta name="theme-color"[^/]+\/>/, ""));
-} else if (!html.includes(MARKER)) {
+  html = html.replace(wwCritical, "");
+}
+
+if (!html.includes('name="theme-color" content="#141f19"')) {
   const headClose = html.indexOf("</head>");
   if (headClose !== -1) {
-    html = html.slice(0, headClose) + ORCHESTRATOR + html.slice(headClose);
+    html = html.slice(0, headClose) + THEME_META + html.slice(headClose);
   }
 }
 
 const svg = loadSplashSvg();
-html = html.replace(/<div id="ww-critical-splash"[\s\S]*?<\/div>\s*/g, "");
 const bodyOpen = html.match(/<body[^>]*>/i);
 if (svg && bodyOpen && !html.includes('id="ww-critical-splash"')) {
   const at = bodyOpen.index + bodyOpen[0].length;
@@ -119,4 +183,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview welcome splash ≤1.5s)");
+console.log("inject-luxe-critical-boot: ok (preview welcome · heirloom tree)");
