@@ -16,9 +16,9 @@
 
 | Pin | SHA | Notes |
 |-----|-----|--------|
-| **`main` (prod)** | `062d596` | Squash promote preview package; Vercel production deploy from this tip |
+| **`main` (prod)** | `1cd6f2d` | Squash promote preview package; Vercel production deploy from this tip |
 | **`preview`** | `943aa4e` | Splash timing (included in prod squash) |
-| **Git tag** | `luxe-prod-known-good-2026-09-19` | Points at `062d596` |
+| **Git tag** | `luxe-prod-known-good-2026-09-19` | Points at `1cd6f2d` |
 
 **Reload prod to this exact set:**
 
@@ -26,12 +26,12 @@
 cd ~/ww
 git fetch origin
 git checkout main
-git reset --hard 062d596   # or: git checkout luxe-prod-known-good-2026-09-19
+git reset --hard 1cd6f2d   # or: git checkout luxe-prod-known-good-2026-09-19
 ./scripts/verify-git-identity.sh
 git push origin main       # only after operator confirms; needs force if main moved
 ```
 
-**Vercel without git rewrite:** Deployments → pick the **Production** deployment whose commit is `062d596` → **Promote to Production** (or Redeploy that commit).
+**Vercel without git rewrite:** Deployments → pick the **Production** deployment whose commit is `1cd6f2d` → **Promote to Production** (or Redeploy that commit).
 
 **Package includes:** WeWeb export on branch history, `inject-luxe-critical-boot.mjs` welcome gate, postbuild heirloom merge, `cacheVersion` **44** — not export-only.
 
