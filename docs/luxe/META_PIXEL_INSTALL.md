@@ -2,6 +2,8 @@
 
 **Principle:** Pixel is **analytics only**. It does not touch Xano, Stripe, or the booking workflow. If `meta_pixel_id` is **empty**, **no** request is sent to Facebook.
 
+**Hard law (2026-09-18):** Do **not** put Meta Pixel in WeWeb **Project Head** or `vite.config.js` export head. Vercel `postbuild` runs `strip-luxe-meta-pixel-from-dist.mjs` and **fails the build** if pixel tags remain in `dist/index.html`. Re-enable ads only via a reviewed, isolated loader (not global head) after launch stability.
+
 ## 1 · Get the Pixel ID
 
 Meta Business Suite → **Datasets** (Pixel) → copy the **15-digit ID**.
