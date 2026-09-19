@@ -85,6 +85,8 @@ Fetched home via Vercel-authenticated fetch (preview protection blocks raw `curl
 
 **Fix:** `releaseHandoff()` only on dismiss; canvas boot owns `data-ww-hero-video-ready` (+ 2.2s fallback).
 
+**Follow-up (green hang):** Boot `markReady()` often fired while `__wwLuxeWelcomePending` — patched `setAttribute` **dropped** ready with no retry → ~1s extra pine until fallback. **Queue + flush** on green-out `releaseHandoff`; green fades before tree-out.
+
 ---
 
 ## Sign-off

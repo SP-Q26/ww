@@ -104,15 +104,25 @@ var splashStart=performance.now();
 var r=document.documentElement;
 r.classList.add("ww-welcome-lock");
 window.__wwLuxeWelcomePending=true;
+window.__wwHeroReadyQueued=null;
 var nativeSetAttr=r.setAttribute.bind(r);
 r.setAttribute=function(name,value){
-  if(name==="data-ww-hero-video-ready"&&window.__wwLuxeWelcomePending)return;
+  if(name==="data-ww-hero-video-ready"&&window.__wwLuxeWelcomePending){
+    window.__wwHeroReadyQueued=value;
+    return;
+  }
   return nativeSetAttr(name,value);
 };
 function later(fn,ms){setTimeout(fn,ms);}
-var HANDOFF_FALLBACK_MS=2200;
+var GREEN_FADE_MS=350;
+var HANDOFF_FALLBACK_MS=1800;
 function releaseHandoff(){
+  if(!window.__wwLuxeWelcomePending&&window.__wwHeroReadyQueued==null)return;
   window.__wwLuxeWelcomePending=false;
+  if(window.__wwHeroReadyQueued!=null){
+    nativeSetAttr("data-ww-hero-video-ready",String(window.__wwHeroReadyQueued));
+    window.__wwHeroReadyQueued=null;
+  }
 }
 function ensureHeroReady(){
   if(r.getAttribute("data-ww-hero-video-ready")!=="1"){
@@ -121,18 +131,24 @@ function ensureHeroReady(){
 }
 function splash(){return document.querySelector("#ww-critical-splash");}
 function dismiss(){
-  r.classList.remove("ww-welcome-lock");
   var s=splash();
   if(s&&s.parentNode)s.parentNode.removeChild(s);
+  r.classList.remove("ww-welcome-lock");
   releaseHandoff();
+}
+function beginGreenOut(){
+  r.classList.remove("ww-welcome-lock");
+  releaseHandoff();
+  var s=splash();
+  if(s)s.classList.add("ww-green-out");
 }
 function runFades(greenAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if(reduced){later(dismiss,REDUCED_MS);later(ensureHeroReady,REDUCED_MS);return;}
   var wallEnd=splashStart+WALL_MS;
-  var treeAt=greenAt+90;
+  var treeAt=greenAt+GREEN_FADE_MS+24;
   var doneAt=Math.min(wallEnd,treeAt+320);
-  later(function(){var s=splash();if(s)s.classList.add("ww-green-out");},Math.max(0,greenAt-performance.now()));
+  later(beginGreenOut,Math.max(0,greenAt-performance.now()));
   later(function(){var s=splash();if(s)s.classList.add("ww-tree-out");},Math.max(0,treeAt-performance.now()));
   later(dismiss,Math.max(0,doneAt-performance.now()));
 }
