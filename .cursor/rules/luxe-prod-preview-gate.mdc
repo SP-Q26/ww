@@ -1,0 +1,23 @@
+---
+description: Whispering Woods Luxe — production frozen until preview is green
+alwaysApply: true
+---
+
+# Luxe · production gate (hard law)
+
+**Production:** `main` → `whisperingwoodsluxe.com` · **Preview / experiments:** branch `preview` → Vercel Preview URL only.
+
+## Never ship to production without preview proof
+
+1. **Do not push to `main`** for splash, head, export, inject, hero boot, or layout experiments until:
+   - Vercel **Preview** deploy from branch `preview` is green
+   - Operator confirms WeWeb preview + Vercel preview smoke (home load, hero, modal, mobile CTA, no reload loop)
+2. **`cacheVersion` / `wwg_cacheVersion` must match** across router, all `public/data/*.json`, manifest — run `sync-ww-cache-version.mjs` before any deploy commit.
+3. **No Meta Pixel** in Project Head until explicitly approved post-stability (`strip-luxe-meta-pixel-from-dist.mjs` on all builds).
+4. **Main postbuild:** `inject-luxe-critical-boot.mjs` → **uninject only** (parity with WeWeb). Welcome tree inject runs **only** when `VERCEL_GIT_COMMIT_REF=preview` or `WW_LUXE_WELCOME_SPLASH=1`.
+
+## Agent duty
+
+- Default branch for Luxe UX experiments: **`preview`**.
+- Merge `preview` → `main` only when the user explicitly requests production promotion after preview sign-off.
+- Document preview URL and smoke results in the handoff when asking for prod promotion.

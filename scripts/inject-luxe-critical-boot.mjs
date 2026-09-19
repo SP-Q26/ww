@@ -1,10 +1,122 @@
 /**
- * DEPRECATED — do not inject splash on Vercel (breaks preview parity).
- * Kept so postbuild bridge scripts still find the path; delegates to uninject.
+ * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
+ * Branch `preview` only: luxe welcome — pine + tree → fade green (keep tree) → fade tree → hero (≤1.5s).
  */
-import { spawnSync } from "node:child_process";
+import fs from "fs";
 import path from "path";
+import { spawnSync } from "node:child_process";
 
-const script = path.join(path.resolve(import.meta.dirname), "uninject-luxe-vercel-splash.mjs");
-const r = spawnSync(process.execPath, [script], { stdio: "inherit" });
-process.exit(r.status ?? 0);
+const ROOT = path.resolve(import.meta.dirname, "..");
+const indexPath = path.join(ROOT, "dist", "index.html");
+const svgPath = path.join(ROOT, "docs/luxe/canvas/hero-splash-tree.svg");
+
+const ref = process.env.VERCEL_GIT_COMMIT_REF || "main";
+const welcome =
+  ref === "preview" || process.env.WW_LUXE_WELCOME_SPLASH === "1";
+
+if (!welcome) {
+  const uninject = path.join(ROOT, "scripts/uninject-luxe-vercel-splash.mjs");
+  const r = spawnSync(process.execPath, [uninject], { stdio: "inherit" });
+  process.exit(r.status ?? 0);
+}
+
+const HERO_SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
+const MARKER = "ww-luxe-welcome-splash";
+const HARD_MS = 1500;
+
+const SPLASH_STYLE = `<style id="ww-critical-first-paint">
+html,body,#app{background-color:#141f19!important}
+body{margin:0}
+#ww-critical-splash{
+  position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;
+  background-color:#141f19;pointer-events:none;
+  transition:background-color .85s ease,opacity .55s ease
+}
+#ww-critical-splash.ww-green-out{background-color:transparent!important}
+#ww-critical-splash.ww-tree-out{opacity:0!important}
+#ww-critical-splash svg{width:min(32vw,140px);height:auto;display:block;transition:opacity .5s ease}
+html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
+  opacity:0!important;visibility:hidden!important;pointer-events:none!important
+}
+</style>`;
+
+const ORCHESTRATOR = `<script id="${MARKER}">(function(){
+var HARD=${HARD_MS};
+var SPLASH_SEL="#ww-critical-splash";
+var CANVAS_SEL=".ww-element-${HERO_SPLASH_UID}";
+var r=document.documentElement;
+function forceHeroReady(){r.setAttribute("data-ww-hero-video-ready","1");}
+function el(){return document.querySelector(SPLASH_SEL);}
+function dismiss(){
+  var s=el();
+  if(s&&s.parentNode)s.parentNode.removeChild(s);
+  forceHeroReady();
+}
+r.style.backgroundColor="#141f19";
+if(document.body)document.body.style.backgroundColor="#141f19";
+window.setTimeout(function(){var s=el();if(s)s.classList.add("ww-green-out");},380);
+window.setTimeout(function(){var s=el();if(s)s.classList.add("ww-tree-out");},900);
+window.setTimeout(dismiss,1200);
+window.setTimeout(forceHeroReady,HARD);
+})();</script><meta name="theme-color" content="#141f19"/>`;
+
+function loadSplashSvg() {
+  if (!fs.existsSync(svgPath)) return "";
+  return fs
+    .readFileSync(svgPath, "utf8")
+    .replace(/\s+/g, " ")
+    .replace(/>\s+</g, "><")
+    .trim();
+}
+
+function bodySplashMarkup(svg) {
+  if (!svg) return "";
+  return `<div id="ww-critical-splash" role="status" aria-label="Loading">${svg}</div>`;
+}
+
+if (!fs.existsSync(indexPath)) {
+  console.warn("inject-luxe-critical-boot: dist/index.html missing — skip");
+  process.exit(0);
+}
+
+let html = fs.readFileSync(indexPath, "utf8");
+
+html = html.replace(/<script id="ww-luxe-welcome-splash">[\s\S]*?<\/script>\s*/g, "");
+html = html.replace(/<script id="ww-luxe-splash-orchestrator">[\s\S]*?<\/script>\s*/g, "");
+html = html.replace(/<script id="ww-luxe-splash-bail">[\s\S]*?<\/script>\s*/g, "");
+
+if (html.includes('id="ww-critical-first-paint"')) {
+  html = html.replace(/<style id="ww-critical-first-paint">[\s\S]*?<\/style>/, SPLASH_STYLE.trim());
+} else {
+  const headOpen = html.match(/<head[^>]*>/i);
+  if (headOpen) {
+    const at = headOpen.index + headOpen[0].length;
+    html = html.slice(0, at) + SPLASH_STYLE + html.slice(at);
+  }
+}
+
+const wwCritical = /<script>\s*\(function wwCriticalFirstPaint\(\)[\s\S]*?<\/script>/;
+if (wwCritical.test(html)) {
+  html = html.replace(wwCritical, ORCHESTRATOR.replace(/<meta name="theme-color"[^/]+\/>/, ""));
+} else if (!html.includes(MARKER)) {
+  const headClose = html.indexOf("</head>");
+  if (headClose !== -1) {
+    html = html.slice(0, headClose) + ORCHESTRATOR + html.slice(headClose);
+  }
+}
+
+const svg = loadSplashSvg();
+html = html.replace(/<div id="ww-critical-splash"[\s\S]*?<\/div>\s*/g, "");
+const bodyOpen = html.match(/<body[^>]*>/i);
+if (svg && bodyOpen && !html.includes('id="ww-critical-splash"')) {
+  const at = bodyOpen.index + bodyOpen[0].length;
+  html = html.slice(0, at) + bodySplashMarkup(svg) + html.slice(at);
+}
+
+if (!html.includes(MARKER)) {
+  console.error("inject-luxe-critical-boot: FAIL — welcome splash missing after inject");
+  process.exit(1);
+}
+
+fs.writeFileSync(indexPath, html);
+console.log("inject-luxe-critical-boot: ok (preview welcome splash ≤1.5s)");
