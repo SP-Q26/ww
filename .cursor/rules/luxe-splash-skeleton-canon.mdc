@@ -9,6 +9,6 @@ alwaysApply: true
 
 - Never two splash systems + two `data-ww-hero-video-ready` timers on the same route.
 - Home welcome (**preview**): pine lock → shimmer → static `<img>` tree + CSS rings; **420ms hold**, **780ms** min before fade, **1600ms** wall; hero-ready on dismiss (`__wwLuxeWelcomePending`).
-- Prod **main**: postbuild **uninject** until preview promoted; canvas **Hero Sprout Loader** **cross-dissolve** owns prod hero.
+- **main** + **preview**: same postbuild welcome inject; canvas **Hero Sprout Loader** **cross-dissolve** after critical handoff.
 - `heirloom-splash-tree-static.svg` on welcome — not inline SMIL in dist HTML during Vue boot.
 - Preview welcome feel signed off **2026-09-18**.

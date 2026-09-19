@@ -1,6 +1,6 @@
 /**
- * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: pine, rings + static tree; hand off to canvas Hero Load Splash (do not force hero-ready on dismiss).
+ * Vercel `main` + `preview`: same welcome gate (pine, rings + static tree → canvas handoff).
+ * Other git refs: uninject (WeWeb `luxe` sink builds stay canvas-only).
  */
 import fs from "fs";
 import path from "path";
@@ -11,7 +11,9 @@ const indexPath = path.join(ROOT, "dist", "index.html");
 
 const ref = process.env.VERCEL_GIT_COMMIT_REF || "main";
 const welcome =
-  ref === "preview" || process.env.WW_LUXE_WELCOME_SPLASH === "1";
+  ref === "main" ||
+  ref === "preview" ||
+  process.env.WW_LUXE_WELCOME_SPLASH === "1";
 
 if (!welcome) {
   const uninject = path.join(ROOT, "scripts/uninject-luxe-vercel-splash.mjs");
@@ -89,6 +91,11 @@ html.ww-welcome-lock #app{
 html[data-ww-hero-video-ready="1"] .ww-element-${HERO_SPLASH_UID}{
   opacity:0!important;visibility:hidden!important;pointer-events:none!important
 }
+html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68bc1fe::before,
+html:not([data-ww-hero-video-ready="1"]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68bc1fe::before{
+  display:none!important;content:none!important;opacity:0!important
+}
+#ww-hero-splash,.ww-element-${HERO_SPLASH_UID}{z-index:5!important}
 </style>`;
 
 const PRELOAD = `<link rel="preload" href="${TREE_SRC}" as="image" type="image/svg+xml"/>`;

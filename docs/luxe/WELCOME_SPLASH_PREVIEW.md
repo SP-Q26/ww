@@ -12,7 +12,7 @@
 
 **Canvas hero (prod):** **Hero Sprout Loader** + **cross-dissolve** when `data-ww-hero-video-ready` flips.
 
-**Production `main`:** postbuild **uninject** until promote.
+**Production `main`:** same welcome inject as **`preview`** (promoted 2026-09-19).
 
 ## Test
 
