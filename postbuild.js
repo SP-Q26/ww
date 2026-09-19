@@ -90,3 +90,11 @@ const sliceCopy = spawnSync(process.execPath, ['./scripts/copy-luxe-slice-into-d
 if (sliceCopy.status !== 0) {
     process.exit(sliceCopy.status ?? 1);
 }
+
+const metaPixelPreview = spawnSync(process.execPath, ['./scripts/inject-luxe-meta-pixel-preview.mjs'], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+});
+if (metaPixelPreview.status !== 0) {
+    process.exit(metaPixelPreview.status ?? 1);
+}

@@ -163,6 +163,16 @@
       };
     }
 
+    try {
+      if (typeof global.wwlMetaInitiateCheckout === 'function') {
+        global.wwlMetaInitiateCheckout({
+          value: payRaw === 'full' ? 1420 : 710,
+          currency: 'USD',
+          content_name: 'Estate Senior Experience',
+        });
+      }
+    } catch (pixelErr) {}
+
     global.location.assign(checkoutUrl);
     return { ok: true, session_id: data.session_id };
   }
