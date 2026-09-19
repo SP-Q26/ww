@@ -15,7 +15,7 @@
 | Marketing export | **GREEN** | Git `index.html` **`_wwcv=37`** |
 | Custom apex (Vercel API) | **VERIFY** | `get_project` still listed **no** custom domains on `luxe` — confirm **Settings → Domains** shows apex + **Valid** |
 | Apex HTTP (agent) | **VERIFY** | Agent curl to apex **timed out / TLS error** — re-run from your network: `curl -sI https://whisperingwoodsluxe.com/` → expect **200**, not SSO |
-| Hero load (tree + fade) | **YELLOW** | Canvas + Head behavior **done in editor**; git **critical tree inject** + slower tree fade **not on production** until next `main` deploy |
+| Hero load (tree + fade) | **YELLOW** | Canvas **cross-dissolve** live; preview **welcome inject** signed off (`c119778`) — **not on production `main`** until promote |
 | Heirloom card layout | **YELLOW** | **Fixed in git** (`48px` icon column + **30px** `column-gap`); **not live** until deploy |
 | Keepsake API | **YELLOW** | `POST /api/wwluxe/keepsake-checkout` — expect **400** with key, **503** without; prior audits saw **500** |
 | Estate book (Xano) | **VERIFY** | `WWL_PUBLIC_ORIGIN` = **`https://whisperingwoodsluxe.com`** · live `WWL_STRIPE_SECRET_KEY` |
@@ -33,7 +33,7 @@
 | **Vue mount** | Canvas **Hero Load Splash** / sprout loader (same mark; may stack briefly) | WeWeb canvas |
 | **≥ ~1.2 s** | `data-ww-hero-video-ready="1"` from **Home · Hero video boot** | Canvas workflow |
 | **Fade** | **Green hero plate** → video **~0.65s** (iframe opacity) | Head bridge + boot CSS |
-| **Fade** | **Tree** fades on **slower** curve (canvas splash / critical overlay **~0.55s+**) | Canvas + inject CSS |
+| **Fade** | **Cross-dissolve**: tree/splash opacity out while hero/video in (**~0.55s+** overlay, **~0.65s** iframe) | Canvas + Head bridge · `HERO_BRAND_REVEAL.md` |
 
 Smoke in browser console after load:
 

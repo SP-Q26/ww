@@ -7,7 +7,7 @@ Same split as **SPQ**: **WeWeb canvas = engine**. **Project Head + git = bridge*
 | Area | Where |
 |------|--------|
 | **1024 shell** | Page layout: max width **1024px** on main column / sections wrapper; pine page background outside shell |
-| **Hero** | Section + overlay div: `100svh`, padding, gradient, **Hero Video Frame** overflow, **Hero Load Splash** (tree mark), **Home · Hero video boot** page workflow (`docs/luxe/canvas/hero-video-boot.js`) |
+| **Hero** | Section + overlay: `100svh`, **Hero Video Frame**, **Hero Load Splash** + **Hero Sprout Loader** (rings + tree — **cross-dissolve** into video), **Home · Hero video boot** (`docs/luxe/canvas/hero-video-boot.js`) · `HERO_BRAND_REVEAL.md` |
 | **Section backgrounds** | Each section’s **background color** (pine vs linen) — not Head `:has()` locks |
 | **Typography & spacing** | Design system tokens + per-element styles |
 | **Buttons / CTAs** | `ww-button` padding, min height 48px, gaps |

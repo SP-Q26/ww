@@ -1,0 +1,14 @@
+---
+description: WW Luxe splash/skeleton — one owner, static welcome tree, timing canon
+alwaysApply: true
+---
+
+# Luxe splash & skeleton
+
+**Canon:** `docs/luxe/SPLASH_SKELETON_CANON.md` · **Preview:** `WELCOME_SPLASH_PREVIEW.md` · **Hero vocab:** `HERO_BRAND_REVEAL.md` · **Portable:** `docs/patterns/BRAND_ARRIVAL_CROSS_DISSOLVE.md` (**arrival dissolve**)
+
+- Never two splash systems + two `data-ww-hero-video-ready` timers on the same route.
+- Home welcome (**preview**): pine lock → shimmer → static `<img>` tree + CSS rings; **420ms hold**, **780ms** min before fade, **1600ms** wall; hero-ready on dismiss (`__wwLuxeWelcomePending`).
+- Prod **main**: postbuild **uninject** until preview promoted; canvas **Hero Sprout Loader** **cross-dissolve** owns prod hero.
+- `heirloom-splash-tree-static.svg` on welcome — not inline SMIL in dist HTML during Vue boot.
+- Preview welcome feel signed off **2026-09-18**.

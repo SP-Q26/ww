@@ -11,7 +11,7 @@
 | Hero block | `68072bf6…` | `100svh`, pine `#141f19`, overflow hidden |
 | Video frame | `0189df0a…` | Absolute fill, **opacity 1**, overflow hidden, no muddy tint |
 | YouTube | `63c3ad17…` | Autoplay/mute/loop, **controls off**, desktop **opacity 1** |
-| Load splash | `17f047b4…` + **Hero Sprout Loader** `1b928beb…` | Play-style gold/sage rings + sprout-to-tree SVG (~1.1s); min **1.2s** before fade · `hero-splash-tree.svg` |
+| Load splash | `17f047b4…` + **Hero Sprout Loader** `1b928beb…` | **Branded preloader** · rings + sprout-to-tree SVG (~1.1s); min **1.2s** then **cross-dissolve** to hero video · `hero-splash-tree.svg` · `HERO_BRAND_REVEAL.md` |
 | Variable | `heroVideoReady` `dafc47f7…` | Drives splash opacity / pointer-events |
 | Workflow | **Home · Hero video boot** `a8f3c2e1-hero-video-boot-home` | Page `onload` · git mirror `docs/luxe/canvas/hero-video-boot.js` |
 
