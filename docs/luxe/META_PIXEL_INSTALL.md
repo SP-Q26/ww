@@ -13,7 +13,8 @@ Meta Business Suite → **Datasets** (Pixel) → copy the **15-digit ID**.
 Push **`preview`** branch. Postbuild injects into `dist/index.html`:
 
 - `WW_SITE_CONFIG.meta_pixel_id` (if config block exists)
-- **After welcome handoff** (end of `<body>`): async load `/heirloom/assets/wwl-meta-pixel.js` so head never blocks the critical splash tree
+- **After splash dismiss** (`ww-luxe-welcome-dismissed` + 400ms, end of `<body>`): async load pixel — **not** at green-out (`__wwLuxeWelcomePending` flips false while the tree is still visible)
+- **A/B splash:** Vercel Preview env `WW_LUXE_META_PIXEL_HOME=0` skips home PageView (booked Purchase still injects)
 
 **Do not** paste Meta’s raw snippet in Project Head — strip step will fail the build.
 

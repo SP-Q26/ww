@@ -24,42 +24,51 @@ if (!PIXEL_ID) {
   process.exit(0);
 }
 
+const homePixelOff = process.env.WW_LUXE_META_PIXEL_HOME === "0";
+
 const MARKER = 'id="ww-luxe-meta-pixel-preview"';
 /** Booked has no welcome gate — load pixel in head. */
 const BOOKED_SNIPPET = `<script ${MARKER}>
 window.WWL_META_PIXEL_ID="${PIXEL_ID}";
 </script>
 <script src="/heirloom/assets/wwl-meta-pixel.js" defer></script>`;
-/** Home: never block <body> parse — wait until welcome splash hands off (or timeout). */
+/**
+ * Home: load only after welcome splash is removed (not at green-out).
+ * beginGreenOut clears __wwLuxeWelcomePending while the tree is still on screen —
+ * polling that flag caused fbevents.js to load during the tree hold (1–2 visible frames).
+ */
 const HOME_SNIPPET = `<script ${MARKER}>
 (function(){
 var PIXEL_ID="${PIXEL_ID}";
-var MAX_WAIT_MS=2200;
-var t0=performance.now();
+var loaded=false;
+var FALLBACK_MS=2400;
 function loadPixel(){
+if(loaded)return;
+loaded=true;
 window.WWL_META_PIXEL_ID=PIXEL_ID;
+function attach(){
 var s=document.createElement("script");
 s.src="/heirloom/assets/wwl-meta-pixel.js";
 s.async=true;
 (document.head||document.documentElement).appendChild(s);
 }
-function welcomeDone(){
-if(window.__wwLuxeWelcomePending===false)return true;
-var el=document.getElementById("ww-critical-splash");
-if(!el||!el.parentNode)return true;
-if(performance.now()-t0>MAX_WAIT_MS)return true;
-return false;
+if(window.requestIdleCallback){requestIdleCallback(attach,{timeout:800});}
+else{setTimeout(attach,0);}
 }
-function arm(){
-if(welcomeDone()){loadPixel();return;}
-setTimeout(arm,80);
-}
-if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",arm);}
-else{arm();}
+window.addEventListener("ww-luxe-welcome-dismissed",function(){
+setTimeout(loadPixel,400);
+},{once:true});
+setTimeout(function(){
+if(!document.getElementById("ww-critical-splash")){loadPixel();}
+},FALLBACK_MS);
 })();
 </script>`;
 
 function injectHome() {
+  if (homePixelOff) {
+    console.log("inject-luxe-meta-pixel-preview: home skipped (WW_LUXE_META_PIXEL_HOME=0)");
+    return;
+  }
   const indexPath = path.join(ROOT, "dist", "index.html");
   if (!fs.existsSync(indexPath)) {
     console.warn("inject-luxe-meta-pixel-preview: no dist/index.html — skip home");
@@ -71,20 +80,6 @@ function injectHome() {
     return;
   }
 
-  if (/window\.WW_SITE_CONFIG\s*=\s*\{/.test(html)) {
-    if (!/meta_pixel_id\s*:/.test(html)) {
-      html = html.replace(
-        /(tour_booking_url:\s*"[^"]*")(\s*\n\};)/,
-        `$1,\n  meta_pixel_id: "${PIXEL_ID}"$2`
-      );
-    } else {
-      html = html.replace(
-        /meta_pixel_id:\s*["'][^"']*["']/,
-        `meta_pixel_id: "${PIXEL_ID}"`
-      );
-    }
-  }
-
   const bodyClose = html.lastIndexOf("</body>");
   if (bodyClose === -1) {
     console.error("inject-luxe-meta-pixel-preview: no </body> in index.html");
@@ -92,7 +87,7 @@ function injectHome() {
   }
   html = html.slice(0, bodyClose) + HOME_SNIPPET + html.slice(bodyClose);
   fs.writeFileSync(indexPath, html);
-  console.log("inject-luxe-meta-pixel-preview: home ok (post-welcome)");
+  console.log("inject-luxe-meta-pixel-preview: home ok (after splash dismiss)");
 }
 
 function injectBooked() {

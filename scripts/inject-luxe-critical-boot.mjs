@@ -137,11 +137,15 @@ function ensureHeroReady(){
   }
 }
 function splash(){return document.querySelector("#ww-critical-splash");}
+function signalWelcomeDismissed(){
+  try{window.dispatchEvent(new CustomEvent("ww-luxe-welcome-dismissed"));}catch(e){}
+}
 function dismiss(){
   var s=splash();
   if(s&&s.parentNode)s.parentNode.removeChild(s);
   r.classList.remove("ww-welcome-lock");
   releaseHandoff();
+  signalWelcomeDismissed();
 }
 function beginGreenOut(){
   r.classList.remove("ww-welcome-lock");
