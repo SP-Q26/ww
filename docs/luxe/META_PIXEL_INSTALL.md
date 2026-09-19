@@ -2,15 +2,15 @@
 
 **Principle:** Pixel is **analytics only**. It does not touch Xano, Stripe, or the booking workflow. If `meta_pixel_id` is **empty**, **no** request is sent to Facebook.
 
-**Hard law (2026-09-18):** Do **not** put Meta Pixel in WeWeb **Project Head** or `vite.config.js` export head. Vercel `postbuild` runs `strip-luxe-meta-pixel-from-dist.mjs` on every build, then **`inject-luxe-meta-pixel-preview.mjs` only on git branch `preview`** (or `WW_LUXE_META_PIXEL=1` locally). Production **`main`** home stays pixel-free until you promote the inject gate.
+**Hard law:** Do **not** put Meta Pixel in WeWeb **Project Head** or `vite.config.js` export head. Vercel `postbuild` runs `strip-luxe-meta-pixel-from-dist.mjs` on every build, then **`inject-luxe-meta-pixel-preview.mjs` on `main` and `preview`** (same behavior). Opt out: `WW_LUXE_META_PIXEL=0`. Home PageView only: `WW_LUXE_META_PIXEL_HOME=0`.
 
 ## 1 · Get the Pixel ID
 
 Meta Business Suite → **Datasets** (Pixel) → copy the **15-digit ID**.
 
-## 2 · Vercel **preview** (marketing home — preferred for testing)
+## 2 · Vercel **`main` + `preview`** (marketing home)
 
-Push **`preview`** branch. Postbuild injects into `dist/index.html`:
+Postbuild injects into `dist/index.html` on every production and preview deploy:
 
 - `WW_SITE_CONFIG.meta_pixel_id` (if config block exists)
 - **After splash dismiss** (`ww-luxe-welcome-dismissed` + 400ms, end of `<body>`): async load pixel — **not** at green-out (`__wwLuxeWelcomePending` flips false while the tree is still visible)
@@ -18,9 +18,9 @@ Push **`preview`** branch. Postbuild injects into `dist/index.html`:
 
 **Do not** paste Meta’s raw snippet in Project Head — strip step will fail the build.
 
-Optional local build: `WW_LUXE_META_PIXEL=1 npm run build`
+Optional local build: `npm run build` (inject runs by default). Disable: `WW_LUXE_META_PIXEL=0 npm run build`
 
-**Smoke (browser console on preview home):**
+**Smoke (browser console on home — apex or preview):**
 
 ```js
 typeof fbq === 'function' && document.querySelector('script[src*="wwl-meta-pixel"]')
@@ -44,11 +44,11 @@ If `fbq` fails, checkout still redirects.
 
 | Event | Where |
 |-------|--------|
-| PageView | Home (preview inject) |
+| PageView | Home (`main` + `preview` inject, after splash) |
 | InitiateCheckout | Modal → Stripe redirect (optional paste) |
-| Purchase | `/booked` success (preview inject) |
+| Purchase | `/booked` success (`main` + `preview` inject) |
 
-**Test events:** Meta Events Manager → **Test events** → open your **Vercel preview URL** (branch `preview`), browse home, submit modal to Stripe (cancel ok), complete a test purchase if possible.
+**Test events:** Meta Events Manager → **Test events** → open **preview URL or apex** (same inject), browse home, submit modal to Stripe (cancel ok), complete a test purchase if possible.
 
 **Console smoke:**
 

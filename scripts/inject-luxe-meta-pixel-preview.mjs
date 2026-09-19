@@ -1,17 +1,16 @@
 /**
- * Preview-only Meta Pixel (analytics). Home SPA + /booked confirmation.
- * Production `main` keeps home clean via strip-luxe-meta-pixel-from-dist.mjs.
+ * Meta Pixel (analytics). Home SPA + /booked confirmation.
+ * `main` and `preview` use the same inject (post strip). Do not load from Project Head.
+ * Opt-out entire inject: WW_LUXE_META_PIXEL=0
  */
 import fs from "fs";
 import path from "path";
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const ref = process.env.VERCEL_GIT_COMMIT_REF || "main";
-const enabled =
-  ref === "preview" || process.env.WW_LUXE_META_PIXEL === "1";
 
-if (!enabled) {
-  console.log("inject-luxe-meta-pixel-preview: skip (not preview)");
+if (process.env.WW_LUXE_META_PIXEL === "0") {
+  console.log(`inject-luxe-meta-pixel-preview: skip (WW_LUXE_META_PIXEL=0, ref=${ref})`);
   process.exit(0);
 }
 

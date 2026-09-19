@@ -13,7 +13,7 @@ alwaysApply: true
    - Vercel **Preview** deploy from branch `preview` is green
    - Operator confirms WeWeb preview + Vercel preview smoke (home load, hero, modal, mobile CTA, no reload loop)
 2. **`cacheVersion` / `wwg_cacheVersion` must match** across router, all `public/data/*.json`, manifest — run `sync-ww-cache-version.mjs` before any deploy commit.
-3. **Meta Pixel:** preview branch only via `inject-luxe-meta-pixel-preview.mjs` after strip; **no** pixel in Project Head (`strip-luxe-meta-pixel-from-dist.mjs` fails build if export leaks tags).
+3. **Meta Pixel:** `main` + `preview` via `inject-luxe-meta-pixel-preview.mjs` after strip (identical); **no** pixel in Project Head (`strip-luxe-meta-pixel-from-dist.mjs` fails build if export leaks tags). Opt-out: `WW_LUXE_META_PIXEL=0`.
 4. **Main + preview postbuild:** same `inject-luxe-critical-boot.mjs` welcome gate (`main` and `preview` branches). Other refs (e.g. `luxe` WeWeb sink) uninject unless `WW_LUXE_WELCOME_SPLASH=1`.
 
 ## Agent duty

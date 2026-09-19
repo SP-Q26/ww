@@ -12,7 +12,7 @@
 
 ## Elite backup (known-good package)
 
-**Signed off 2026-09-19** — WeWeb **v45** canvas + preview package (welcome splash, preview Meta Pixel gate, apex sitemap/robots, `main` = `preview` same tip).
+**Signed off 2026-09-19** — WeWeb **v45** canvas + package (welcome splash, Meta Pixel inject on `main` + `preview`, apex sitemap/robots, same tip on both branches).
 
 | Pin | SHA | Notes |
 |-----|-----|--------|
@@ -34,7 +34,7 @@ git push origin main       # only after operator confirms; needs force if main m
 
 **Vercel without git rewrite:** Deployments → Production deployment for commit **`79b3f6a`** → Promote to Production.
 
-**Package includes:** `cacheVersion` **45**, welcome inject, preview pixel inject, `sites/luxe` slice, apex SEO URL rewrite in postbuild — not export-only.
+**Package includes:** `cacheVersion` **45**, welcome inject, pixel inject (`main` + `preview`), `sites/luxe` slice, apex SEO URL rewrite in postbuild — not export-only.
 
 ## Two git branches by design: `luxe` (WeWeb) → `main` (production)
 
