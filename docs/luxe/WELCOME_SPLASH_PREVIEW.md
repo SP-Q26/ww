@@ -1,13 +1,13 @@
 # Luxe welcome splash (preview branch only)
 
-**Sequence (≤1.5s total):**
+**Sequence (≤2s total):**
 
-1. **Pine green** full viewport + **heirloom splash tree** (same SVG as `/booked` and `/heirloom` order — `heirloom-splash-tree.svg`, ~50% larger than first preview pass).
-2. **~520ms:** green **background layer** fades (`.ww-welcome__bg`); **tree stays** on its own layer (no parent opacity jank).
-3. **~1080ms:** tree fades like `.wwl-splash.is-out` (0.55s ease).
-4. **~1380ms:** remove overlay; **1500ms hard cap** sets `data-ww-hero-video-ready=1`.
-
-Orchestrator runs on `DOMContentLoaded` so the tree markup exists before timers fire.
+1. **Pine green** + **heirloom splash tree** (`heirloom-splash-tree.svg`, `min(268px, 78vw)`).
+2. **`#app` hidden** (`html.ww-welcome-lock`) while the SPA loads so partial hero/layout does not show through the fade.
+3. **Double `requestAnimationFrame`**, then **clone/replace SVG** so the stroke draw starts on a clean frame (not mid-parse).
+4. **~1100ms:** green background fades (after draw completes ~1.05s).
+5. **~1500ms:** tree fades (0.55s ease).
+6. **~1900ms:** remove overlay; **2000ms hard cap** sets `data-ww-hero-video-ready=1`.
 
 **Implementation:** `scripts/inject-luxe-critical-boot.mjs` when `VERCEL_GIT_COMMIT_REF=preview`.
 
