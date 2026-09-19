@@ -59,7 +59,7 @@ After env change: **Redeploy** production (or wait for next `main` push).
 | **“Deployment differs from Project Settings”** | **Deployments** → latest **Production** → **⋯** → **Redeploy** → uncheck “Use existing Build Cache” (applies current settings) |
 | **Env vars** | **Settings** → **Environment Variables** → add for **Production** (and Preview if you test `/heirloom` checkout) |
 
-**Instant load tree:** Vercel `postbuild` runs `scripts/inject-luxe-critical-boot.mjs` (pine + sprout SVG until `data-ww-hero-video-ready=1` from **Home · Hero video boot**). Green-only tile = old deploy without splash inject, or canvas splash hidden — redeploy `main` after inject fix.
+**Welcome splash:** `postbuild` → `inject-luxe-critical-boot.mjs`. **`preview`** only: pine lock + static tree + rings → dismiss → `data-ww-hero-video-ready` (canvas boot). **`main`**: uninject until promoted; canvas **Hero Load Splash** owns the **cross-dissolve** (`HERO_BRAND_REVEAL.md`). Green-only tile = no inject or stale deploy.
 
 ## Operator loop
 

@@ -258,4 +258,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview · rings + static tree · 1.2s wall)");
+console.log("inject-luxe-critical-boot: ok (preview · rings + static tree · 1.6s wall)");

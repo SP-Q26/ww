@@ -1,6 +1,6 @@
 # Pre–prod publish checklist (Luxe)
 
-After **preview** welcome is signed off: **WeWeb publish** → merge export → **`main`** only when ready.
+**Preview welcome timing:** signed off **2026-09-18** (`c119778`). Next: **WeWeb publish** → merge export → promote inject to **`main`** when ready.
 
 ## WeWeb (before publish)
 

@@ -16,6 +16,12 @@
 | **Branch** | Welcome inject: **`preview`** only until operator promotes. **`main`**: uninject (WeWeb owns hero). |
 | **Cache** | `cacheVersion` = `wwg_cacheVersion` on every deploy. |
 
+**Vocabulary (WeWeb hero tree + fade):** `HERO_BRAND_REVEAL.md` — **cross-dissolve** / **fade-through** on **Hero Load Splash** + **Hero Sprout Loader**.
+
+**Reusable stack (other projects):** `docs/patterns/BRAND_ARRIVAL_CROSS_DISSOLVE.md` (**arrival dissolve**).
+
+**Preview timing sign-off:** operator approved feel **2026-09-18** (`preview` @ `c119778`).
+
 ## Patterns by surface
 
 | Surface | Pattern |
@@ -31,7 +37,9 @@ Terminal/index shells: same failures (skellie during stack boot) → **lock shel
 
 ## Promote checklist
 
-- [ ] Preview: full tree draw visible on pine, no quarter-frames
+- [x] Preview welcome timing / feel (2026-09-18)
+- [ ] Preview: static tree + rings on pine, no quarter-frames, no flash on warm cache
 - [ ] No reload loop (`verify-ww-cache-version.mjs`)
-- [ ] Hero video + modal after dismiss ≤2s wall
+- [ ] Hero video + modal after dismiss within wall
 - [ ] 4× CPU throttle smoke
+- [ ] WeWeb: hero spots copy removed · see `PRE_PROD_PUBLISH_CHECKLIST.md`
