@@ -59,7 +59,7 @@ After env change: **Redeploy** production (or wait for next `main` push).
 | **“Deployment differs from Project Settings”** | **Deployments** → latest **Production** → **⋯** → **Redeploy** → uncheck “Use existing Build Cache” (applies current settings) |
 | **Env vars** | **Settings** → **Environment Variables** → add for **Production** (and Preview if you test `/heirloom` checkout) |
 
-**Welcome splash:** `postbuild` → `inject-luxe-critical-boot.mjs`. **`preview`** only: pine lock + static tree + rings → dismiss → `data-ww-hero-video-ready` (canvas boot). **`main`**: uninject until promoted; canvas **Hero Load Splash** owns the **cross-dissolve** (`HERO_BRAND_REVEAL.md`). Green-only tile = no inject or stale deploy.
+**Welcome splash:** `postbuild` → `inject-luxe-critical-boot.mjs`. **`preview`** only: pine lock + static tree + rings → dismiss **unlocks** app (`releaseHandoff`); **canvas boot** sets `data-ww-hero-video-ready` (no blank pine gap). **`main`**: uninject until promoted. See `SPLASH_SKELETON_CANON.md`.
 
 ## Operator loop
 

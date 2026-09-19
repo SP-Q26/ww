@@ -1,6 +1,6 @@
 /**
  * Main production: strip Vercel splash (WeWeb canvas owns hero splash).
- * Branch `preview` only: pine, rings + predrawn static tree, readable hold, ≤1600ms wall.
+ * Branch `preview` only: pine, rings + static tree; hand off to canvas Hero Load Splash (do not force hero-ready on dismiss).
  */
 import fs from "fs";
 import path from "path";
@@ -110,27 +110,31 @@ r.setAttribute=function(name,value){
   return nativeSetAttr(name,value);
 };
 function later(fn,ms){setTimeout(fn,ms);}
-function forceHeroReady(){
+var HANDOFF_FALLBACK_MS=2200;
+function releaseHandoff(){
   window.__wwLuxeWelcomePending=false;
-  nativeSetAttr("data-ww-hero-video-ready","1");
+}
+function ensureHeroReady(){
+  if(r.getAttribute("data-ww-hero-video-ready")!=="1"){
+    nativeSetAttr("data-ww-hero-video-ready","1");
+  }
 }
 function splash(){return document.querySelector("#ww-critical-splash");}
 function dismiss(){
   r.classList.remove("ww-welcome-lock");
   var s=splash();
   if(s&&s.parentNode)s.parentNode.removeChild(s);
-  forceHeroReady();
+  releaseHandoff();
 }
 function runFades(greenAt){
   var reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if(reduced){later(dismiss,REDUCED_MS);later(forceHeroReady,REDUCED_MS);return;}
+  if(reduced){later(dismiss,REDUCED_MS);later(ensureHeroReady,REDUCED_MS);return;}
   var wallEnd=splashStart+WALL_MS;
-  var treeAt=greenAt+110;
-  var doneAt=Math.min(wallEnd,treeAt+360);
+  var treeAt=greenAt+90;
+  var doneAt=Math.min(wallEnd,treeAt+320);
   later(function(){var s=splash();if(s)s.classList.add("ww-green-out");},Math.max(0,greenAt-performance.now()));
   later(function(){var s=splash();if(s)s.classList.add("ww-tree-out");},Math.max(0,treeAt-performance.now()));
   later(dismiss,Math.max(0,doneAt-performance.now()));
-  later(forceHeroReady,Math.max(0,wallEnd-performance.now()));
 }
 function goLive(wrap,liveAt){
   wrap.classList.add("is-live");
@@ -161,6 +165,9 @@ function arm(){
   };
   if(window.requestIdleCallback){requestIdleCallback(start,{timeout:IDLE_MS});}
   else{later(start,60);}
+  later(function(){
+    if(r.getAttribute("data-ww-hero-video-ready")!=="1"){ensureHeroReady();}
+  },HANDOFF_FALLBACK_MS);
 }
 arm();
 })();</script>`;
@@ -258,4 +265,4 @@ if (!html.includes(MARKER)) {
 }
 
 fs.writeFileSync(indexPath, html);
-console.log("inject-luxe-critical-boot: ok (preview · rings + static tree · 1.6s wall)");
+console.log("inject-luxe-critical-boot: ok (preview · rings + static tree · canvas handoff)");
