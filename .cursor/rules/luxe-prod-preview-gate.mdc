@@ -14,7 +14,7 @@ alwaysApply: true
    - Operator confirms WeWeb preview + Vercel preview smoke (home load, hero, modal, mobile CTA, no reload loop)
 2. **`cacheVersion` / `wwg_cacheVersion` must match** across router, all `public/data/*.json`, manifest — run `sync-ww-cache-version.mjs` before any deploy commit.
 3. **No Meta Pixel** in Project Head until explicitly approved post-stability (`strip-luxe-meta-pixel-from-dist.mjs` on all builds).
-4. **Main postbuild:** `inject-luxe-critical-boot.mjs` → **uninject only** (parity with WeWeb). Welcome tree inject runs **only** when `VERCEL_GIT_COMMIT_REF=preview` or `WW_LUXE_WELCOME_SPLASH=1`.
+4. **Main + preview postbuild:** same `inject-luxe-critical-boot.mjs` welcome gate (`main` and `preview` branches). Other refs (e.g. `luxe` WeWeb sink) uninject unless `WW_LUXE_WELCOME_SPLASH=1`.
 
 ## Agent duty
 

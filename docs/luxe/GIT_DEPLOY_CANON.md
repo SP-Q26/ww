@@ -59,7 +59,7 @@ After env change: **Redeploy** production (or wait for next `main` push).
 | **“Deployment differs from Project Settings”** | **Deployments** → latest **Production** → **⋯** → **Redeploy** → uncheck “Use existing Build Cache” (applies current settings) |
 | **Env vars** | **Settings** → **Environment Variables** → add for **Production** (and Preview if you test `/heirloom` checkout) |
 
-**Welcome splash:** `postbuild` → `inject-luxe-critical-boot.mjs`. **`preview`** only: pine lock + static tree + rings → dismiss **unlocks** app (`releaseHandoff`); **canvas boot** sets `data-ww-hero-video-ready` (no blank pine gap). **`main`**: uninject until promoted. See `SPLASH_SKELETON_CANON.md`.
+**Welcome splash:** `postbuild` → `inject-luxe-critical-boot.mjs` on **`main`** and **`preview`** (same smoke path). Pine lock + static tree + rings → green-out handoff → **canvas boot** sets `data-ww-hero-video-ready`. See `SPLASH_SKELETON_CANON.md`.
 
 ## Operator loop
 
