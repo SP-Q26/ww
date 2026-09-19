@@ -849,3 +849,26 @@ html:not([data-ww-hero-video-ready]) .ww-element-68072bf6-8fbe-4292-acd2-a776d68
   else boot();
 })();
 </script>
+
+<script>
+(function wwHeroSplashHardOut() {
+  var MS = 1500;
+  var SPLASH_UID = "17f047b4-78f5-44c4-94a0-e24018d60df9";
+  function bail() {
+    document.documentElement.setAttribute("data-ww-hero-video-ready", "1");
+    var critical = document.getElementById("ww-critical-splash");
+    if (critical) {
+      critical.classList.add("is-out");
+      window.setTimeout(function () {
+        if (critical.parentNode) critical.parentNode.removeChild(critical);
+      }, 400);
+    }
+    var canvas = document.querySelector(".ww-element-" + SPLASH_UID);
+    if (canvas) {
+      canvas.style.setProperty("opacity", "0", "important");
+      canvas.style.setProperty("visibility", "hidden", "important");
+    }
+  }
+  window.setTimeout(bail, MS);
+})();
+</script>

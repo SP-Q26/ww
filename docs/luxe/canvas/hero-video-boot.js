@@ -12,8 +12,10 @@
   var HERO_WRAP = ".ww-element-" + HERO_WRAP_UID;
   var STYLE_ID = "ww-hero-canvas-crop";
   var SPLASH_MIN_MS = 1200;
+  var HARD_OUT_MS = 1500;
   var splashStarted = Date.now();
   var readyScheduled = false;
+  var iframeWatchTries = 0;
 
   function parseYtId(url) {
     var m = String(url || "").match(/(?:youtu\.be\/|embed\/|v=)([\w-]{11})/);
@@ -49,6 +51,10 @@
       variables[HERO_READY_VAR] = true;
     }, delay);
   }
+
+  window.setTimeout(function () {
+    markReady();
+  }, HARD_OUT_MS);
 
   function patchIframeSrc(iframe) {
     try {
@@ -97,6 +103,11 @@
     }
     var iframe = root.querySelector("iframe");
     if (!iframe) {
+      iframeWatchTries += 1;
+      if (iframeWatchTries > 15) {
+        markReady();
+        return;
+      }
       window.setTimeout(watchIframe, 120);
       return;
     }

@@ -39,29 +39,22 @@ r.style.backgroundColor="#141f19";
 function paint(){if(document.body)document.body.style.backgroundColor="#141f19";}
 paint();
 document.addEventListener("DOMContentLoaded",paint);
-var t0=Date.now();
-var MIN_CRITICAL=700;
-var HANDOFF_MAX=4500;
+var HARD_OUT_MS=1500;
 var splashSel=".ww-element-${HERO_SPLASH_UID}";
-function dismissCritical(){
+function forceHeroReady(){
+  document.documentElement.setAttribute("data-ww-hero-video-ready","1");
   var el=document.getElementById("ww-critical-splash");
-  if(!el||el.classList.contains("is-out"))return;
-  el.classList.add("is-out");
-  window.setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},1100);
-}
-function tryHandoff(){
-  var elapsed=Date.now()-t0;
+  if(el&&!el.classList.contains("is-out")){
+    el.classList.add("is-out");
+    window.setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},400);
+  }
   var canvas=document.querySelector(splashSel);
-  if(canvas&&elapsed>=MIN_CRITICAL){dismissCritical();return true;}
-  if(elapsed>=HANDOFF_MAX){dismissCritical();return true;}
-  return false;
+  if(canvas){
+    canvas.style.setProperty("opacity","0","important");
+    canvas.style.setProperty("visibility","hidden","important");
+  }
 }
-function loop(){
-  if(!tryHandoff())window.requestAnimationFrame(loop);
-}
-if(document.readyState==="loading"){
-  document.addEventListener("DOMContentLoaded",function(){window.requestAnimationFrame(loop);});
-}else{window.requestAnimationFrame(loop);}
+window.setTimeout(forceHeroReady,HARD_OUT_MS);
 })();</script><meta name="theme-color" content="#141f19"/>`;
 
 function loadSplashSvg() {
