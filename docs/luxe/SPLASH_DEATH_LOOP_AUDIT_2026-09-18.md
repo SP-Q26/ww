@@ -13,6 +13,13 @@ Home (`/`) stuck on animated tree splash; hero/video never appears; feels like i
 - Export head also hides hero iframe until `data-ww-hero-video-ready`.
 - Hero boot workflow may run late or not set the attribute → **permanent splash loop**.
 
+## Death loop (P0) — cacheVersion mismatch (2026-09-18 evening)
+`public/data/*.json` had `cacheVersion: 44` while `src/_front/router.js` baked `window.wwg_cacheVersion = 39`.
+
+WeWeb runtime (`wwWebsiteData.js`): on mismatch → `throw { reloadUrl: true }` → router `window.location = to.fullPath` → **infinite full-page reload**. `#app` stays empty; no canvas skellie.
+
+**Fix:** `scripts/sync-ww-cache-version.mjs` before build + `verify-ww-cache-version.mjs` gate. Never bump JSON/manifest `_wwcv` without matching `router.js` (or run sync).
+
 ## Not the cause
 - Meta Pixel (removed from home; postbuild strip).
 - Stripe.js on home HTML (no stripe script tags on `/`).
