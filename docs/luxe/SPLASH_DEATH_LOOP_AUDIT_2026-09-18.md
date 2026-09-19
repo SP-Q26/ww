@@ -18,11 +18,12 @@ Home (`/`) stuck on animated tree splash; hero/video never appears; feels like i
 - Stripe.js on home HTML (no stripe script tags on `/`).
 - HTTP redirect loop (curl: 200, 0 redirects).
 
-## Fix (P0)
-1. Replace `wwCriticalFirstPaint` script with `id="ww-luxe-splash-orchestrator"` (handoff + 5s `forceHeroReady`).
-2. Fallback inject orchestrator before `</head>` if marker missing.
-3. **Remove** inject CSS that forces canvas splash visible when not ready.
-4. `verify-luxe-splash-orchestrator.mjs` — **fail build** if orchestrator missing.
+## Fix (P0) — preview parity
+WeWeb **preview does not run Vercel postbuild**. Stop mutating `dist/index.html` after build.
+
+1. `uninject-luxe-vercel-splash.mjs` strips `#ww-critical-splash`, orchestrator, inject CSS (pine-only).
+2. `inject-luxe-critical-boot.mjs` delegates to uninject (deprecated).
+3. Restored home export JSON from **v38 `cf91ce8`** (last known good on main before splash emergencies).
 
 ## Operator smoke after deploy
 ```bash

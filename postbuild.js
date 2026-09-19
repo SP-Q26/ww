@@ -82,14 +82,6 @@ if (stripPixel.status !== 0) {
     process.exit(stripPixel.status ?? 1);
 }
 
-const verifySplash = spawnSync(process.execPath, ['./scripts/verify-luxe-splash-orchestrator.mjs'], {
-    cwd: process.cwd(),
-    stdio: 'inherit',
-});
-if (verifySplash.status !== 0) {
-    process.exit(verifySplash.status ?? 1);
-}
-
 // WeWeb publish strips this — required for /heirloom, /booked, Stripe API on Vercel.
 const sliceCopy = spawnSync(process.execPath, ['./scripts/copy-luxe-slice-into-dist.mjs'], {
     cwd: process.cwd(),
