@@ -39,6 +39,7 @@ fi
 section "Vercel build chain"
 grep -q inject-luxe-critical-boot postbuild.js && echo "postbuild critical boot inject: yes" || { echo "missing inject-luxe-critical-boot"; FAIL=1; }
 grep -q strip-luxe-meta-pixel-from-dist postbuild.js && echo "postbuild strip home meta pixel: yes" || { echo "missing strip-luxe-meta-pixel-from-dist"; FAIL=1; }
+grep -q inject-luxe-meta-pixel-preview postbuild.js && echo "postbuild inject meta pixel (preview): yes" || { echo "missing inject-luxe-meta-pixel-preview"; FAIL=1; }
 grep -q copy-luxe-slice-into-dist postbuild.js && echo "postbuild luxe slice copy: yes" || { echo "missing copy-luxe-slice"; FAIL=1; }
 if grep -q 'wwl-meta-pixel' vite.config.js 2>/dev/null; then
   echo "vite.config.js embeds wwl-meta-pixel: FORBIDDEN on home export"
