@@ -44,9 +44,27 @@
 
 ---
 
+## Luxe isolation (do not mix with Journal)
+
+**Journal ≠ Luxe.** The Vercel project **`luxe`** must stay on **`sites/luxe`** + branches **`main`** / **`preview`** only.
+
+Pushes to git branch **`journal`** previously triggered **preview** builds on the **`luxe`** project (same GitHub repo) — confusing URLs, **not** a production overwrite. Production Luxe remains **`main`** @ `f0e80312` on `whisperingwoodsluxe.com`.
+
+**Fix:** On project **`luxe`** → Settings → Git → **Ignored Build Step** (only build `main` and `preview`):
+
+```bash
+if [ "$VERCEL_GIT_COMMIT_REF" = "main" ] || [ "$VERCEL_GIT_COMMIT_REF" = "preview" ]; then exit 1; else exit 0; fi
+```
+
+(Vercel: exit **1** = run build, exit **0** = skip.)
+
+Create a **separate** Vercel project **`ww-journal`** for branch **`journal`** — never reuse or rename **`luxe`**.
+
+---
+
 ## Deploy checklist (Vercel preview)
 
-1. **Vercel:** New project **`ww-journal`** (or name of choice) → repo `SP-Q26/ww` → branch **`journal`** → root **`.`** (WeWeb export at branch root; `package.json` name `ww-journal`).
+1. **Vercel:** New project **`ww-journal`** (separate from **`luxe`**) → repo `SP-Q26/ww` → branch **`journal`** → root **`.`** (WeWeb export at branch root; `package.json` name `ww-journal`).
 2. **Build:** `npm ci && npm run build` (Node **≥ 24.12**).
 3. **Env (preview + prod):** `N8N_WEDDINGS_SUBSCRIBE_WEBHOOK` if `/api/subscribe` is mounted on same project; else hybrid DNS rules to a git API host (see estate launch docs).
 4. **Smoke:** `/` home · `/p/venue-tour-checklist` · submit test email (Network → `/api/subscribe`).
