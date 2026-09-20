@@ -15,7 +15,7 @@ if (process.env.WW_LUXE_META_PIXEL === "0") {
 }
 
 const PIXEL_ID = String(
-  process.env.WWL_META_PIXEL_ID || "2254112335167924"
+  process.env.WWL_META_PIXEL_ID || "2508095616282461"
 ).replace(/\s/g, "");
 
 if (!PIXEL_ID) {
