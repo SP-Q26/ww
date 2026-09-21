@@ -1,7 +1,7 @@
 # WWLuxe · Photographer outreach email
 
 **Use:** Direct invite · you researched them · no application form  
-**Date:** Saturday **October 18, 2026** · Harvard, IL  
+**Date:** Sunday **October 18, 2026** · Harvard, IL  
 **Attach:** `PHOTOGRAPHER_DAY_RATE_SOW.pdf`  
 **Updated:** 2026-09-14 · three **zone leads** · **$950** + **$50 fuel** (**$1,000** all-in) · JPEG or RAW handoff
 

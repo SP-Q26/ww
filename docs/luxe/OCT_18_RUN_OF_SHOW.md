@@ -1,6 +1,6 @@
 # WWLuxe · Oct 18, 2026 · Run of show (internal)
 
-**Experience day:** Saturday October 18, 2026 · Whispering Woods · Harvard, IL  
+**Experience day:** Sunday October 18, 2026 · Whispering Woods · Harvard, IL  
 **Capacity:** 24 seniors · **8 triads (×3)** · **3 HMU chairs** · **3 zones** · **3 enter · 3 leave** · see **`OCT_18_RUN_OF_DAY.md`**
 
 ---
