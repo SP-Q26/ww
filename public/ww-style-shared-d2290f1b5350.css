@@ -649,7 +649,7 @@
         letter-spacing: .08em;
         white-space-collapse: preserve;
       }
-      .ww-e-d4f {
+      .ww-e-d4k {
         padding: 6px 0;
         display: block;
         max-height: none;
@@ -659,7 +659,6 @@
         letter-spacing: .1em;
         text-decoration: none;
         white-space-collapse: preserve;
-        background-color: #2c2c2c00;
         cursor: pointer;
         box-shadow: none;
         transition: color 0.2s ease, opacity 0.2s ease;
@@ -668,7 +667,7 @@
         --ww-element-transition: color 0.2s ease, opacity 0.2s ease;
       }
       @media (max-width: 767px) {
-        .ww-e-d4f {
+        .ww-e-d4k {
           padding: 6px 0;
           display: block;
           min-height: unset;
@@ -682,7 +681,7 @@
           border-radius: 0;
         }
       }
-      .ww-e-d4f:where(:hover) {
+      .ww-e-d4k:where(:hover) {
         color: var(--42bfba74-51e0-423f-a331-321dcf7b239d, #C49A5A);
         background-color: #0000;
         box-shadow: none;
@@ -779,7 +778,7 @@
       white-space: nowrap;
       text-transform: uppercase;
     }
-    .ww-e-d4f {
+    .ww-e-d4k {
       box-sizing: border-box;
       white-space: nowrap;
       text-transform: uppercase;
