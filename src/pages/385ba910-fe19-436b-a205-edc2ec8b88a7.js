@@ -6,10 +6,9 @@ import element_1b1e2173_9b78_42cc_a8ee_a6167caea340 from "@weweb-internal/ext-el
 import element_3a7d6379_12d3_4387_98ff_b332bb492a63 from "@weweb-internal/ext-element-3a7d6379-12d3-4387-98ff-b332bb492a63";
 import element_59dca300_db78_42e4_a7a6_0cbf22d3cc82 from "@weweb-internal/ext-element-59dca300-db78-42e4-a7a6-0cbf22d3cc82";
 import element_6d692ca2_6cdc_4805_aa0c_211102f335d0 from "@weweb-internal/ext-element-6d692ca2-6cdc-4805-aa0c-211102f335d0";
+import element_6dee3327_9afa_4b44_bade_bdb547cdb18b from "@weweb-internal/ext-element-6dee3327-9afa-4b44-bade-bdb547cdb18b";
 import element_9ccf84b0_e542_4423_869f_b4828301ec49 from "@weweb-internal/ext-element-9ccf84b0-e542-4423-869f-b4828301ec49";
 import element_b783dc65_d528_4f74_8c14_e27c934c39b1 from "@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1";
-import element_c6c0c00e_49fd_4cb9_bd78_5bc09945721e from "@weweb-internal/ext-element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e";
-import element_cf63c911_3951_4ab7_ba8f_37e7fa30e09d from "@weweb-internal/ext-element-cf63c911-3951-4ab7-ba8f-37e7fa30e09d";
 import element_d7904e9d_fc9a_4d80_9e32_728e097879ad from "@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad";
 import element_d97c3ace_d7b5_43e4_870c_8c72ac4a1d02 from "@weweb-internal/ext-element-d97c3ace-d7b5-43e4-870c-8c72ac4a1d02";
 
@@ -56,6 +55,12 @@ export default async function registerPageComponents(app) {
         "type": "element"
     },
     {
+        "baseId": "6dee3327-9afa-4b44-bade-bdb547cdb18b",
+        "importPath": "@weweb-internal/ext-element-6dee3327-9afa-4b44-bade-bdb547cdb18b",
+        "name": "wwobject-6dee3327-9afa-4b44-bade-bdb547cdb18b",
+        "type": "element"
+    },
+    {
         "baseId": "9ccf84b0-e542-4423-869f-b4828301ec49",
         "importPath": "@weweb-internal/ext-element-9ccf84b0-e542-4423-869f-b4828301ec49",
         "name": "wwobject-9ccf84b0-e542-4423-869f-b4828301ec49",
@@ -65,18 +70,6 @@ export default async function registerPageComponents(app) {
         "baseId": "b783dc65-d528-4f74-8c14-e27c934c39b1",
         "importPath": "@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1",
         "name": "wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1",
-        "type": "element"
-    },
-    {
-        "baseId": "c6c0c00e-49fd-4cb9-bd78-5bc09945721e",
-        "importPath": "@weweb-internal/ext-element-c6c0c00e-49fd-4cb9-bd78-5bc09945721e",
-        "name": "wwobject-c6c0c00e-49fd-4cb9-bd78-5bc09945721e",
-        "type": "element"
-    },
-    {
-        "baseId": "cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
-        "importPath": "@weweb-internal/ext-element-cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
-        "name": "wwobject-cf63c911-3951-4ab7-ba8f-37e7fa30e09d",
         "type": "element"
     },
     {
@@ -106,10 +99,9 @@ export default async function registerPageComponents(app) {
 app.component("wwobject-3a7d6379-12d3-4387-98ff-b332bb492a63", element_3a7d6379_12d3_4387_98ff_b332bb492a63);
 app.component("wwobject-59dca300-db78-42e4-a7a6-0cbf22d3cc82", element_59dca300_db78_42e4_a7a6_0cbf22d3cc82);
 app.component("wwobject-6d692ca2-6cdc-4805-aa0c-211102f335d0", element_6d692ca2_6cdc_4805_aa0c_211102f335d0);
+app.component("wwobject-6dee3327-9afa-4b44-bade-bdb547cdb18b", element_6dee3327_9afa_4b44_bade_bdb547cdb18b);
 app.component("wwobject-9ccf84b0-e542-4423-869f-b4828301ec49", element_9ccf84b0_e542_4423_869f_b4828301ec49);
 app.component("wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1", element_b783dc65_d528_4f74_8c14_e27c934c39b1);
-app.component("wwobject-c6c0c00e-49fd-4cb9-bd78-5bc09945721e", element_c6c0c00e_49fd_4cb9_bd78_5bc09945721e);
-app.component("wwobject-cf63c911-3951-4ab7-ba8f-37e7fa30e09d", element_cf63c911_3951_4ab7_ba8f_37e7fa30e09d);
 app.component("wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad", element_d7904e9d_fc9a_4d80_9e32_728e097879ad);
 app.component("wwobject-d97c3ace-d7b5-43e4-870c-8c72ac4a1d02", element_d97c3ace_d7b5_43e4_870c_8c72ac4a1d02);
 
