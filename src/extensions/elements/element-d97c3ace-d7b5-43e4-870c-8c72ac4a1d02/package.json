@@ -1,0 +1,11 @@
+{
+  "name": "@weweb-internal/ext-element-d97c3ace-d7b5-43e4-870c-8c72ac4a1d02",
+  "version": "1.0.0",
+  "description": "iOS-optimized touch-friendly before-and-after comparison slider with a hand-carved wood peg handle.",
+  "main": "src/wwElement.vue",
+  "private": true,
+  "exports": {
+    ".": "./src/wwElement.vue",
+    "./config": "./ww-config.js"
+  }
+}

@@ -1,0 +1,198 @@
+export default {
+  editor: {
+    label: {
+      en: "Timber Peg Slider",
+    },
+    icon: "slider",
+  },
+  options: {
+    displayAllowedValues: ["flex", "inline-flex", "block"],
+  },
+  inherit: {
+    type: "ww-layout",
+  },
+  properties: {
+    initialPosition: {
+      label: { en: "Initial Position (%)" },
+      type: "Number",
+      section: "settings",
+      defaultValue: 50,
+      bindable: true,
+    },
+    beforeType: {
+      label: { en: "Before Content Type" },
+      type: "TextSelect",
+      section: "settings",
+      options: {
+        options: [
+          { value: "video", label: { en: "Video" } },
+          { value: "image", label: { en: "Image" } },
+        ],
+      },
+      defaultValue: "video",
+      bindable: true,
+    },
+    beforeVideoUrl: {
+      label: { en: "Before Video URL" },
+      type: "Video",
+      section: "settings",
+      defaultValue: "https://assets.mixkit.co/videos/preview/mixkit-carpenter-working-with-wood-41561-large.mp4",
+      bindable: true,
+      hidden: (content) => content?.beforeType === "image",
+    },
+    beforeImageUrl: {
+      label: { en: "Before Image URL" },
+      type: "Image",
+      section: "settings",
+      defaultValue: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
+      bindable: true,
+      hidden: (content) => content?.beforeType === "video",
+    },
+    beforeBadgeText: {
+      label: { en: "Before Badge Text" },
+      type: "Text",
+      section: "settings",
+      defaultValue: "BEFORE — 2 WINTERS OF MILLING",
+      bindable: true,
+    },
+    afterType: {
+      label: { en: "After Content Type" },
+      type: "TextSelect",
+      section: "settings",
+      options: {
+        options: [
+          { value: "image", label: { en: "Image" } },
+          { value: "video", label: { en: "Video" } },
+        ],
+      },
+      defaultValue: "image",
+      bindable: true,
+    },
+    afterImageUrl: {
+      label: { en: "After Image URL" },
+      type: "Image",
+      section: "settings",
+      defaultValue: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80",
+      bindable: true,
+      hidden: (content) => content?.afterType === "video",
+    },
+    afterVideoUrl: {
+      label: { en: "After Video URL" },
+      type: "Video",
+      section: "settings",
+      defaultValue: "",
+      bindable: true,
+      hidden: (content) => content?.afterType === "image",
+    },
+    afterBadgeText: {
+      label: { en: "After Badge Text" },
+      type: "Text",
+      section: "settings",
+      defaultValue: "AFTER — THE SANCTUARY",
+      bindable: true,
+    },
+    showOverlay: {
+      label: { en: "Show Overlay Card" },
+      type: "OnOff",
+      section: "settings",
+      defaultValue: true,
+      bindable: true,
+    },
+    overlayTitle: {
+      label: { en: "Overlay Title" },
+      type: "Text",
+      section: "settings",
+      defaultValue: "Handbuilt by Bear",
+      bindable: true,
+      hidden: (content) => !content?.showOverlay,
+    },
+    overlaySubtext: {
+      label: { en: "Overlay Subtext" },
+      type: "Textarea",
+      section: "settings",
+      defaultValue: "Reclaiming century-old timber with reverence and care, Bear spent two full winters hand-milling every beam.",
+      bindable: true,
+      hidden: (content) => !content?.showOverlay,
+    },
+    showCta: {
+      label: { en: "Show CTA Button" },
+      type: "OnOff",
+      section: "settings",
+      defaultValue: true,
+      bindable: true,
+      hidden: (content) => !content?.showOverlay,
+    },
+    ctaText: {
+      label: { en: "CTA Button Text" },
+      type: "Text",
+      section: "settings",
+      defaultValue: "Book a Tour",
+      bindable: true,
+      hidden: (content) => !content?.showOverlay || !content?.showCta,
+    },
+    dividerColor: {
+      label: { en: "Divider Line Color" },
+      type: "Color",
+      section: "style",
+      defaultValue: "#C89D66",
+      bindable: true,
+    },
+    pegBgDark: {
+      label: { en: "Peg Wood Dark Color" },
+      type: "Color",
+      section: "style",
+      defaultValue: "#5C3A1E",
+      bindable: true,
+    },
+    pegBgLight: {
+      label: { en: "Peg Wood Light Color" },
+      type: "Color",
+      section: "style",
+      defaultValue: "#8B5A2B",
+      bindable: true,
+    },
+    pegBorderColor: {
+      label: { en: "Peg Border Color" },
+      type: "Color",
+      section: "style",
+      defaultValue: "#D4AF37",
+      bindable: true,
+    },
+    borderRadius: {
+      label: { en: "Corner Radius" },
+      type: "Length",
+      section: "style",
+      defaultValue: "16px",
+      bindable: true,
+    },
+  },
+  triggerEvents: [
+    {
+      name: "sliderChange",
+      label: { en: "On slider position change" },
+      event: { position: 50 },
+    },
+    {
+      name: "ctaClick",
+      label: { en: "On CTA button click" },
+      event: { text: "Book a Tour" },
+    },
+  ],
+  actions: [
+    {
+      label: { en: "Set Slider Position" },
+      action: "setPosition",
+      args: [
+        {
+          name: "position",
+          type: "number",
+          label: { en: "Position (0 to 100)" },
+        },
+      ],
+    },
+    {
+      label: { en: "Reset Position" },
+      action: "resetPosition",
+    },
+  ],
+};
