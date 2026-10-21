@@ -1,14 +1,17 @@
 <template>
      <!-- wwFront:start -->
     <router-view />
+    <Analytics />
     <!-- wwFront:end -->
 </template>
 
 <script>
 import { reactive, computed, provide, onMounted, watch } from 'vue';
+import { Analytics } from '@vercel/analytics/vue';
 
  
 export default {
+    components: { Analytics },
     setup() {
         const wwFrontState = reactive({
             lang: computed(() => wwLib.$store.getters['front/getLang']),
