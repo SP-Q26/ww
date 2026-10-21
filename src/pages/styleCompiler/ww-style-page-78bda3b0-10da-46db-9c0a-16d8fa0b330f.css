@@ -87,8 +87,7 @@
         max-height: unset;
         min-height: unset;
       }
-      .ww-a-JU5hsWRMf20xKDmf {
-        padding: 0;
+      .ww-a-Ks_fZq89Diodjybo {
         z-index: unset;
         align-self: var(--ww-section-root-auto-align, unset);
         min-width: unset;
@@ -127,7 +126,7 @@
       }
     }
     @layer ordered {
-      .ww-e-ds {
+      .ww-e-di {
         font-size: 1rem;
         font-family: Inter, system-ui, sans-serif;
         line-height: 1.65;
@@ -135,18 +134,7 @@
         color: #d6cdc2;
         white-space-collapse: preserve;
       }
-      .ww-e-dt {
-        margin: 0 auto;
-        display: flex;
-        width: 100%;
-        max-width: 28rem;
-      }
-      .ww-e-dt.ww-layout, .ww-e-dt [data-ww-ls~="dt"] {
-        display: flex;
-        flex-flow: column;
-        gap: 20px;
-      }
-      .ww-e-du {
+      .ww-e-dj {
         font-size: 2.25rem;
         font-family: Cormorant Garamond, Georgia, serif;
         line-height: 1.15;
@@ -155,7 +143,7 @@
         color: var(--377beacf-1e31-4367-8516-81d53cc47f4f,#F9F6F0);
         white-space-collapse: preserve;
       }
-      .ww-e-dv {
+      .ww-e-dk {
         font-size: .65rem;
         font-family: Montserrat, system-ui, sans-serif;
         font-weight: 500;
@@ -165,7 +153,29 @@
         letter-spacing: .22em;
         white-space-collapse: preserve;
       }
-      .ww-e-dw {
+      .ww-e-dl {
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        width: 100%;
+        max-width: 28rem;
+      }
+      @media (max-width: 991px) {
+        .ww-e-dl {
+          padding: 0 20px;
+        }
+      }
+      @media (max-width: 767px) {
+        .ww-e-dl {
+          padding: 0 20px;
+        }
+      }
+      .ww-e-dl.ww-layout, .ww-e-dl [data-ww-ls~="dl"] {
+        display: flex;
+        flex-flow: column;
+        gap: 20px;
+      }
+      .ww-e-dm {
         font-size: 1rem;
         font-family: Inter, system-ui, sans-serif;
         line-height: 1.65;
@@ -173,18 +183,7 @@
         color: #d6cdc2;
         white-space-collapse: preserve;
       }
-      .ww-e-dx {
-        margin: 0 auto;
-        display: flex;
-        width: 100%;
-        max-width: 28rem;
-      }
-      .ww-e-dx.ww-layout, .ww-e-dx [data-ww-ls~="dx"] {
-        display: flex;
-        flex-flow: column;
-        gap: 24px;
-      }
-      .ww-e-dy {
+      .ww-e-dn {
         font-size: 1.65rem;
         font-family: Cormorant Garamond, Georgia, serif;
         font-weight: 500;
@@ -192,61 +191,94 @@
         color: var(--def92927-84a9-422e-bdae-62d522cc2e42,#141F19);
         white-space-collapse: preserve;
       }
-      .ww-e-d10 {
+      .ww-e-dp {
         font-size: 1rem;
         font-family: Inter, system-ui, sans-serif;
         line-height: 1.65;
         color: var(--9f6a24a7-b3da-42ce-a4d6-8ed25535d4a2,#2A3A30);
         white-space-collapse: preserve;
       }
-      .ww-e-d12 {
+      .ww-e-dr {
         font-size: 1.125rem;
         font-family: Cormorant Garamond, Georgia, serif;
         font-weight: 500;
         color: var(--def92927-84a9-422e-bdae-62d522cc2e42,#141F19);
         white-space-collapse: preserve;
       }
-      .ww-e-d13 {
+      .ww-e-ds {
         font-size: 1.125rem;
         font-family: Cormorant Garamond, Georgia, serif;
         font-weight: 500;
         color: var(--def92927-84a9-422e-bdae-62d522cc2e42,#141F19);
         white-space-collapse: preserve;
       }
-      .ww-e-d14 {
+      .ww-e-dt {
         font-size: 1rem;
         font-family: Inter, system-ui, sans-serif;
         line-height: 1.65;
         color: var(--9f6a24a7-b3da-42ce-a4d6-8ed25535d4a2,#2A3A30);
         white-space-collapse: preserve;
       }
-      .ww-e-d16 {
+      .ww-e-dv {
         font-size: 1.125rem;
         font-family: Cormorant Garamond, Georgia, serif;
         font-weight: 500;
         color: var(--def92927-84a9-422e-bdae-62d522cc2e42,#141F19);
         white-space-collapse: preserve;
       }
-      .ww-e-d17 {
+      .ww-e-dw {
         font-size: 1rem;
         font-family: Inter, system-ui, sans-serif;
         line-height: 1.65;
         color: var(--9f6a24a7-b3da-42ce-a4d6-8ed25535d4a2,#2A3A30);
         white-space-collapse: preserve;
       }
-      .ww-e-d18 {
+      .ww-e-dx {
         margin: 0 auto;
+        padding: 0 20px;
         display: flex;
         width: 100%;
         max-width: 28rem;
       }
-      .ww-e-d18.ww-layout, .ww-e-d18 [data-ww-ls~="d18"] {
+      @media (max-width: 991px) {
+        .ww-e-dx {
+          padding: 0 20px;
+        }
+      }
+      @media (max-width: 767px) {
+        .ww-e-dx {
+          padding: 0 20px;
+        }
+      }
+      .ww-e-dx.ww-layout, .ww-e-dx [data-ww-ls~="dx"] {
         display: flex;
         flex-flow: column;
         align-items: center;
         gap: 20px;
       }
-      .ww-e-d4t {
+      .ww-e-d2Q {
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        width: 100%;
+        max-width: 28rem;
+      }
+      @media (max-width: 991px) {
+        .ww-e-d2Q {
+          padding: 0 20px;
+        }
+      }
+      @media (max-width: 767px) {
+        .ww-e-d2Q {
+          padding: 0 20px;
+        }
+      }
+      .ww-e-d2Q.ww-layout, .ww-e-d2Q [data-ww-ls~="d2Q"] {
+        display: flex;
+        flex-flow: column;
+        gap: 24px;
+      }
+      .ww-e-d4Q {
         padding: 32px 24px;
         display: flex;
         min-width: 44px;
@@ -259,7 +291,7 @@
         border-radius: 2px;
       }
       @media (max-width: 991px) {
-        .ww-e-d4t {
+        .ww-e-d4Q {
           padding: 32px 24px;
           min-width: 44px;
           min-height: 44px;
@@ -267,28 +299,28 @@
         }
       }
       @media (max-width: 767px) {
-        .ww-e-d4t {
+        .ww-e-d4Q {
           padding: 28px 20px;
           min-width: 44px;
           min-height: 44px;
           border-radius: 2px;
         }
       }
-      .ww-e-d4t:where(:hover) {
+      .ww-e-d4Q:where(:hover) {
         box-shadow: 0 16px 36px -12px #141f191a, 0 4px 12px #c49a5a14;
         transform: translateY(-5px);
         border: 1px solid #c49a5a73;
       }
-      .ww-e-d4t:where(:active) {
+      .ww-e-d4Q:where(:active) {
         box-shadow: 0 8px 20px -8px #141f191f;
         transform: translateY(-2px) scale(.976);
       }
-      .ww-e-d4t.ww-layout, .ww-e-d4t [data-ww-ls~="d4t"] {
+      .ww-e-d4Q.ww-layout, .ww-e-d4Q [data-ww-ls~="d4Q"] {
         display: flex;
         flex-flow: column;
         gap: 12px;
       }
-      .ww-e-d4u {
+      .ww-e-d4R {
         padding: 32px 24px;
         display: flex;
         min-width: 44px;
@@ -301,7 +333,7 @@
         border-radius: 2px;
       }
       @media (max-width: 991px) {
-        .ww-e-d4u {
+        .ww-e-d4R {
           padding: 32px 24px;
           min-width: 44px;
           min-height: 44px;
@@ -309,28 +341,28 @@
         }
       }
       @media (max-width: 767px) {
-        .ww-e-d4u {
+        .ww-e-d4R {
           padding: 28px 20px;
           min-width: 44px;
           min-height: 44px;
           border-radius: 2px;
         }
       }
-      .ww-e-d4u:where(:hover) {
+      .ww-e-d4R:where(:hover) {
         box-shadow: 0 16px 36px -12px #141f191a, 0 4px 12px #c49a5a14;
         transform: translateY(-5px);
         border: 1px solid #c49a5a73;
       }
-      .ww-e-d4u:where(:active) {
+      .ww-e-d4R:where(:active) {
         box-shadow: 0 8px 20px -8px #141f191f;
         transform: translateY(-2px) scale(.976);
       }
-      .ww-e-d4u.ww-layout, .ww-e-d4u [data-ww-ls~="d4u"] {
+      .ww-e-d4R.ww-layout, .ww-e-d4R [data-ww-ls~="d4R"] {
         display: flex;
         flex-flow: column;
         gap: 12px;
       }
-      .ww-e-d4v {
+      .ww-e-d4S {
         padding: 14px 28px;
         display: inline-flex;
         min-width: var(--5f0d9e5d-1db0-4009-baa7-daaf9c3a4e05,44px);
@@ -349,10 +381,10 @@
         border-radius: 2px;
         --ww-element-transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       }
-      .ww-e-d4v:where(:active) {
+      .ww-e-d4S:where(:active) {
         transform: scale(.97);
       }
-      .ww-e-d4w {
+      .ww-e-d4T {
         padding: 32px 24px;
         display: flex;
         min-width: 44px;
@@ -365,7 +397,7 @@
         border-radius: 2px;
       }
       @media (max-width: 991px) {
-        .ww-e-d4w {
+        .ww-e-d4T {
           padding: 32px 24px;
           min-width: 44px;
           min-height: 44px;
@@ -373,23 +405,23 @@
         }
       }
       @media (max-width: 767px) {
-        .ww-e-d4w {
+        .ww-e-d4T {
           padding: 28px 20px;
           min-width: 44px;
           min-height: 44px;
           border-radius: 2px;
         }
       }
-      .ww-e-d4w:where(:hover) {
+      .ww-e-d4T:where(:hover) {
         box-shadow: 0 16px 36px -12px #141f191a, 0 4px 12px #c49a5a14;
         transform: translateY(-5px);
         border: 1px solid #c49a5a73;
       }
-      .ww-e-d4w:where(:active) {
+      .ww-e-d4T:where(:active) {
         box-shadow: 0 8px 20px -8px #141f191f;
         transform: translateY(-2px) scale(.976);
       }
-      .ww-e-d4w.ww-layout, .ww-e-d4w [data-ww-ls~="d4w"] {
+      .ww-e-d4T.ww-layout, .ww-e-d4T [data-ww-ls~="d4T"] {
         display: flex;
         flex-flow: column;
         gap: 12px;
@@ -397,35 +429,35 @@
     }
   }
   @layer custom {
-    .ww-e-d4t {
+    .ww-e-d4Q {
       user-select: none;
       touch-action: manipulation;
     }
-    .ww-e-d4t:where(:active) {
+    .ww-e-d4Q:where(:active) {
       user-select: revert-layer;
       touch-action: revert-layer;
       transition-duration: .16s;
       transition-timing-function: cubic-bezier(.25, 1, .5, 1);
     }
-    .ww-e-d4u {
+    .ww-e-d4R {
       user-select: none;
       touch-action: manipulation;
     }
-    .ww-e-d4u:where(:active) {
+    .ww-e-d4R:where(:active) {
       user-select: revert-layer;
       touch-action: revert-layer;
       transition-duration: .16s;
       transition-timing-function: cubic-bezier(.25, 1, .5, 1);
     }
-    .ww-e-d4v {
+    .ww-e-d4S {
       user-select: none;
       touch-action: manipulation;
     }
-    .ww-e-d4w {
+    .ww-e-d4T {
       user-select: none;
       touch-action: manipulation;
     }
-    .ww-e-d4w:where(:active) {
+    .ww-e-d4T:where(:active) {
       user-select: revert-layer;
       touch-action: revert-layer;
       transition-duration: .16s;
