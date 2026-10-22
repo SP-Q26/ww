@@ -26,7 +26,7 @@
     { "source": "/journal/:path*", "destination": "/:path*", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/p/:slug", "destination": "/p/:param/index.html" },
+    { "source": "/p/:slug", "destination": "/p/%3Aparam/index.html" },
     { "source": "/home", "destination": "/index.html" },
     { "source": "/home/", "destination": "/index.html" }
   ]
