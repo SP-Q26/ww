@@ -1,11 +1,6 @@
 import fs from 'fs';
 import { spawnSync } from 'node:child_process';
 
-spawnSync(process.execPath, ['./scripts/ensure-wwj-public-in-dist.mjs'], {
-    cwd: process.cwd(),
-    stdio: 'inherit',
-});
-
 const PRERENDER_SHUTDOWN_GRACE_MS = 5_000;
 
 const collectionPages = {};
