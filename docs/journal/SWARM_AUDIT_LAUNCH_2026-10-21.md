@@ -49,15 +49,13 @@
 
 | URL | Result |
 |-----|--------|
-| `https://ww-journal.vercel.app/` | **200** · prod `feaf961` · `cacheVersion` **10** |
-| `https://ww-journal.vercel.app/favicon.ico` | **200** |
-| `https://ww-journal.vercel.app/p/october-estate-dispatch` | **200** (SPA rewrite) |
-| `POST /api/subscribe` | **503** `subscribe_not_configured` — set **`JOURNAL_SUBSCRIBE_WEBHOOK_URL`** on Vercel |
-| `https://whisperingwoodsweddings.com/journal` | **301** → `whisperingwoodsevents.com/journal` (Squarespace) · **404** at destination |
-| `https://www.whisperingwoodsweddings.com/journal` | **TLS cert mismatch** (hostname not on cert yet — finish Vercel domain + cert) |
-| `journal.whisperingwoodsweddings.com` | **NXDOMAIN** |
+| **`https://www.whisperingwoodsweddings.com/`** | **200** · Journal at **site root** (no `/journal` prefix) |
+| `https://www.whisperingwoodsweddings.com/p/october-estate-dispatch` | **200** |
+| `https://ww-journal.vercel.app/` | **200** (Vercel preview alias) |
+| `POST /api/subscribe` | **503** until webhook env on **`ww-journal`** |
+| `https://whisperingwoodsweddings.com/` (apex) | Still **301** → Squarespace / events — point apex to Vercel or 301 → `www` |
 
-**Canon paths for Journal app:** Vercel default **`ww-journal.vercel.app`** until apex `www` is attached to **`ww-journal`** (not Squarespace `/journal`).
+**Canon:** `docs/journal/DOMAIN_CANON.md` · public home = **`/`** on **`www.whisperingwoodsweddings.com`**.
 
 ---
 
@@ -65,7 +63,7 @@
 
 1. **WeWeb publish** → GitHub `journal` (canvas logo / UTM / mobile — not in export until publish)
 2. **Vercel** production on **`journal`** @ `feaf961` — favicons **200** ✓
-3. **Custom domain:** add `www.whisperingwoodsweddings.com` (or chosen host) to **`ww-journal`** · wait for cert · optional path prefix `/journal` via Vercel rewrite or subdomain
+3. **Custom domain:** `www.whisperingwoodsweddings.com` on **`ww-journal`** ✓ · move **apex** off Squarespace when ready
 4. **Vercel Web Analytics** on · smoke Home → article
 5. **`JOURNAL_SUBSCRIBE_WEBHOOK_URL`** for capture form
 
@@ -73,6 +71,6 @@
 
 ## Open P1
 
-- Squarespace **`/journal`** on events/weddings — point to Vercel or retire redirect
+- Apex **`whisperingwoodsweddings.com`** → Vercel (or permanent redirect to `www`)
 - Upload **WeWeb media library** 512 mark if preview breaks before export
 - Article sticky bar device pass
