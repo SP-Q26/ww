@@ -35,7 +35,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ ok: false, error: "invalid_email" });
   }
 
-  const webhookUrl = process.env.JOURNAL_SUBSCRIBE_WEBHOOK_URL;
+  const webhookUrl =
+    process.env.JOURNAL_SUBSCRIBE_WEBHOOK_URL ||
+    process.env.N8N_WEDDINGS_SUBSCRIBE_WEBHOOK ||
+    process.env.WEDDINGS_SUBSCRIBE_WEBHOOK_URL;
   if (!webhookUrl) {
     return res.status(503).json({ ok: false, error: "subscribe_not_configured" });
   }
