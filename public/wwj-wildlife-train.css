@@ -123,7 +123,9 @@
   user-select: none;
 }
 
-.wwj-wildlife-train--mounted [data-wwj-wildlife-static-chips] {
+#wwj-wildlife-ledger:has(.wwj-wildlife-train--mounted) #wwj-wildlife-static-chips,
+#wwj-wildlife-ledger:has(.wwj-wildlife-train--mounted) [data-wwj-wildlife-static-chips],
+#wwj-wildlife-ledger:has(.wwj-wildlife-train--mounted) [data-wwj-wildlife-static-row] {
   display: none !important;
 }
 

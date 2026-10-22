@@ -55,7 +55,15 @@
     if (!items.length || ledger.querySelector(".wwj-wildlife-train")) return;
 
     var chips = ledger.querySelector(CHIPS_SEL);
-    if (chips) chips.setAttribute("data-wwj-wildlife-static-chips", "1");
+    if (chips) {
+      chips.setAttribute("data-wwj-wildlife-static-chips", "1");
+      chips.style.display = "none";
+      var staticRow = chips.closest(".ww-layout") || chips.parentElement;
+      if (staticRow && staticRow !== ledger) {
+        staticRow.style.display = "none";
+        staticRow.setAttribute("data-wwj-wildlife-static-row", "1");
+      }
+    }
 
     var wrap = document.createElement("div");
     wrap.className = "wwj-wildlife-train wwj-wildlife-train--mounted";
