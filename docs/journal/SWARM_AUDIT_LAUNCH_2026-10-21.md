@@ -45,18 +45,34 @@
 
 ---
 
+## DNS cutover audit (2026-10-21 evening)
+
+| URL | Result |
+|-----|--------|
+| `https://ww-journal.vercel.app/` | **200** · prod `feaf961` · `cacheVersion` **10** |
+| `https://ww-journal.vercel.app/favicon.ico` | **200** |
+| `https://ww-journal.vercel.app/p/october-estate-dispatch` | **200** (SPA rewrite) |
+| `POST /api/subscribe` | **503** `subscribe_not_configured` — set **`JOURNAL_SUBSCRIBE_WEBHOOK_URL`** on Vercel |
+| `https://whisperingwoodsweddings.com/journal` | **301** → `whisperingwoodsevents.com/journal` (Squarespace) · **404** at destination |
+| `https://www.whisperingwoodsweddings.com/journal` | **TLS cert mismatch** (hostname not on cert yet — finish Vercel domain + cert) |
+| `journal.whisperingwoodsweddings.com` | **NXDOMAIN** |
+
+**Canon paths for Journal app:** Vercel default **`ww-journal.vercel.app`** until apex `www` is attached to **`ww-journal`** (not Squarespace `/journal`).
+
+---
+
 ## Pre-launch gates
 
-1. **WeWeb publish** → GitHub `journal` (merge git favicon commit first or same deploy window)
-2. **Vercel** build `journal` · confirm `GET /favicon.ico` and `/images/512-wwj-favicon.png` → **200**
-3. **Vercel Web Analytics** on · smoke Home → article route
-4. **`JOURNAL_SUBSCRIBE_WEBHOOK_URL`** on `ww-journal` for capture form
-5. Production domain smoke: `whisperingwoodsweddings.com/journal` when cutover
+1. **WeWeb publish** → GitHub `journal` (canvas logo / UTM / mobile — not in export until publish)
+2. **Vercel** production on **`journal`** @ `feaf961` — favicons **200** ✓
+3. **Custom domain:** add `www.whisperingwoodsweddings.com` (or chosen host) to **`ww-journal`** · wait for cert · optional path prefix `/journal` via Vercel rewrite or subdomain
+4. **Vercel Web Analytics** on · smoke Home → article
+5. **`JOURNAL_SUBSCRIBE_WEBHOOK_URL`** for capture form
 
 ---
 
 ## Open P1
 
-- Upload **WeWeb media library** copy of 512 mark if editor preview breaks relative `images/` path before export
-- Article sticky bar link audit (reuse section) on device pass
-- Custom domain rewrite: subscribe `fetch` uses `baseUrl` (works on Vercel preview + apex)
+- Squarespace **`/journal`** on events/weddings — point to Vercel or retire redirect
+- Upload **WeWeb media library** 512 mark if preview breaks before export
+- Article sticky bar device pass
