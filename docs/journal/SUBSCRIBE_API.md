@@ -15,7 +15,11 @@ Canvas workflow **Execute Subscribe API Call** posts to `{baseUrl}/api/subscribe
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| `JOURNAL_SUBSCRIBE_WEBHOOK_URL` | Yes | n8n (or other) webhook that stores the lead |
+| `JOURNAL_SUBSCRIBE_WEBHOOK_URL` | Yes* | n8n (or other) webhook that stores the lead |
+| `N8N_WEDDINGS_SUBSCRIBE_WEBHOOK` | Fallback | Same webhook as WWE if journal var unset |
+| `WEDDINGS_SUBSCRIBE_WEBHOOK_URL` | Fallback | Alternate name for shared estate webhook |
+
+\*At least one of the three must be set on **`ww-journal`** (production + preview).
 | `JOURNAL_SUBSCRIBE_WEBHOOK_SECRET` | No | Sent as `x-wwj-subscribe-secret` when set |
 
 Without `JOURNAL_SUBSCRIBE_WEBHOOK_URL`, the route returns **503** `subscribe_not_configured` (workflow shows error; not 404).
