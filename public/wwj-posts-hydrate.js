@@ -7,6 +7,17 @@
   var MANIFEST_URL = '/wwj-boot-manifest.json';
   var DEFAULT_CATALOG = '/wwj-posts.json';
 
+  fetch(DEFAULT_CATALOG, { credentials: 'same-origin' })
+    .then(function (r) {
+      return r.ok ? r.json() : null;
+    })
+    .then(function (body) {
+      if (!body) return;
+      var posts = Array.isArray(body) ? body : body.posts;
+      if (posts && posts.length) window.__wwjPostsCatalogPosts = posts;
+    })
+    .catch(function () {});
+
   function slugSet(posts) {
     var s = {};
     if (!Array.isArray(posts)) return s;
@@ -154,12 +165,35 @@
     return true;
   }
 
+  /** WeWeb resetVariables() restores journal_posts to 1-post export on every route — restore catalog sync. */
+  function patchVariablesReset() {
+    if (window.__wwjResetVariablesPatched) return true;
+    var lib = typeof wwLib !== 'undefined' ? wwLib : null;
+    if (!lib || !lib.$pinia || !lib.$pinia._s) return false;
+    var store = lib.$pinia._s.get('variables');
+    if (!store || typeof store.resetVariables !== 'function') return false;
+    window.__wwjResetVariablesPatched = true;
+    var orig = store.resetVariables.bind(store);
+    store.resetVariables = function (toRoute, resetPersistant) {
+      orig(toRoute, resetPersistant);
+      var catalog = window.__wwjPostsCatalogPosts;
+      if (!catalog || !catalog.length) return;
+      store.setValue(POSTS_UID, catalog.slice(), { ignoreQuery: true });
+      try {
+        window.dispatchEvent(
+          new CustomEvent('wwj-posts-hydrated', { detail: { count: catalog.length } }),
+        );
+      } catch (e) {}
+    };
+    return true;
+  }
+
   function installSpaHooks() {
     installHistoryHooks();
-    if (installWwDataLoadedHook()) return;
     var tries = 0;
     (function waitLib() {
-      if (installWwDataLoadedHook() || tries++ > 600) return;
+      var ok = installWwDataLoadedHook() && patchVariablesReset();
+      if (ok || tries++ > 600) return;
       setTimeout(waitLib, 100);
     })();
   }

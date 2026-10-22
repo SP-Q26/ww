@@ -4,6 +4,7 @@
   "buildCommand": "bash scripts/vercel-build.sh",
   "outputDirectory": "dist",
   "redirects": [
+    { "source": "/p/:slug/", "destination": "/p/:slug", "permanent": false },
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/home/", "destination": "/", "permanent": true },
     { "source": "/journal", "destination": "/", "permanent": true },
