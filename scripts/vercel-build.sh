@@ -9,5 +9,6 @@ export NPM_CONFIG_AUDIT=false
 export NPM_CONFIG_PREFER_OFFLINE=true
 
 npm ci --no-progress
+node scripts/restore-postbuild-wwj.mjs
 node scripts/verify-wwj-public.mjs
 npm run build
