@@ -179,6 +179,11 @@
       var catalog = window.__wwjPostsCatalogPosts;
       if (!catalog || !catalog.length) return;
       store.setValue(POSTS_UID, catalog.slice(), { ignoreQuery: true });
+      if (lib.wwVariable && lib.wwVariable.updateValue) {
+        try {
+          lib.wwVariable.updateValue(POSTS_UID, catalog.slice());
+        } catch (e) {}
+      }
       try {
         window.dispatchEvent(
           new CustomEvent('wwj-posts-hydrated', { detail: { count: catalog.length } }),
