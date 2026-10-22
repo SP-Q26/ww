@@ -70,9 +70,15 @@
     setTimeout(tick, 50);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', tick);
-  } else {
+  function boot() {
     tick();
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  window.addEventListener('wwj-posts-hydrated', boot);
+  window.addEventListener('load', boot);
 })();

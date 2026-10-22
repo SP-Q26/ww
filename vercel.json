@@ -1,6 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "true",
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "outputDirectory": "dist",
   "redirects": [
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/home/", "destination": "/", "permanent": true },
     { "source": "/journal", "destination": "/", "permanent": true },
     { "source": "/journal/", "destination": "/", "permanent": true },
     { "source": "/journal/:path*", "destination": "/:path*", "permanent": true }

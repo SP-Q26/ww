@@ -28,14 +28,30 @@
     return false;
   }
 
+  function readPosts(lib) {
+    try {
+      return lib.wwVariable.getValue(POSTS_UID);
+    } catch (e) {
+      return null;
+    }
+  }
+
   function applyCatalog(catalogPosts) {
     var lib = typeof wwLib !== 'undefined' ? wwLib : null;
     if (!lib || !lib.wwVariable || !lib.wwVariable.getValue || !lib.wwVariable.updateValue) {
       return false;
     }
-    var current = lib.wwVariable.getValue(POSTS_UID);
+    var current = readPosts(lib);
     if (!needsHydrate(current, catalogPosts)) return true;
-    lib.wwVariable.updateValue(POSTS_UID, catalogPosts.slice());
+    try {
+      lib.wwVariable.updateValue(POSTS_UID, catalogPosts.slice());
+    } catch (e) {
+      return false;
+    }
+    var after = readPosts(lib);
+    if (!Array.isArray(after) || after.length !== catalogPosts.length) {
+      return false;
+    }
     try {
       window.dispatchEvent(
         new CustomEvent('wwj-posts-hydrated', { detail: { count: catalogPosts.length } }),
@@ -47,9 +63,10 @@
   function startWithPosts(posts) {
     if (!Array.isArray(posts) || !posts.length) return;
     var tries = 0;
+    var maxTries = 600;
     function tick() {
-      if (applyCatalog(posts) || tries++ >= 120) return;
-      setTimeout(tick, 50);
+      if (applyCatalog(posts) || tries++ >= maxTries) return;
+      setTimeout(tick, 100);
     }
     tick();
   }
@@ -82,9 +99,15 @@
       .catch(function () {});
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', run);
-  } else {
+  function boot() {
     run();
   }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+  window.addEventListener('load', run);
+  window.addEventListener('pageshow', run);
 })();
