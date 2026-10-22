@@ -3,8 +3,22 @@
   "installCommand": "true",
   "buildCommand": "bash scripts/vercel-build.sh",
   "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/wwj-(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    },
+    {
+      "source": "/ww-tour-(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    },
+    {
+      "source": "/ww-journal-(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    }
+  ],
   "redirects": [
-    { "source": "/p/:slug/", "destination": "/p/:slug", "permanent": false },
+    { "source": "/p/:slug/", "destination": "/p/:slug", "permanent": true },
     { "source": "/home", "destination": "/", "permanent": true },
     { "source": "/home/", "destination": "/", "permanent": true },
     { "source": "/journal", "destination": "/", "permanent": true },
@@ -13,7 +27,6 @@
   ],
   "rewrites": [
     { "source": "/p/:slug", "destination": "/p/:param/index.html" },
-    { "source": "/p/:slug/", "destination": "/p/:param/index.html" },
     { "source": "/home", "destination": "/index.html" },
     { "source": "/home/", "destination": "/index.html" }
   ]

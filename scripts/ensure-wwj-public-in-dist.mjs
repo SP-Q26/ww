@@ -18,9 +18,18 @@ if (!fs.existsSync(pub)) {
   process.exit(0);
 }
 
+function shouldCopyRuntime(name) {
+  return (
+    name.startsWith('wwj-') ||
+    name.startsWith('ww-tour-') ||
+    name === 'ww-journal-bridge.js' ||
+    name === 'ww-journal-site-config.js'
+  );
+}
+
 let copied = 0;
 for (const name of fs.readdirSync(pub)) {
-  if (!name.startsWith('wwj-')) continue;
+  if (!shouldCopyRuntime(name)) continue;
   const from = path.join(pub, name);
   const to = path.join(dist, name);
   const isDir = fs.statSync(from).isDirectory();

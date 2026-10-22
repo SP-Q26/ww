@@ -147,14 +147,28 @@
     setTimeout(tick, 80);
   }
 
+  function teardownTrains(d) {
+    var trains = d.querySelectorAll(".wwj-wildlife-train");
+    for (var t = 0; t < trains.length; t++) {
+      trains[t].remove();
+    }
+    var staticRows = d.querySelectorAll("[data-wwj-wildlife-static-row]");
+    for (var s = 0; s < staticRows.length; s++) {
+      staticRows[s].style.display = "";
+      staticRows[s].removeAttribute("data-wwj-wildlife-static-row");
+    }
+    var chips = d.querySelectorAll("[data-wwj-wildlife-static-chips]");
+    for (var c = 0; c < chips.length; c++) {
+      chips[c].style.display = "";
+    }
+  }
+
   window.wwjWildlifeTrainRescan = function () {
     var d = doc();
+    teardownTrains(d);
     var ledgers = d.querySelectorAll(LEDGER_SEL);
     for (var i = 0; i < ledgers.length; i++) {
-      var ledger = ledgers[i];
-      if (!ledger.querySelector(".wwj-wildlife-train")) {
-        delete ledger.dataset.wwjWildlifeReady;
-      }
+      delete ledgers[i].dataset.wwjWildlifeReady;
     }
     scans = 0;
     tick();
