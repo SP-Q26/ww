@@ -8,6 +8,7 @@ import wwobject9ecb2cfccef74be8b7363e17a3b7e9ff from '@weweb-internal/ext-elemen
 import wwobjectdeb10a015eef4aa190171b51c2ad6fd0 from '@weweb-internal/ext-element-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0/config';
 import wwobjectd7904e9dfc9a4d809e32728e097879ad from '@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad/config';
 import wwobject59dca300db7842e4a7a60cbf22d3cc82 from '@weweb-internal/ext-element-59dca300-db78-42e4-a7a6-0cbf22d3cc82/config';
+import wwobject3a7d637912d3438798ffb332bb492a63 from '@weweb-internal/ext-element-3a7d6379-12d3-4387-98ff-b332bb492a63/config';
 import wwobjectb783dc65d5284f748c14e27c934c39b1 from '@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1/config';
 /* wwFront:end */
 
@@ -20,6 +21,7 @@ export const useComponentBasesStore = defineStore('componentBases', () => {
 'wwobject-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0': getInheritedConfiguration({ ...wwobjectdeb10a015eef4aa190171b51c2ad6fd0, name: 'wwobject-deb10a01-5eef-4aa1-9017-1b51c2ad6fd0' }),
 'wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad': getInheritedConfiguration({ ...wwobjectd7904e9dfc9a4d809e32728e097879ad, name: 'wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad' }),
 'wwobject-59dca300-db78-42e4-a7a6-0cbf22d3cc82': getInheritedConfiguration({ ...wwobject59dca300db7842e4a7a60cbf22d3cc82, name: 'wwobject-59dca300-db78-42e4-a7a6-0cbf22d3cc82' }),
+'wwobject-3a7d6379-12d3-4387-98ff-b332bb492a63': getInheritedConfiguration({ ...wwobject3a7d637912d3438798ffb332bb492a63, name: 'wwobject-3a7d6379-12d3-4387-98ff-b332bb492a63' }),
 'wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1': getInheritedConfiguration({ ...wwobjectb783dc65d5284f748c14e27c934c39b1, name: 'wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1' })};
     /* wwFront:end */
  

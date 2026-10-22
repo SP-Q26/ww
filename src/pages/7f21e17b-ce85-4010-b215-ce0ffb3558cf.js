@@ -2,6 +2,7 @@ import './styleCompiler/ww-style-page-7f21e17b-ce85-4010-b215-ce0ffb3558cf.css';
 /*__WW_PAGE_COMPONENT_IMPORTS_START__*/
 
 // eslint-disable-next-line no-undef
+import element_3a7d6379_12d3_4387_98ff_b332bb492a63 from "@weweb-internal/ext-element-3a7d6379-12d3-4387-98ff-b332bb492a63";
 import element_59dca300_db78_42e4_a7a6_0cbf22d3cc82 from "@weweb-internal/ext-element-59dca300-db78-42e4-a7a6-0cbf22d3cc82";
 import element_b783dc65_d528_4f74_8c14_e27c934c39b1 from "@weweb-internal/ext-element-b783dc65-d528-4f74-8c14-e27c934c39b1";
 import element_d7904e9d_fc9a_4d80_9e32_728e097879ad from "@weweb-internal/ext-element-d7904e9d-fc9a-4d80-9e32-728e097879ad";
@@ -24,6 +25,12 @@ export default async function registerPageComponents(app) {
             // eslint-disable-next-line no-undef
             /*__WW_SSR_PAGE_COMPONENT_DESCRIPTORS_START__*/
 [
+    {
+        "baseId": "3a7d6379-12d3-4387-98ff-b332bb492a63",
+        "importPath": "@weweb-internal/ext-element-3a7d6379-12d3-4387-98ff-b332bb492a63",
+        "name": "wwobject-3a7d6379-12d3-4387-98ff-b332bb492a63",
+        "type": "element"
+    },
     {
         "baseId": "59dca300-db78-42e4-a7a6-0cbf22d3cc82",
         "importPath": "@weweb-internal/ext-element-59dca300-db78-42e4-a7a6-0cbf22d3cc82",
@@ -53,7 +60,8 @@ export default async function registerPageComponents(app) {
         );
     } else {
         // eslint-disable-next-line no-undef
-        app.component("wwobject-59dca300-db78-42e4-a7a6-0cbf22d3cc82", element_59dca300_db78_42e4_a7a6_0cbf22d3cc82);
+        app.component("wwobject-3a7d6379-12d3-4387-98ff-b332bb492a63", element_3a7d6379_12d3_4387_98ff_b332bb492a63);
+app.component("wwobject-59dca300-db78-42e4-a7a6-0cbf22d3cc82", element_59dca300_db78_42e4_a7a6_0cbf22d3cc82);
 app.component("wwobject-b783dc65-d528-4f74-8c14-e27c934c39b1", element_b783dc65_d528_4f74_8c14_e27c934c39b1);
 app.component("wwobject-d7904e9d-fc9a-4d80-9e32-728e097879ad", element_d7904e9d_fc9a_4d80_9e32_728e097879ad);
 

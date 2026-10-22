@@ -5,6 +5,14 @@ import { useIconsStore } from '@/pinia/icons';
  /* wwFront:start */
 // eslint-disable-next-line no-undef
 ;
+// The token maps of the newer types: `typeof` keeps an empty map when a publisher older than this code leaves the
+// placeholder in place.
+// eslint-disable-next-line no-undef
+const LIBRARY_RADIUS = typeof {} === 'undefined' ? {} : {};
+// eslint-disable-next-line no-undef
+const LIBRARY_SHADOWS = typeof {} === 'undefined' ? {} : {};
+// eslint-disable-next-line no-undef
+const LIBRARY_BORDERS = typeof {} === 'undefined' ? {} : {};
 /* wwFront:end */
 
 import { computed, reactive } from 'vue';
@@ -163,6 +171,19 @@ export default {
         // eslint-disable-next-line no-unreachable, no-undef
         {"4c078281-724b-40b6-9c4f-86891eff5189":"500 22px/1.1 var(--ww-default-font-family, 'Cormorant Garamond', serif)","7d3ea5d0-2141-479e-9ff9-58f70b8c05e2":"600 2.25rem/1.15 var(--ww-default-font-family, 'Cormorant Garamond', serif)","7d2ed228-cc51-4378-bbf9-bc596fa57f0d":"600 12px/1.4 var(--ww-default-font-family, Montserrat, sans-serif)","ca5885a8-1914-407c-a64f-d0ec46b6261c":"600 1.5rem/1.25 var(--ww-default-font-family, 'Cormorant Garamond', serif)","5ab70d04-9f2d-4a56-b0ee-a6fd8e3b6616":"400 17px/1.55 var(--ww-default-font-family, Inter, sans-serif)","829f2414-4ae4-41e5-a728-8355d6b79f35":"600 36px/1.2 var(--ww-default-font-family, 'Cormorant Garamond', serif)","1c471909-adca-4c1b-8140-637c0cecbfa9":"600 36px/1.15 var(--ww-default-font-family, 'Cormorant Garamond', serif)","e54744e5-aa6c-4799-99ab-02ee659954b1":"600 24px/1.25 var(--ww-default-font-family, 'Cormorant Garamond', serif)","09c583f8-cc77-4851-b51d-e71f089b148a":"600 11px/1.4 var(--ww-default-font-family, Montserrat, sans-serif)","acaa469b-4bd7-4bc3-b98b-b639022c9f56":"500 13px/1.4 var(--ww-default-font-family, Inter, sans-serif)"},
         /* wwFront:end */
+        // The newer token types (see LIBRARY_RADIUS). Shadows and borders keep their var(--color): the CSS resolves it.
+        radius:
+         /* wwFront:start */
+        LIBRARY_RADIUS,
+        /* wwFront:end */
+        shadows:
+         /* wwFront:start */
+        LIBRARY_SHADOWS,
+        /* wwFront:end */
+        borders:
+         /* wwFront:start */
+        LIBRARY_BORDERS,
+        /* wwFront:end */
         browser: computed(() => {
             const router = wwLib.manager ? wwLib.getEditorRouter() : wwLib.getFrontRouter();
             const currentRoute = router.currentRoute.value;
@@ -225,10 +246,10 @@ export default {
      * @PUBLIC_API
      */
     getFrontWindow() {
-        if (document.querySelector('.ww-manager-iframe')) {
-            return document.querySelector('.ww-manager-iframe').contentWindow;
-        }
-        return window;
+        // This is called for every compiled CSS declaration and Vue timing measurement.
+        // In the canvas document there is no nested editor iframe: a class selector would
+        // scan the entire rendered page on every call. The editor iframe has a fixed ID.
+        return document.getElementById('ww-manager-iframe')?.contentWindow || window;
     },
 
     /**
@@ -377,6 +398,7 @@ export default {
     },
 };
 
+ 
 function pageSanitizer(page) {
     const keysToInclude = [
         'id',
