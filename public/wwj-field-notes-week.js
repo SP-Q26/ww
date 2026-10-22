@@ -80,5 +80,6 @@
     boot();
   }
   window.addEventListener('wwj-posts-hydrated', boot);
+  window.addEventListener('wwj-spa-nav', boot);
   window.addEventListener('load', boot);
 })();

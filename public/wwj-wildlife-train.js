@@ -6,6 +6,7 @@
   if (typeof window === "undefined") return;
   if (window.__wwjWildlifeTrainInit) return;
   window.__wwjWildlifeTrainInit = true;
+  var sightingsCache = null;
 
   var FEED_URL = "/wwj-wildlife-sightings.json";
   var LEDGER_SEL = "#wwj-wildlife-ledger";
@@ -106,13 +107,18 @@
   ];
 
   function resolveItems(done) {
+    if (sightingsCache && sightingsCache.length) {
+      done(sightingsCache);
+      return;
+    }
     fetch(FEED_URL, { credentials: "same-origin" })
       .then(function (res) {
         if (!res.ok) throw new Error("sightings " + res.status);
         return res.json();
       })
       .then(function (items) {
-        done(Array.isArray(items) ? items : FALLBACK);
+        sightingsCache = Array.isArray(items) ? items : FALLBACK;
+        done(sightingsCache);
       })
       .catch(function () {
         done(FALLBACK);
@@ -141,9 +147,23 @@
     setTimeout(tick, 80);
   }
 
+  window.wwjWildlifeTrainRescan = function () {
+    var d = doc();
+    var ledgers = d.querySelectorAll(LEDGER_SEL);
+    for (var i = 0; i < ledgers.length; i++) {
+      var ledger = ledgers[i];
+      if (!ledger.querySelector(".wwj-wildlife-train")) {
+        delete ledger.dataset.wwjWildlifeReady;
+      }
+    }
+    scans = 0;
+    tick();
+  };
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", tick);
   } else {
     tick();
   }
+  window.addEventListener("wwj-spa-nav", window.wwjWildlifeTrainRescan);
 })();

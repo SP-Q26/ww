@@ -78,6 +78,9 @@
   }
 
   function run() {
+    if (window.__wwjPostsCatalogPosts && window.__wwjPostsCatalogPosts.length) {
+      startWithPosts(window.__wwjPostsCatalogPosts);
+    }
     fetch(MANIFEST_URL, { credentials: 'same-origin' })
       .then(function (r) {
         return r.ok ? r.json() : null;
@@ -94,10 +97,15 @@
       })
       .then(function (body) {
         var posts = Array.isArray(body) ? body : body && body.posts;
+        if (Array.isArray(posts) && posts.length) {
+          window.__wwjPostsCatalogPosts = posts;
+        }
         startWithPosts(posts);
       })
       .catch(function () {});
   }
+
+  window.__wwjPostsHydrateRun = run;
 
   function boot() {
     run();
@@ -110,4 +118,51 @@
   }
   window.addEventListener('load', run);
   window.addEventListener('pageshow', run);
+
+  function spaNotify() {
+    run();
+    if (typeof window.wwjWildlifeTrainRescan === 'function') {
+      window.wwjWildlifeTrainRescan();
+    }
+    try {
+      window.dispatchEvent(new CustomEvent('wwj-spa-nav'));
+    } catch (e) {}
+  }
+
+  function installHistoryHooks() {
+    if (window.__wwjHistoryHooks) return;
+    window.__wwjHistoryHooks = true;
+    window.addEventListener('popstate', spaNotify);
+    var pushState = history.pushState;
+    var replaceState = history.replaceState;
+    history.pushState = function () {
+      pushState.apply(history, arguments);
+      spaNotify();
+    };
+    history.replaceState = function () {
+      replaceState.apply(history, arguments);
+      spaNotify();
+    };
+  }
+
+  function installWwDataLoadedHook() {
+    if (window.__wwjDataLoadedHook) return true;
+    var lib = typeof wwLib !== 'undefined' ? wwLib : null;
+    if (!lib || typeof lib.$on !== 'function') return false;
+    window.__wwjDataLoadedHook = true;
+    lib.$on('wwStore:dataLoaded', spaNotify);
+    return true;
+  }
+
+  function installSpaHooks() {
+    installHistoryHooks();
+    if (installWwDataLoadedHook()) return;
+    var tries = 0;
+    (function waitLib() {
+      if (installWwDataLoadedHook() || tries++ > 600) return;
+      setTimeout(waitLib, 100);
+    })();
+  }
+
+  installSpaHooks();
 })();

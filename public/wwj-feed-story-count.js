@@ -122,4 +122,5 @@
     run();
   }
   window.addEventListener('wwj-posts-hydrated', run);
+  window.addEventListener('wwj-spa-nav', run);
 })();
