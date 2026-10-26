@@ -83,6 +83,29 @@ chmod +x scripts/*.sh .githooks/pre-commit
 
 ---
 
+## One commit per canvas publish (Vercel storage)
+
+**Do not** push **`vNN - vNN`** WeWeb export and a separate **“restore prebuild / ensure-package-scripts”** commit on the same branch back-to-back. That pattern creates **two production deployments** (and sometimes duplicate rows for the **same SHA**).
+
+**Fold gate into export:** before pushing the WeWeb export commit, run locally:
+
+```bash
+node scripts/ensure-package-scripts.mjs
+git add package.json package-lock.json
+# include in the same commit as public/ + src/ export
+```
+
+Vercel **Ignored Build Step** on **`ww-luxe`** and **`ww-journal`**:
+
+```bash
+bash scripts/vercel-should-build-ww.sh luxe    # production branch main
+bash scripts/vercel-should-build-ww.sh journal # production branch journal
+```
+
+Gate-only follow-ups (only `ensure-package-scripts`, `package.json`, `vercel.json`, docs) → **skip build**. See `scripts/audit-vercel-ww-gates.mjs`.
+
+---
+
 ## Agent duty
 
 After any WeWeb GitHub publish or merge of WeWeb export into `ww`:
