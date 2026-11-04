@@ -439,7 +439,7 @@
         min-height: 80vh;
         display: flex;
         background-color: #141f19;
-        background-image: linear-gradient(#141f19d1, #141f19d1), url("images/Megan&CollinWhisperingWoodsWedding-2331-compressed_Webpifier.webp?_wwcv=38");
+        background-image: linear-gradient(#141f19d1, #141f19d1), url("images/Megan&CollinWhisperingWoodsWedding-2331-compressed_Webpifier.webp?_wwcv=40");
         background-position: 0% 0%, center center;
         background-size: auto, cover;
         background-repeat: repeat, no-repeat;
@@ -451,7 +451,7 @@
       @media (max-width: 767px) {
         .ww-s-dJ {
           background-color: #141f19;
-          background-image: linear-gradient(#141f19d1, #141f19d1), url("images/Megan&CollinWhisperingWoodsWedding-2331-compressed_Webpifier.webp?_wwcv=38");
+          background-image: linear-gradient(#141f19d1, #141f19d1), url("images/Megan&CollinWhisperingWoodsWedding-2331-compressed_Webpifier.webp?_wwcv=40");
           background-position: 0% 0%, center center;
           background-size: auto, cover;
           background-repeat: repeat, no-repeat;
@@ -613,7 +613,7 @@
       .ww-s-dQ {
         display: flex;
         background-color: var(--377beacf-1e31-4367-8516-81d53cc47f4f, #F9F6F0);
-        background-image: linear-gradient(#141f19b8 0%, #f9f6f0f0 55%, #f9f6f0 100%), url("images/Megan%26CollinWhisperingWoodsWedding-2331-compressed_Webpifier.webp?_wwcv=38");
+        background-image: linear-gradient(#141f19b8 0%, #f9f6f0f0 55%, #f9f6f0 100%), url("images/Megan%26CollinWhisperingWoodsWedding-2331-compressed_Webpifier.webp?_wwcv=40");
         background-position: 0% 0%, center center;
         background-size: auto, cover;
         background-repeat: repeat, no-repeat;
@@ -1167,7 +1167,7 @@
           width: 100%;
           height: 220px;
           aspect-ratio: unset;
-          background-image: url("/images/488839329_1309066564552131_2927281467138205714_n-compressed_Webpifier.webp?_wwcv=38");
+          background-image: url("/images/488839329_1309066564552131_2927281467138205714_n-compressed_Webpifier.webp?_wwcv=40");
           background-position: center center;
           background-size: cover;
           background-repeat: no-repeat;
@@ -1692,7 +1692,7 @@
           height: 100%;
           aspect-ratio: unset;
           background-color: #0000;
-          background-image: url("/images/615948981_1560693309389454_468143593579784476_n-compressed_Webpifier.webp?_wwcv=38");
+          background-image: url("/images/615948981_1560693309389454_468143593579784476_n-compressed_Webpifier.webp?_wwcv=40");
           background-position: center 1%;
           background-size: contain;
           background-repeat: no-repeat;
@@ -4112,6 +4112,7 @@
         width: 100%;
         max-width: 35rem;
         min-width: 35rem;
+        background-image: none;
         box-shadow: 0 20px 40px -15px #141f1914, 0 2px 6px #c49a5a0d;
         opacity: 1;
         transform: none;
@@ -5020,7 +5021,7 @@
         animation-fill-mode: both;
         animation-iteration-count: 1;
         animation-play-state: paused;
-        border: 1px solid #c49a5a73;
+        border: 1px solid color-mix(in srgb, var(--ww-accent, #c49a5a) 45%, transparent);
         border-radius: 2px;
         --ww-text-white-space: nowrap;
         --ww-text-overflow: hidden;
@@ -5045,18 +5046,18 @@
           background-color: #141f1999;
           box-shadow: none;
           animation-play-state: paused;
-          border: 1px solid #c49a5a73;
+          border: 1px solid color-mix(in srgb, var(--ww-accent, #c49a5a) 45%, transparent);
           border-radius: 2px;
           --ww-text-white-space: nowrap;
           --ww-text-overflow: hidden;
         }
       }
       .ww-e-d56:where(:hover) {
-        color: #c49a5a;
-        background-color: #c49a5a1f;
+        color: var(--ww-accent, #c49a5a);
+        background-color: color-mix(in srgb, var(--ww-accent, #c49a5a) 12%, transparent);
         box-shadow: none;
         transform: translateY(-1px);
-        border: 1px solid #c49a5a;
+        border: 1px solid var(--ww-accent, #c49a5a);
       }
       .ww-e-d56:where(:active) {
         box-shadow: none;
