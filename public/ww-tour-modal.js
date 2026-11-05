@@ -8,11 +8,14 @@
   var cfg = window.WW_SITE_CONFIG || {};
   var BASE =
     cfg.tour_booking_url ||
-    "https://calendly.com/whisperingwoodsinfo/private-venue-tour";
-  var EMBED =
-    BASE +
-    (BASE.indexOf("?") === -1 ? "?" : "&") +
-    "hide_gdpr_banner=1&background_color=141f19&text_color=f9f6f0&primary_color=c49a5a";
+    "https://calendar.app.google/d3iGi3bVmyjSdxyn9";
+  var EMBED = BASE;
+  if (BASE.indexOf("calendly.com") !== -1) {
+    EMBED =
+      BASE +
+      (BASE.indexOf("?") === -1 ? "?" : "&") +
+      "hide_gdpr_banner=1&background_color=141f19&text_color=f9f6f0&primary_color=c49a5a";
+  }
 
   var root;
   var lastFocus;

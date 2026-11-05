@@ -26,6 +26,12 @@ cd ~/ww
 python3 weweb/build-head-paste.py
 ```
 
+After boot edits in `weweb/ww-site-boot-snippet.js`, sync the v41 export:
+
+```bash
+python3 scripts/sync-venue-boot-to-export.py
+```
+
 Reads `weweb/VERSION`, `weweb/config.json`, and all `ww-*.css` / `ww-*.js` listed in `build-head-paste.py`.
 
 ## Static tour drawer (Vercel / apex)

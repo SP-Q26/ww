@@ -3,7 +3,7 @@
 **Project:** `cbd9a95f-c61e-441a-87cb-b25006511440` (WW Venue)  
 **Git head canon:** `2026.10.21.18` (`WW/weweb/WEWEB_HEAD_PASTE.html`)  
 **User publish:** **v41** (canvas)  
-**Repo push target:** `SP-Q26/SPQ` · branch **`main`** (WW/weweb docs + head modules)
+**Repo push target:** `SP-Q26/ww` · branch **`venue`** (`weweb/`, `docs/events/`) — **not** `SP-Q26/SPQ` main.
 
 ---
 
@@ -78,7 +78,7 @@
 
 ## Out of scope (this commit)
 
-- WeWeb export JSON in git (SPQ lane stores head modules only).  
+- WeWeb export JSON in git (`src/_front/router.js` boot synced via `scripts/sync-venue-boot-to-export.py`).
 - `~/ww/public` — deploy separately if tour JS/CSS changed.  
 - Bear/Kimber ops docs staged in same repo — not production blockers for WW site.
 

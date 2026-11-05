@@ -13,7 +13,7 @@
   var finished = false;
   var EMAIL = (cfg.email || "info@whisperingwoodsevents.com").replace(/^mailto:/i, "");
   var MAILTO = "mailto:" + EMAIL;
-  var TOUR_URL = cfg.tour_booking_url || "https://calendly.com/whisperingwoodsinfo/private-venue-tour";
+  var TOUR_URL = cfg.tour_booking_url || "https://calendar.app.google/d3iGi3bVmyjSdxyn9";
   var TOUR_RE = /book a tour|tour the grounds|^tour$/i;
 
   function setEnv() {
@@ -62,23 +62,6 @@
     );
   }
 
-  function openTour(ev) {
-    if (typeof window.wwOpenTourModal === "function") {
-      window.wwOpenTourModal();
-      return;
-    }
-    window.open(TOUR_URL, "_blank", "noopener,noreferrer");
-  }
-
-  function isTourControl(el) {
-    if (!el) return false;
-    if (el.closest("[data-ww-tour]")) return true;
-    var text = (el.textContent || "").trim();
-    if (TOUR_RE.test(text)) return true;
-    var href = (el.getAttribute("href") || "").toLowerCase();
-    return href.indexOf("calendly.com") !== -1 || href.indexOf("calendar.app.google") !== -1;
-  }
-
   function wireTourDelegation() {
     if (document.documentElement.dataset.wwTourDelegated) return;
     document.documentElement.dataset.wwTourDelegated = "1";
@@ -87,21 +70,18 @@
       "click",
       function (ev) {
         var el = ev.target.closest("a, button");
-        if (!el || !isTourControl(el)) return;
+        if (!el) return;
+        var text = (el.textContent || "").trim();
+        if (!TOUR_RE.test(text)) return;
         if (el.closest("#ww-sticky-nav") && !el.closest("#ww-sticky-nav.is-expanded")) return;
+        var href = el.getAttribute("href") || "";
+        if (href && href.indexOf("calendar.app.google") !== -1) return;
         ev.preventDefault();
         ev.stopPropagation();
-        openTour(ev);
+        window.open(TOUR_URL, "_blank", "noopener,noreferrer");
       },
       true
     );
-
-    document.querySelectorAll("[data-ww-tour]").forEach(function (node) {
-      if (node.dataset.wwTourBound) return;
-      node.dataset.wwTourBound = "1";
-      node.setAttribute("href", "#tour");
-      node.removeAttribute("target");
-    });
   }
 
   function labelTrustLinks() {
