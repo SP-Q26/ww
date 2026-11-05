@@ -8,7 +8,7 @@
   var cfg = window.WW_SITE_CONFIG || {};
   var BASE =
     cfg.tour_booking_url ||
-    "https://calendar.app.google/d3iGi3bVmyjSdxyn9";
+    "https://calendly.com/whisperingwoodsinfo/private-venue-tour";
   var EMBED = BASE;
   if (BASE.indexOf("calendly.com") !== -1) {
     EMBED =

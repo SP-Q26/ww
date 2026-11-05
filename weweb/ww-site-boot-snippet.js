@@ -28,7 +28,7 @@ const DREAM = {
 };
 const DEFAULT_POETRY =
   'Forty acres of private woods on a 40-acre estate — yours for the weekend.';
-const TOUR_URL = 'https://calendar.app.google/d3iGi3bVmyjSdxyn9';
+const TOUR_URL = 'https://calendly.com/whisperingwoodsinfo/private-venue-tour';
 const PROD = 'https://www.whisperingwoodsevents.com';
 const doc = wwLib.getFrontDocument();
 const root = doc.documentElement;

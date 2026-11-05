@@ -13,7 +13,7 @@
   var finished = false;
   var EMAIL = (cfg.email || "info@whisperingwoodsevents.com").replace(/^mailto:/i, "");
   var MAILTO = "mailto:" + EMAIL;
-  var TOUR_URL = cfg.tour_booking_url || "https://calendar.app.google/d3iGi3bVmyjSdxyn9";
+  var TOUR_URL = cfg.tour_booking_url || "https://calendly.com/whisperingwoodsinfo/private-venue-tour";
   var TOUR_RE = /book a tour|tour the grounds|^tour$/i;
 
   function setEnv() {
@@ -75,7 +75,7 @@
         if (!TOUR_RE.test(text)) return;
         if (el.closest("#ww-sticky-nav") && !el.closest("#ww-sticky-nav.is-expanded")) return;
         var href = el.getAttribute("href") || "";
-        if (href && href.indexOf("calendar.app.google") !== -1) return;
+        if (href && (href.indexOf("calendly.com") !== -1 || href.indexOf("calendar.app.google") !== -1)) return;
         ev.preventDefault();
         ev.stopPropagation();
         window.open(TOUR_URL, "_blank", "noopener,noreferrer");
