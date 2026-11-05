@@ -24,4 +24,15 @@ git commit -m "…"
 git push origin venue
 ```
 
+**After every WeWeb “Publish to GitHub” on `venue`:**
+
+```bash
+python3 scripts/sync-venue-boot-to-export.py   # Google tour URL + boot canon → router.js
+git add weweb/ww-site-boot-snippet.js src/_front/router.js
+git commit -m "Reconcile export boot after WeWeb publish"
+git push origin venue
+```
+
+Then sync canvas **WW Site Boot** from `weweb/ww-site-boot-snippet.js` (MCP or paste in editor).
+
 Merge to `main` only when operator promotes venue static + shared `public/` assets.

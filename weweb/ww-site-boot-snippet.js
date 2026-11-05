@@ -131,18 +131,74 @@ if (!root.dataset.wwTourCapture) {
   );
 }
 
-if (!doc.getElementById('ww-kill-scroll-anim')) {
+/* Strictly 1x one-shot entry animation — prevents endless looping or scroll flicker */
+const oldKill = doc.getElementById('ww-kill-scroll-anim');
+if (oldKill && oldKill.parentNode) oldKill.parentNode.removeChild(oldKill);
+
+if (!doc.getElementById('ww-oneshot-scroll-anim')) {
   const st = doc.createElement('style');
-  st.id = 'ww-kill-scroll-anim';
+  st.id = 'ww-oneshot-scroll-anim';
   st.textContent = [
-    'html.ww-site [id^="scroll-"] {',
-    '  animation: none !important;',
-    '  opacity: 1 !important;',
-    '  transform: none !important;',
-    '}',
+    '@keyframes wwOneShotFadeUp { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }',
+    '[id^="scroll-"] { animation: none !important; }',
+    '[id^="scroll-"].ww-reveal-pending { opacity: 0 !important; transform: translateY(18px) !important; }',
+    '[id^="scroll-"].ww-reveal-once { animation: wwOneShotFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1 forwards !important; }',
+    '[id^="scroll-"].ww-reveal-done { animation: none !important; opacity: 1 !important; transform: none !important; }',
   ].join('\n');
   doc.head.appendChild(st);
 }
+
+function initOneShotScrollReveals() {
+  const els = doc.querySelectorAll('[id^="scroll-"]');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in win)) {
+    els.forEach(function (el) {
+      el.classList.add('ww-reveal-done');
+    });
+    return;
+  }
+  const io = new win.IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        io.unobserve(el);
+        if (el.dataset.wwOneShotDone === '1') return;
+        el.dataset.wwOneShotDone = '1';
+        el.classList.remove('ww-reveal-pending');
+        el.classList.add('ww-reveal-once');
+        win.setTimeout(function () {
+          el.classList.remove('ww-reveal-once');
+          el.classList.add('ww-reveal-done');
+        }, 950);
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  els.forEach(function (el) {
+    if (el.dataset.wwOneShotInit === '1') return;
+    el.dataset.wwOneShotInit = '1';
+    if (el.id === 'scroll-numbers' || el.id === 'scroll-numbers-grid') {
+      el.dataset.wwOneShotDone = '1';
+      el.classList.add('ww-reveal-done');
+      return;
+    }
+    const rect = el.getBoundingClientRect();
+    if (rect.top < win.innerHeight * 0.9) {
+      el.dataset.wwOneShotDone = '1';
+      el.classList.add('ww-reveal-once');
+      win.setTimeout(function () {
+        el.classList.remove('ww-reveal-once');
+        el.classList.add('ww-reveal-done');
+      }, 950);
+    } else {
+      el.classList.add('ww-reveal-pending');
+      io.observe(el);
+    }
+  });
+}
+initOneShotScrollReveals();
+win.setTimeout(initOneShotScrollReveals, 500);
 
 function poetryEl() {
   return (
