@@ -1,0 +1,80 @@
+/**
+ * Heron motion — pond wipe (CSS in production.css) + stats fly-by
+ * @ww-head-module heron-motion
+ */
+
+#ww-stats-heron-track {
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+  flex-shrink: 0;
+  margin: 0 0 8px;
+  height: clamp(88px, 14vw, 128px);
+}
+
+#ww-stats-heron-flyby {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  height: 120%;
+  width: auto;
+  min-width: min(42vw, 320px);
+  max-width: 440px;
+  object-fit: contain;
+  opacity: 0;
+  transform: translate3d(-115%, 0, 0) scale(1.05);
+  filter: drop-shadow(0 12px 28px rgba(20, 31, 25, 0.12));
+  will-change: transform, opacity;
+}
+
+#ww-stats-heron-track.ww-stats-heron-play #ww-stats-heron-flyby {
+  animation: ww-stats-heron-flyby 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes ww-stats-heron-flyby {
+  0% {
+    opacity: 0;
+    transform: translate3d(-115%, 8%, 0) scale(0.92);
+  }
+  12% {
+    opacity: 0.95;
+  }
+  45% {
+    transform: translate3d(8vw, -4%, 0) scale(1.22);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(115%, -2%, 0) scale(1.08);
+  }
+}
+
+/* Pond overlay — larger, clearer (canvas sets base size; head amplifies) */
+#ww-pond-heron {
+  min-height: 240px !important;
+  height: clamp(220px, 42vw, 320px) !important;
+  opacity: 1 !important;
+  filter: drop-shadow(0 8px 24px rgba(20, 31, 25, 0.18));
+  transform-origin: center bottom;
+}
+
+@media (max-width: 640px) {
+  #ww-stats-heron-track {
+    height: clamp(72px, 18vw, 100px);
+    margin-bottom: 4px;
+  }
+
+  #ww-stats-heron-flyby {
+    min-width: min(56vw, 260px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ww-stats-heron-flyby,
+  #ww-stats-heron-track.ww-stats-heron-play #ww-stats-heron-flyby {
+    animation: none !important;
+    opacity: 0.85 !important;
+    transform: translate3d(0, 0, 0) scale(1) !important;
+  }
+}

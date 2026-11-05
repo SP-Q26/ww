@@ -1,0 +1,224 @@
+/**
+ * Luxe layout — mobile column on all viewports (elite spacing)
+ * @ww-head-module luxe-layout
+ */
+
+:root {
+  --ww-column-max: 28rem;
+  --ww-column-wide: 32rem;
+  --ww-space-luxe: 4.5rem;
+  --ww-space-stack-luxe: 1.75rem;
+  --ww-shadow-luxe: 0 16px 48px rgba(20, 31, 25, 0.12);
+  --ww-shadow-accent: 0 10px 32px color-mix(in srgb, var(--ww-accent) 14%, transparent);
+}
+
+/* Mobile-first column — same on desktop (no wide leak) */
+.ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a,
+.ww-section.ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a {
+  max-width: var(--ww-column-max) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-shadow: var(--ww-shadow-luxe);
+  background: var(--ww-linen);
+}
+
+body.ww-site {
+  background: var(--ww-pine-deep) !important;
+  min-height: 100vh;
+}
+
+/* Luxe section rhythm */
+.section-base:not(#ww-sticky-nav) {
+  padding-top: var(--ww-space-luxe) !important;
+  padding-bottom: var(--ww-space-luxe) !important;
+  padding-left: max(1.35rem, env(safe-area-inset-left)) !important;
+  padding-right: max(1.35rem, env(safe-area-inset-right)) !important;
+}
+
+.section-base:first-of-type {
+  padding-top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.section-base > .ww-layout.ww-flexbox.ww-element {
+  max-width: 100% !important;
+  gap: var(--ww-space-stack-luxe);
+}
+
+/* Hero — contained in column (fixes desktop iframe leak) */
+.section-base:first-of-type {
+  position: relative !important;
+  min-height: min(100svh, 52rem) !important;
+  max-height: min(100svh, 52rem) !important;
+  overflow: hidden !important;
+  background: var(--ww-pine-deep) !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  container-type: size;
+  container-name: ww-hero;
+}
+
+.section-base:first-of-type .ww-element-b388b4aa-4d67-4fad-9aa1-070bc1ee46bb,
+.section-base:first-of-type .ww-video-youtube,
+.section-base:first-of-type .ww-image-basic,
+.section-base:first-of-type [class*="ww-element-"][class*="video"],
+.section-base:first-of-type [class*="ww-element-"][class*="image"] {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none;
+}
+
+.section-base:first-of-type .ww-video-youtube iframe,
+.section-base:first-of-type iframe {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: max(100cqw, calc(100cqh * 16 / 9)) !important;
+  height: max(100cqh, calc(100cqw * 9 / 16)) !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  max-width: none !important;
+  transform: translate(-50%, -50%) !important;
+  border: 0 !important;
+  pointer-events: none;
+}
+
+.section-base:first-of-type .ww-element-f2ce6fe1-c6db-40e6-b0c2-27b731a23e05 {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: min(100svh, 52rem) !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 2.5rem 1.35rem calc(var(--ww-sticky-h) + 2rem) !important;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--ww-pine-deep) 35%, transparent) 0%,
+    color-mix(in srgb, var(--ww-pine) 45%, transparent) 45%,
+    color-mix(in srgb, var(--ww-pine-deep) 78%, transparent) 100%
+  ) !important;
+}
+
+/* H1 clean · H2 subline (hero positioning line) */
+.ww-element-67cf3d64-a240-49d6-9413-4f7c32f7db35 {
+  color: var(--ww-accent) !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.ww-element-0c64b806-5f6d-4101-bb71-43afb318fe38 {
+  font-family: var(--ww-font-display) !important;
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+  line-height: 1.35 !important;
+  color: color-mix(in srgb, var(--ww-linen) 92%, transparent) !important;
+  margin: 0 0 1.75rem !important;
+  max-width: 22rem;
+}
+
+/* Hide WeWeb badge on production domain */
+html[data-ww-env="production"] a[href*="weweb.io"],
+html[data-ww-env="production"] [class*="made-with"],
+html[data-ww-env="production"] [class*="MadeWith"] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Footer reviews row */
+.ww-footer-reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  margin: 1.25rem 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ww-footer-reviews__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  font-family: var(--ww-font-kicker);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  color: var(--ww-accent) !important;
+  border: 1px solid color-mix(in srgb, var(--ww-accent) 42%, transparent);
+  border-radius: var(--ww-radius-pill);
+  transition:
+    background-color 0.2s ease,
+    border-color var(--ww-transition-mood),
+    box-shadow var(--ww-transition-mood);
+}
+
+.ww-footer-reviews__link:hover,
+.ww-footer-reviews__link:focus-visible {
+  background: color-mix(in srgb, var(--ww-accent) 14%, transparent);
+  border-color: var(--ww-accent);
+  box-shadow: var(--ww-shadow-accent);
+}
+
+.ww-footer-reviews__stars {
+  font-family: var(--ww-font-display);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.ww-footer-seo {
+  font-family: var(--ww-font-body);
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--ww-linen) 52%, transparent) !important;
+  text-align: center;
+  max-width: 26rem;
+  margin: 1rem auto 0;
+}
+
+/* Pine / bark surfaces — season-aware text shading */
+.ww-section-pine h2,
+.ww-section-pine h3,
+.ww-section-pine h4,
+.section-base:has(> .ww-element-fb80e492-de09-42a3-9c8f-927342b770d9) h2,
+.section-base:has(> .ww-element-5c8b27f7-f57d-4d08-860a-344e46085d8d) h2,
+#ww-season-anchor h2 {
+  text-shadow: 0 1px 24px color-mix(in srgb, var(--ww-accent) 8%, transparent);
+}
+
+html[data-season=""] .ww-section-pine,
+html:not([data-season]) .ww-section-pine,
+html[data-season=""] #ww-season-anchor,
+html:not([data-season]) #ww-season-anchor {
+  box-shadow: none;
+}
+
+html[data-season="spring"] #ww-season-anchor,
+html[data-season="summer"] #ww-season-anchor,
+html[data-season="autumn"] #ww-season-anchor {
+  box-shadow: var(--ww-shadow-accent), inset 0 0 80px color-mix(in srgb, var(--ww-accent) 8%, transparent);
+}
+
+/* Stats + cards — luxe borders */
+.section-base:has(> .ww-element-5c8b27f7-f57d-4d08-860a-344e46085d8d) [class*="ww-element-749482b3"],
+.section-base:has(> .ww-element-5c8b27f7-f57d-4d08-860a-344e46085d8d) [class*="ww-element-b80914cf"] {
+  box-shadow: var(--ww-shadow-accent);
+  border-radius: var(--ww-radius);
+}

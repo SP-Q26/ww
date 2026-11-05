@@ -1,0 +1,81 @@
+/**
+ * Season luxe — "" = standard gold; toggles shift borders/shadows/tints
+ * @ww-head-module season-luxe
+ */
+
+/* Default luxe (no season selected) */
+html[data-season=""],
+html:not([data-season]) {
+  --ww-accent: var(--ww-accent-summer, #c49a5a);
+  --ww-section-deep: var(--ww-pine, #1e2d24);
+  --ww-accent-soft: color-mix(in srgb, var(--ww-accent-summer) 16%, transparent);
+}
+
+html[data-season=""] #ww-season-anchor,
+html:not([data-season]) #ww-season-anchor {
+  border-top: 2px solid color-mix(in srgb, var(--ww-accent) 38%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--ww-accent) 14%, transparent) !important;
+  box-shadow: none;
+}
+
+html[data-season=""] #ww-season-anchor::before,
+html:not([data-season]) #ww-season-anchor::before {
+  opacity: 0.25;
+}
+
+html[data-season=""] .ww-element-e66566cf-c8be-4fcc-bb80-d56186888ec8,
+html:not([data-season]) .ww-element-e66566cf-c8be-4fcc-bb80-d56186888ec8 {
+  background-color: color-mix(in srgb, var(--ww-accent) 10%, var(--ww-pine)) !important;
+  border-color: color-mix(in srgb, var(--ww-accent) 28%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--ww-accent) 8%, transparent);
+}
+
+/* Active season — amplified */
+html[data-season="spring"],
+html[data-season="summer"],
+html[data-season="autumn"] {
+  --ww-accent-soft: color-mix(in srgb, var(--ww-accent) 20%, transparent);
+}
+
+html[data-season="spring"] #ww-season-anchor {
+  --ww-section-deep: var(--ww-tint-spring);
+}
+
+html[data-season="summer"] #ww-season-anchor {
+  --ww-section-deep: var(--ww-tint-summer);
+}
+
+html[data-season="autumn"] #ww-season-anchor {
+  --ww-section-deep: var(--ww-tint-autumn);
+}
+
+/* Site-wide accent borders when season active */
+html[data-season="spring"] .ww-element-1172c8dd-b0c2-4a44-876c-e3ac4f6755a1,
+html[data-season="summer"] .ww-element-1172c8dd-b0c2-4a44-876c-e3ac4f6755a1,
+html[data-season="autumn"] .ww-element-1172c8dd-b0c2-4a44-876c-e3ac4f6755a1 {
+  box-shadow: var(--ww-shadow-accent);
+}
+
+html[data-season="spring"] #ww-sticky-nav,
+html[data-season="summer"] #ww-sticky-nav,
+html[data-season="autumn"] #ww-sticky-nav {
+  box-shadow: var(--ww-shadow-accent), 0 8px 28px rgba(0, 0, 0, 0.2);
+}
+
+html[data-season="spring"] .section-base:has(> .ww-element-1255087b-18e5-40e9-9ebf-5331b87c470e),
+html[data-season="summer"] .section-base:has(> .ww-element-1255087b-18e5-40e9-9ebf-5331b87c470e),
+html[data-season="autumn"] .section-base:has(> .ww-element-1255087b-18e5-40e9-9ebf-5331b87c470e) {
+  box-shadow: inset 0 3px 0 color-mix(in srgb, var(--ww-accent) 45%, transparent);
+}
+
+/* Poetry accent only when season on */
+html[data-season=""] .ww-element-cd1c365d-76ee-4806-824d-ebef5f137aee,
+html:not([data-season]) .ww-element-cd1c365d-76ee-4806-824d-ebef5f137aee {
+  color: var(--ww-on-pine) !important;
+}
+
+html[data-season="spring"] .ww-element-cd1c365d-76ee-4806-824d-ebef5f137aee,
+html[data-season="summer"] .ww-element-cd1c365d-76ee-4806-824d-ebef5f137aee,
+html[data-season="autumn"] .ww-element-cd1c365d-76ee-4806-824d-ebef5f137aee {
+  color: var(--ww-accent) !important;
+}

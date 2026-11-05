@@ -1,0 +1,22 @@
+{
+  "project_slug": "unyielding-publisher",
+  "project_name": "WW",
+  "editor_url": "https://unyielding-publisher-editor.weweb.io/",
+  "preview_url": "https://unyielding-publisher-production.weweb.io/",
+  "production_domain": "https://www.whisperingwoodsevents.com/",
+  "cta_label": "Tour the Grounds",
+  "cta_kicker": "Historic grounds · Your chapter",
+  "tour_booking_url": "https://calendar.app.google/d3iGi3bVmyjSdxyn9",
+  "email": "info@whisperingwoodsevents.com",
+  "faq_url": "#faq",
+  "price_weekend_usd": 17900,
+  "ratings": {
+    "knot": { "stars": 5.0, "label": "The Knot", "url": "https://www.theknot.com/marketplace/whispering-woods-events-harvard-il-2006501" },
+    "zola": { "stars": 5.0, "label": "Zola" },
+    "facebook": { "stars": 5.0, "label": "Facebook", "url": "https://www.facebook.com/WhisperingWoodsEvents/reviews/" },
+    "google": { "stars": 4.9, "reviews": 55, "label": "Google", "url": "https://www.google.com/maps/search/Whispering+Woods+Events+Harvard+IL" }
+  },
+  "seasons": ["spring", "summer", "autumn"],
+  "sticky_nav": ["tour", "contact", "faq"],
+  "removed": ["phone", "calendar", "contact_form", "tour_modal", "dates_nav", "maybe_later_popup"]
+}

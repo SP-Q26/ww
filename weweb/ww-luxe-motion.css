@@ -1,0 +1,90 @@
+/**
+ * Luxe motion — mobile-first, one-pass reveal, drawer slide
+ * @ww-head-module luxe-motion
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .section-base:not(#ww-sticky-nav):not(.ww-in-view) {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  .section-base:not(#ww-sticky-nav).ww-in-view {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 0.72s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.72s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--ww-rise-delay, 0s);
+  }
+
+  .section-base:first-of-type {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .ww-drawer:not(.is-open),
+  .ww-gallery-drawer:not(.is-open),
+  #ww-gallery-drawer:not(.is-open) {
+    transform: translateX(-50%) translateY(108%) !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .ww-drawer.is-open,
+  .ww-gallery-drawer.is-open,
+  #ww-gallery-drawer.is-open {
+    transform: translateX(-50%) translateY(0) !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .ww-drawer-backdrop {
+    opacity: 0;
+    transition: opacity 0.32s ease;
+  }
+
+  .ww-drawer-backdrop.is-open {
+    opacity: 1;
+  }
+
+  #ww-sticky-nav.ww-sticky-collapsible {
+    transition:
+      width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+      max-width 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+      height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+      border-radius 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.35s ease;
+  }
+
+  .ww-element-1172c8dd-b0c2-4a44-876c-e3ac4f6755a1,
+  .ww-element-f0f7c99a-32d2-414a-af85-812bce22af64 {
+    transition:
+      transform 0.28s ease,
+      border-color var(--ww-transition-mood),
+      background-color 0.28s ease,
+      box-shadow 0.28s ease;
+  }
+
+  .ww-element-1172c8dd-b0c2-4a44-876c-e3ac4f6755a1:active,
+  .ww-element-f0f7c99a-32d2-414a-af85-812bce22af64:active {
+    transform: scale(0.98);
+  }
+
+  html[data-season] .section-base {
+    transition:
+      background-color var(--ww-transition-mood),
+      border-color var(--ww-transition-mood),
+      color var(--ww-transition-mood);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-base,
+  .ww-drawer,
+  .ww-drawer-backdrop,
+  #ww-sticky-nav {
+    transition: none !important;
+    animation: none !important;
+  }
+}

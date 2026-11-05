@@ -1,0 +1,193 @@
+/**
+ * Responsive luxe — tablet + desktop mirror mobile exactly
+ * @ww-head-module responsive-luxe
+ * Loaded last. Locks column, fonts, colors, spacing on 768+ and 1024+.
+ */
+
+:root {
+  --ww-column-shell: 28rem;
+  --ww-space-luxe-fixed: 4.5rem;
+  --ww-space-stack-fixed: 1.75rem;
+  --ww-gutter-fixed: 1.35rem;
+}
+
+/* ── Base (all viewports) ── */
+.ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a,
+.ww-section.ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a {
+  max-width: var(--ww-column-shell) !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+body.ww-site {
+  background: var(--ww-pine-deep) !important;
+  font-family: var(--ww-font-body) !important;
+  font-size: 1rem !important;
+  line-height: 1.65 !important;
+  overflow-x: hidden !important;
+}
+
+body.ww-site .section-base {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.section-base:not(#ww-sticky-nav) {
+  padding-top: var(--ww-space-luxe-fixed) !important;
+  padding-bottom: var(--ww-space-luxe-fixed) !important;
+  padding-left: max(var(--ww-gutter-fixed), env(safe-area-inset-left)) !important;
+  padding-right: max(var(--ww-gutter-fixed), env(safe-area-inset-right)) !important;
+}
+
+.section-base > .ww-layout.ww-flexbox.ww-element {
+  gap: var(--ww-space-stack-fixed) !important;
+  max-width: 100% !important;
+}
+
+/* Typography — mobile scale locked everywhere */
+.ww-element-67cf3d64-a240-49d6-9413-4f7c32f7db35,
+.ww-element-67cf3d64-a240-49d6-9413-4f7c32f7db35 .ww-text-content {
+  font-family: var(--ww-font-display) !important;
+  font-size: 2.5rem !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  line-height: 1.12 !important;
+  color: var(--ww-accent) !important;
+}
+
+.ww-element-0c64b806-5f6d-4101-bb71-43afb318fe38,
+.ww-element-0c64b806-5f6d-4101-bb71-43afb318fe38 .ww-text-content {
+  font-family: var(--ww-font-display) !important;
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.35 !important;
+  color: color-mix(in srgb, var(--ww-linen) 92%, transparent) !important;
+  max-width: 22rem !important;
+}
+
+.ww-display--hero {
+  font-size: 2.5rem !important;
+}
+
+.ww-display--section,
+.section-base h2,
+.section-base .ww-text-content h2 {
+  font-size: 2rem !important;
+  line-height: 1.15 !important;
+}
+
+.ww-kicker {
+  font-family: var(--ww-font-kicker) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.22em !important;
+}
+
+.ww-subline,
+.section-base p {
+  font-size: 1rem !important;
+  line-height: 1.65 !important;
+}
+
+/* Layout grids — always mobile single/stack */
+.ww-trio {
+  grid-template-columns: 1fr !important;
+  gap: 2rem !important;
+}
+
+.ww-stats {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.ww-property__layout,
+.ww-property__card-inner {
+  grid-template-columns: 1fr !important;
+}
+
+/* Sticky + drawer — centered in column */
+#ww-sticky-nav,
+[name="Sticky Bottom Navigation"],
+.ww-sticky {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+}
+
+#ww-sticky-nav.is-expanded,
+#ww-sticky-nav.ww-sticky-collapsible.is-expanded {
+  max-width: 17.5rem !important;
+}
+
+.ww-drawer,
+.ww-gallery-drawer,
+#ww-gallery-drawer {
+  width: min(var(--ww-column-shell), calc(100% - 24px)) !important;
+  max-width: var(--ww-column-shell) !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+}
+
+/* ── Tablet (768+) ── */
+@media (min-width: 768px) {
+  body.ww-site {
+    background: var(--ww-pine-deep) !important;
+  }
+
+  .ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a,
+  .ww-section.ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a {
+    box-shadow: 0 20px 56px rgba(20, 31, 25, 0.14) !important;
+  }
+
+  /* Kill WeWeb editor tablet width blow-out */
+  .section-base .ww-layout,
+  .section-base .ww-flexbox,
+  .section-base .ww-element {
+    max-width: 100% !important;
+  }
+
+  .section-base:first-of-type {
+    min-height: min(100svh, 52rem) !important;
+    max-height: min(100svh, 52rem) !important;
+  }
+
+  .section-base:first-of-type iframe {
+    width: 300% !important;
+    height: 100% !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+  }
+}
+
+/* ── Desktop (1024+) ── */
+@media (min-width: 1024px) {
+  .ww-hero,
+  .ww-hero__content,
+  .ww-section {
+    max-width: 100% !important;
+    padding-left: inherit !important;
+    padding-right: inherit !important;
+  }
+
+  .ww-hero {
+    align-items: stretch !important;
+    padding-bottom: inherit !important;
+  }
+
+  /* Prevent wide WeWeb canvas styles from leaking */
+  body.ww-site > .ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a,
+  body.ww-site > [class*="ww-section"] {
+    max-width: var(--ww-column-shell) !important;
+  }
+}
+
+/* ── Large desktop (1280+) — still phone column ── */
+@media (min-width: 1280px) {
+  .ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a,
+  .ww-section.ww-section-df7f8a87-19ea-4212-89fb-6d93eae3e95a {
+    max-width: var(--ww-column-shell) !important;
+  }
+}
