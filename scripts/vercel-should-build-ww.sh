@@ -37,6 +37,17 @@ if [ -z "$CHANGED" ]; then
   exit 0
 fi
 
+# Lockfile / manifest drift must always rebuild (npm ci on Vercel).
+if echo "$CHANGED" | grep -qE '^(package-lock\.json|package\.json)$'; then
+  echo "ww-$PRODUCT: build (npm manifest changed)"
+  exit 1
+fi
+
+if echo "$CHANGED" | grep -qE '^scripts/vercel-should-build-ww\.sh$'; then
+  echo "ww-$PRODUCT: build (should-build gate changed)"
+  exit 1
+fi
+
 EXPORT_RE='^(public/|src/|sites/|template\.html|index\.html|vite\.config|plugins-settings\.json|weweb-postcss|prerender/)'
 GATE_RE='^(package\.json|package-lock\.json|postbuild\.js|vercel\.json|scripts/ensure-package-scripts\.mjs|scripts/vercel-build\.sh|scripts/vercel-should-build-ww\.sh|docs/)'
 
