@@ -1,0 +1,73 @@
+<!-- WW Journal · Project → Custom code → Head (paste entire block before GitHub publish) -->
+<!-- Sync: page favicon = images/512-wwj-favicon.png · git /public/favicon.* after export -->
+
+<link rel="icon" type="image/png" sizes="32x32" href="/images/48-wwj-favicon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/images/192-wwj-favicon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="/images/192-wwj-favicon.png" />
+
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#141F19" />
+<meta property="og:site_name" content="Whispering Woods Journal" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="canonical" href="https://www.whisperingwoodsweddings.com/" id="wwj-canonical" />
+<script src="/ww-journal-site-config.js?v=18"></script>
+<link rel="stylesheet" href="/ww-tour-modal.css?v=18" />
+<script src="/ww-tour-modal.js?v=18"></script>
+<script src="/ww-journal-bridge.js?v=18"></script>
+<script src="/wwj-root-router.js?v=18"></script>
+<link rel="stylesheet" href="/wwj-wildlife-train.css?v=18" />
+<script src="/wwj-posts-hydrate.js?v=18" defer></script>
+<script src="/wwj-article-seo.js?v=18" defer></script>
+<script src="/wwj-feed-story-count.js?v=18" defer></script>
+<script src="/wwj-field-notes-week.js?v=18" defer></script>
+<script src="/wwj-wildlife-train.js?v=18" defer></script>
+<script>
+(function () {
+  var SITE = "https://www.whisperingwoodsweddings.com";
+  function canonPath() {
+    var path = (location.pathname || "/").replace(/\/+$/, "") || "/";
+    if (path === "/home") return "/";
+    return path;
+  }
+  function setCanonical() {
+    var path = canonPath();
+    var href = SITE + (path === "/" ? "/" : path);
+    var el = document.getElementById("wwj-canonical");
+    if (!el) {
+      el = document.createElement("link");
+      el.id = "wwj-canonical";
+      el.rel = "canonical";
+      document.head.appendChild(el);
+    }
+    el.href = href;
+    var og = document.querySelector('meta[property="og:url"]');
+    if (!og) {
+      og = document.createElement("meta");
+      og.setAttribute("property", "og:url");
+      document.head.appendChild(og);
+    }
+    og.setAttribute("content", href);
+  }
+  function boot() {
+    setCanonical();
+    var _push = history.pushState;
+    var _replace = history.replaceState;
+    history.pushState = function () {
+      _push.apply(this, arguments);
+      setCanonical();
+    };
+    history.replaceState = function () {
+      _replace.apply(this, arguments);
+      setCanonical();
+    };
+    window.addEventListener("popstate", setCanonical);
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>
