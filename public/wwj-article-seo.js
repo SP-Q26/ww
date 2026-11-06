@@ -1,5 +1,6 @@
 /**
  * WWJ — per-guide title + meta from git catalog (article shell uses generic WeWeb meta).
+ * @deploy-sync 2026-11-06
  */
 (function () {
   var SITE = 'https://www.whisperingwoodsweddings.com';
