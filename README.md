@@ -31,19 +31,19 @@ Full runbook: `docs/WEWEB_GITHUB_PUBLISH.md`.
 
 Customer-facing contact in this repo: **@whisperingwoodsluxe.com** / **@whisperingwoodsevents.com** only.
 
-| Site | Domain | Marketing | Git-owned (this repo) |
-|------|--------|-----------|------------------------|
-| **Events** (wedding venue) | [whisperingwoodsevents.com](https://whisperingwoodsevents.com) | WeWeb publish | `sites/events/` (export or static when ready) |
-| **Luxe** (estate seniors) | [whisperingwoodsluxe.com](https://whisperingwoodsluxe.com) | WeWeb `/home` | `sites/luxe/` · `/order` · legal · Stripe API |
+| Site | Domain | Marketing | Git-owned |
+|------|--------|-----------|-----------|
+| **Events** (wedding venue) | [whisperingwoodsevents.com](https://whisperingwoodsevents.com) | WeWeb publish | **`SP-Q26/WWE`** · **`~/WWE`** · `weweb/` + `public/` tour |
+| **Luxe** (estate seniors) | [whisperingwoodsluxe.com](https://whisperingwoodsluxe.com) | WeWeb `/home` | **`SP-Q26/ww` `main`** · `sites/luxe/` · `/order` · legal · Stripe API |
 
 ## Branches
 
-| Branch | Site | Vercel |
+| Branch | Site | Notes |
 |--------|------|--------|
-| `main` | Luxe / default export | `ww-luxe` → `sites/luxe` |
-| **`venue`** | **Events wedding venue** (WeWeb export at repo root) | **`ww-events`** preview until DNS |
+| `main` | Luxe export + monorepo default | Vercel **`ww-luxe`** → `sites/luxe` |
+| **`venue`** | **Archived** (Events) | Use **`SP-Q26/WWE` `main`** instead — see `docs/events/ARCHIVED_VENUE_BRANCH.md` |
 
-Events runbook: `docs/events/VERCEL_VENUE_PREVIEW.md`
+Events runbook: **`~/WWE/docs/events/VERCEL_VENUE_PREVIEW.md`**
 
 ## Vercel (recommended)
 
@@ -66,9 +66,9 @@ Create **two Vercel projects** from this repo:
 | Brand | WeWeb project ID | Route |
 |-------|------------------|-------|
 | Luxe funnel | `1b8147da-2812-42a5-946e-f83c582d3071` | `/home` |
-| Events venue | `unyielding-publisher` (editor URL) | GitHub branch **`venue`** |
+| Events venue | `unyielding-publisher` (editor URL) | **`SP-Q26/WWE`** branch **`main`** · **`~/WWE`** |
 
-Publish in WeWeb; connect Events GitHub to **`SP-Q26/ww`** branch **`venue`**. Luxe may stay on `main` or WeWeb-only until split.
+Paste into `weweb/WEWEB_HEAD_PASTE.html` in **`~/WWE`**, not this repo.
 
 ## Bootstrap from SPQ (one-time)
 
