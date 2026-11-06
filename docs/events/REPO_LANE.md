@@ -1,38 +1,7 @@
-# Lane: WW Events · venue branch
+# Lane: WW Events · **archived on `venue`**
 
-| Item | Value |
-|------|--------|
-| **Open folder** | `~/ww` (not `~/SPQ`) |
-| **GitHub** | `SP-Q26/ww` |
-| **Branch** | **`venue`** — WeWeb head canon, events audits, `public/` tour modal |
-| **WeWeb canvas** | WW Venue `cbd9a95f-c61e-441a-87cb-b25006511440` |
-| **Production** | [whisperingwoodsevents.com](https://www.whisperingwoodsevents.com) |
+**Events export moved to `SP-Q26/WWE` · branch `main` · folder `~/WWE`.**
 
-## Do not use
+See `ARCHIVED_VENUE_BRANCH.md`. This file kept for bookmarks only.
 
-- **`SP-Q26/SPQ` `main`** for venue head paste or go-live commits (SPQ = spquant.com only).
-- Nested `SPQ/WW/` as source of truth after migration — sync **into** `~/ww` instead.
-
-## Push checklist
-
-```bash
-cd ~/ww
-git checkout venue
-./scripts/verify-git-identity.sh   # S.P. + noreply
-git add weweb/ docs/events/ public/ww-tour-modal.* public/ww-site-bridge.js
-git commit -m "…"
-git push origin venue
-```
-
-**After every WeWeb “Publish to GitHub” on `venue`:**
-
-```bash
-python3 scripts/sync-venue-boot-to-export.py   # Google tour URL + boot canon → router.js
-git add weweb/ww-site-boot-snippet.js src/_front/router.js
-git commit -m "Reconcile export boot after WeWeb publish"
-git push origin venue
-```
-
-Then sync canvas **WW Site Boot** from `weweb/ww-site-boot-snippet.js` (MCP or paste in editor).
-
-Merge to `main` only when operator promotes venue static + shared `public/` assets.
+Do not publish WeWeb to `ww/venue` or deploy Events from this branch.
