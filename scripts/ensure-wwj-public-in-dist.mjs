@@ -37,4 +37,13 @@ for (const name of fs.readdirSync(pub)) {
   copied += 1;
 }
 
+for (const name of ['robots.txt', 'sitemap.xml']) {
+  const from = path.join(pub, name);
+  const to = path.join(dist, name);
+  if (fs.existsSync(from)) {
+    fs.cpSync(from, to, { force: true });
+    copied += 1;
+  }
+}
+
 console.log('[wwj-static] ensured wwj pack in dist/', { copied });

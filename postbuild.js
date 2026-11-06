@@ -6,6 +6,19 @@ spawnSync(process.execPath, ['./scripts/ensure-wwj-public-in-dist.mjs'], {
     stdio: 'inherit',
 });
 
+spawnSync(process.execPath, ['./scripts/generate-wwj-seo-static.mjs'], {
+    cwd: process.cwd(),
+    stdio: 'inherit',
+    env: { ...process.env },
+});
+
+const distRobots = './dist/robots.txt';
+const distSitemap = './dist/sitemap.xml';
+if (fs.existsSync('./public/robots.txt') && fs.existsSync('./dist')) {
+    fs.copyFileSync('./public/robots.txt', distRobots);
+    fs.copyFileSync('./public/sitemap.xml', distSitemap);
+}
+
 const PRERENDER_SHUTDOWN_GRACE_MS = 5_000;
 
 const collectionPages = {};

@@ -1,3 +1,4 @@
-User-agent:*
-Disallow:
-Sitemap: https://49bf8d2b-9224-4aa4-803a-5b74f1a83f30.weweb-preview.io/sitemap.xml
+User-agent: *
+Allow: /
+
+Sitemap: https://www.whisperingwoodsweddings.com/sitemap.xml
